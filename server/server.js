@@ -122,7 +122,7 @@ app.use((req, res, next) => {
       .then(() => {
         const initialView = renderToString(
           <Provider store={store}>
-              <RouterContext {...renderProps} />
+            <RouterContext {...renderProps} />
           </Provider>
         );
         const finalState = store.getState();
