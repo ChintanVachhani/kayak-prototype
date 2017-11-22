@@ -1,7 +1,7 @@
 {
-  "name": "mern-starter",
-  "version": "2.0.0",
-  "description": "Boilerplate project for building Isomorphic apps using React and Redux",
+  "name": "kayak-prototype",
+  "version": "1.0.0",
+  "description": "A Kayak application prototype.",
   "scripts": {
     "test": "cross-env NODE_ENV=test PORT=8080 MONGO_URL=mongodb://localhost:27017/mern-test node_modules/.bin/nyc node --harmony-proxies node_modules/.bin/ava",
     "watch:test": "npm run test -- --watch",
@@ -22,13 +22,10 @@
   ],
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/Hashnode/mern-starter.git"
+    "url": "git+https://github.com/ChintanVachhani/kayak-prototype.git"
   },
-  "bugs": {
-    "url": "https://github.com/Hashnode/mern-starter/issues"
-  },
-  "homepage": "https://github.com/Hashnode/mern-starter#readme",
-  "author": "Prashant Abhishek <prashant.abhishek7g@gmail.com>, Mayank Chandola <imayankchd@gmail.com>, Sandeep Panda <sandeep@hashnode.com>, Syed Fazle Rahman <fazle@hashnode.com>, Alkshendra Maurya <alkshendra@hashnode.com>",
+  "homepage": "https://github.com/ChintanVachhani/kayak-prototype#readme",
+  "author": "Chintan Vachhani <chintan.vachhani10@gmail.com>, Sahitya Mullapudi<>, Sudheer Sammeta <>, Suraj Bhukebag <>, Swarnlata Kumari <>",
   "license": "MIT",
   "dependencies": {
     "babel-core": "^6.9.1",
@@ -37,8 +34,6 @@
     "cross-env": "^1.0.8",
     "cuid": "^1.3.8",
     "express": "^4.13.4",
-    "intl": "^1.2.4",
-    "intl-locales-supported": "^1.0.0",
     "isomorphic-fetch": "^2.2.1",
     "limax": "^1.3.0",
     "mongoose": "^4.4.20",
