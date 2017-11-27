@@ -11,13 +11,13 @@ A group project to create a simple Kayak replica. It uses NodeJS, ExpressJS, Rea
 
 ## Quickstart
 
-####1. Run the Kafka Server
+1. Run the Kafka Server
    ```
    cd kafka-backend
    npm install
    npm start
    ```
-####2. Run the Application
+2. Run the Application
 
 ```
   npm install
