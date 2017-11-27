@@ -1,0 +1,8 @@
+let mongoose = require('mongoose');
+const Schema = mongoose.Schema;
+
+const <%= name %>Schema = new Schema({
+
+});
+
+module.exports = mongoose.model('<%= helpers.capitalize(name) %>', <%= name %>Schema);

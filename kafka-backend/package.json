@@ -1,0 +1,19 @@
+{
+  "name": "kayak-prototype-kafka-backend",
+  "version": "1.0.0",
+  "description": "A Kayak application prototype.",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Chintan Vachhani <chintan.vachhani10@gmail.com>",
+  "dependencies": {
+    "bcryptjs": "^2.4.3",
+    "kafka-node": "^2.2.3",
+    "mongodb": "^2.2.31",
+    "mongoose": "^4.13.1",
+    "mongoose-unique-validator": "^1.0.6",
+    "express": "^4.16.2"
+  }
+}

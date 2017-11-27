@@ -11,6 +11,14 @@ A group project to create a simple Kayak replica. It uses NodeJS, ExpressJS, Rea
 
 ## Quickstart
 
+####1. Run the Kafka Server
+   ```
+   cd kafka-backend
+   npm install
+   npm start
+   ```
+####2. Run the Application
+
 ```
   npm install
   npm start
@@ -117,35 +125,7 @@ This folder contains all the common components which are used throughout the pro
 Index.js simply does client side rendering using the data provided from `window.__INITIAL_STATE__`.
 
 #### modules
-Modules are the way of organising different domain-specific modules in the project. A typical module contains the following
-```
-| - Post
-  | - __tests__ // all the tests for this module goes here
-      | - components // Sub components of this module
-          | - Post.spec.js
-          | - PostList.spec.js
-          | - PostItem.spec.js
-          | - PostImage.spec.js
-      | - pages
-          | - PostPage.spec.js
-          | - PostViewPage.spec.js
-      | - PostReducer.spec.js
-      | - PostActions.spec.js
-  | - components // Sub components of this module
-      | - Post.js
-      | - PostList.js
-      | - PostItem.js
-      | - PostImage.js
-  | - pages // React Router Pages from this module
-      | - PostPage
-          | - PostPage.js
-          | - PostPage.css
-      | - PostViewPage
-          | - PostViewPage.js
-          | - PostViewPage.css
-  | - PostReducer.js
-  | - PostActions.js
-```
+Modules are the way of organising different domain-specific modules in the project.
 
 ## Misc
 
@@ -170,77 +150,6 @@ docker-compose build
 docker-compose up
 ```
 
-### Make your MERN
-In this version, we enabled the `mern-cli` to clone not only this project but also the variants of `mern-starter` like one project with MaterialUI or JWT auth. To make your version of MERN, follow these steps
-
-1. Clone this project
-    ```
-    git clone https://github.com/Hashnode/mern-starter
-    ```
-
-2. Make your changes. Add a package, add authentication, modify the file structure, replace Redux with MobX or anything else.
-
-3. In this version, we also added code generators. Blueprints for those generators are located at `config/blueprints`, and config is located at `mern.json`. Make sure to edit them if necessary after your made modifications in the previous step. There is a section below which explains how to modify generators.
-
-4. Next clone `mern-cli` project
-    ```
-    git clone https://github.com/Hashnode/mern-cli
-    ```
-
-5. Add your project details to `variants.json` in the cloned project and send a pull request.
-
-### Modifying Generators
-
-#### mern.json
-It contains a blueprints array. Each object in it is the config for a generator. A blueprint config contains the name, description, usage, and files array. An example blueprint config
-```
-{
-  "name": "dumb-s",
-  "description": "Generates a dumb react component in shared components",
-  "usage": "dumb-s [component-name]",
-  "files": [
-    {
-      "blueprint-path": "config/blueprints/dumb-component.ejs",
-      "target-path": "client/components/<%= helpers.capitalize(name) %>.js"
-    }
-  ]
-}
-```
-
-A file object contains
-
-1. `blueprint-path` - location of the blueprint file
-
-2. `target-path` - location where the file should be generated
-
-3. `parent-path` - optional parameter, used if you want to generate the file inside an already existing folder in your project.
-
-Also, `target-path` supports [ejs](https://github.com/mde/ejs) and the following variables will be passed while rendering,
-
-1. `name` - `<component-name>` input from user
-
-2. `parent` - in particular special cases where you need to generate files inside an already existing folder, you can obtain this parent variable from the user. A config using that will look like,
-    ```
-    {
-      "name": "dumb-m",
-      "description": "Generates a dumb react component in a module directory",
-      "usage": "dumb-m <module-name>/<component-name>",
-      "files": [
-        {
-          "blueprint-path": "config/blueprints/dumb-component.ejs",
-          "parent-path": "client/modules/<%= helpers.capitalize(parent) %>",
-          "target-path": "components/<%= helpers.capitalize(name) %>/<%= helpers.capitalize(name) %>.js"
-        }
-      ]
-    }
-    ```
-    Here, notice the usage. In `<module-name>/<component-name>`, `<module-name>` will be passed as `parent` and `<component-name>` will be passed as `<name>`.
-
-3. `helpers` - an helper object is passed which include common utility functions. For now, it contains `capitalize`. If you want to add more, send a PR to [mern-cli](https://github.com/Hashnode/mern-cli).
-
-#### Blueprint files
-Blueprints are basically [ejs](https://github.com/mde/ejs) templates which are rendered with the same three variables(`name`, optional `parent` and `helpers` object) as above.
-
 ### Caveats
 
 #### FOUC (Flash of Unstyled Content)
@@ -250,6 +159,3 @@ In development, after all scripts get loaded, react loads the CSS as BLOBs. That
 
 #### Client and Server Markup Mismatch
 This warning is visible only on development and totally harmless. This occurs to hash difference in `react-router`. To solve it, react router docs asks you to use `match` function. If we use `match`, `react-hot-reloader` stops working.
-
-## License
-MERN is released under the [MIT License](http://www.opensource.org/licenses/MIT).

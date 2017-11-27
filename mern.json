@@ -80,6 +80,71 @@
           "target-path": "server/models/<%= name %>.js"
         }
       ]
+    },
+    {
+      "name": "module-react",
+      "description": "Generates a module including react components, reducer, action, style",
+      "usage": "module-react [module-name]",
+      "files": [
+        {
+          "blueprint-path": "config/blueprints/module/module.ejs",
+          "target-path": "client/modules/<%= helpers.capitalize(name) %>/<%= helpers.capitalize(name) %>.js"
+        },
+        {
+          "blueprint-path": "config/blueprints/module/module-actions.ejs",
+          "target-path": "client/modules/<%= helpers.capitalize(name) %>/<%= helpers.capitalize(name) %>Actions.js"
+        },
+        {
+          "blueprint-path": "config/blueprints/module/module-reducer.ejs",
+          "target-path": "client/modules/<%= helpers.capitalize(name) %>/<%= helpers.capitalize(name) %>Reducer.js"
+        },
+        {
+          "blueprint-path": "config/blueprints/module/module-styles.ejs",
+          "target-path": "client/modules/<%= helpers.capitalize(name) %>/<%= helpers.capitalize(name) %>.css"
+        }
+      ]
+    },
+    {
+      "name": "module-express",
+      "description": "Generates a module including express route, controller, model",
+      "usage": "module-express [module-name]",
+      "files": [
+        {
+          "blueprint-path": "config/blueprints/module/controller.ejs",
+          "target-path": "server/controllers/<%= name %>.controller.js"
+        },
+        {
+          "blueprint-path": "config/blueprints/module/express-route.ejs",
+          "target-path": "server/routes/<%= name %>.routes.js"
+        },
+        {
+          "blueprint-path": "config/blueprints/module/model.ejs",
+          "target-path": "server/models/<%= name %>.js"
+        }
+      ]
+    },
+    {
+      "name": "module-kafka",
+      "description": "Generates a module including react components, reducer, action, style; express route, controller & kafka service, model",
+      "usage": "module-kafka [module-name]",
+      "files": [
+        {
+          "blueprint-path": "config/blueprints/module/controller-for-kafka.ejs",
+          "target-path": "server/controllers/<%= name %>.controller.js"
+        },
+        {
+          "blueprint-path": "config/blueprints/module/express-route.ejs",
+          "target-path": "server/routes/<%= name %>.routes.js"
+        },
+        {
+          "blueprint-path": "config/blueprints/module/model-for-kafka.ejs",
+          "target-path": "kafka-backend/models/<%= name %>.js"
+        },
+        {
+          "blueprint-path": "config/blueprints/module/service.ejs",
+          "target-path": "kafka-backend/services/<%= name %>.services.js"
+        }
+      ]
     }
   ]
 }
