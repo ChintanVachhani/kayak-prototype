@@ -18,11 +18,10 @@ A group project to create a simple Kayak replica. It uses NodeJS, ExpressJS, Rea
    npm start
    ```
 2. Run the Application
-  ```
-  npm install
-  npm start
-  ```
-
+   ```
+   npm install
+   npm start
+   ```
 **Note : Please make sure your MongoDB, Zookeeper and Kafka are running.** 
 For MongoDB installation guide see [this](https://docs.mongodb.org/v3.0/installation/).
 For Kafka installation guide see [this](https://kafka.apache.org/quickstart). 
