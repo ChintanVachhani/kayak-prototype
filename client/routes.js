@@ -4,6 +4,9 @@ import {Route, IndexRoute} from 'react-router';
 import App from './modules/App/App';
 import Admin from "./modules/Admin/Admin";
 import Home from "./modules/Home/Home";
+import CarList from "./modules/Car/CarList";
+import FlightList from "./modules/Flight/FlightList";
+import HotelList from "./modules/Hotel/HotelList";
 
 // require.ensure polyfill for node
 if (typeof require.ensure !== 'function') {
@@ -43,5 +46,8 @@ export default (
     />*/}
     <IndexRoute component={Home}/>
     <Route path="admin" component={Admin}/>
+    <Route path="car" component={CarList}/>
+    <Route path="flight" component={FlightList}/>
+    <Route path="hotel" component={HotelList}/>
   </Route>
 );
