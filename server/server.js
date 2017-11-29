@@ -15,28 +15,28 @@ const app = new Express();
 // Run Webpack dev server in development mode
 if (process.env.NODE_ENV === 'development') {
   const compiler = webpack(config);
-  app.use(webpackDevMiddleware(compiler, { noInfo: true, publicPath: config.output.publicPath }));
+  app.use(webpackDevMiddleware(compiler, {noInfo: true, publicPath: config.output.publicPath}));
   app.use(webpackHotMiddleware(compiler));
 }
 
 // React And Redux Setup
-import { configureStore } from '../client/store';
-import { Provider } from 'react-redux';
+import {configureStore} from '../client/store';
+import {Provider} from 'react-redux';
 import React from 'react';
-import { renderToString } from 'react-dom/server';
-import { match, RouterContext } from 'react-router';
+import {renderToString} from 'react-dom/server';
+import {match, RouterContext} from 'react-router';
 import Helmet from 'react-helmet';
 
 // Import required modules
 import routes from '../client/routes';
-import { fetchComponentData } from './util/fetchData';
+import {fetchComponentData} from './util/fetchData';
 import user from './routes/user.routes';
 import serverConfig from './config';
 
 // Apply body Parser and server public assets and routes
 app.use(compression());
-app.use(bodyParser.json({ limit: '20mb' }));
-app.use(bodyParser.urlencoded({ limit: '20mb', extended: false }));
+app.use(bodyParser.json({limit: '20mb'}));
+app.use(bodyParser.urlencoded({limit: '20mb', extended: false}));
 app.use(Express.static(path.resolve(__dirname, '../dist/client')));
 app.use('/api/user', user);
 
@@ -61,13 +61,25 @@ const renderFullPage = (html, initialState) => {
         ${process.env.NODE_ENV === 'production' ? `<link rel='stylesheet' href='${assetsManifest['/app.css']}' />` : ''}
         <link href='https://fonts.googleapis.com/css?family=Lato:400,300,700' rel='stylesheet' type='text/css'/>
         <link rel="shortcut icon" href="http://res.cloudinary.com/hashnode/image/upload/v1455629445/static_imgs/mern/mern-favicon-circle-fill.png" type="image/png" />
+        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css"
+          integrity="sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ" crossorigin="anonymous" />
+        <script src="https://code.jquery.com/jquery-3.1.1.slim.min.js"
+            integrity="sha384-A7FZj7v+d/sdmMqp/nOQwliLvUsJfDHW+k9Omg/a/EheAdgtzNs3hpfag6Ed950n"
+            crossorigin="anonymous"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.4.0/js/tether.min.js"
+            integrity="sha384-DztdAPBWPRXSA/3eYEEUWrWCy7G5KFbe8fFjk5JAIxUYHKkDx6Qin1DkWx51bBrb"
+            crossorigin="anonymous"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/js/bootstrap.min.js"
+            integrity="sha384-vBWWzlZJ8ea9aCX4pEW3rVHjgjt7zpkNpZk+02D9phzyeVkE+jo0ieGizqPLForn"
+            crossorigin="anonymous"></script>
+        <script src="https://use.fontawesome.com/7acc69d528.js"></script>
       </head>
       <body>
         <div id="root">${html}</div>
         <script>
           window.__INITIAL_STATE__ = ${JSON.stringify(initialState)};
           ${process.env.NODE_ENV === 'production' ?
-          `//<![CDATA[
+    `//<![CDATA[
           window.webpackManifest = ${JSON.stringify(chunkManifest)};
           //]]>` : ''}
         </script>
@@ -87,7 +99,7 @@ const renderError = err => {
 
 // Server Side Rendering based on routes matched by React-router.
 app.use((req, res, next) => {
-  match({ routes, location: req.url }, (err, redirectLocation, renderProps) => {
+  match({routes, location: req.url}, (err, redirectLocation, renderProps) => {
     if (err) {
       return res.status(500).end(renderError(err));
     }
@@ -107,7 +119,7 @@ app.use((req, res, next) => {
         const initialView = renderToString(
           <Provider store={store}>
             <RouterContext {...renderProps} />
-          </Provider>
+          </Provider>,
         );
         const finalState = store.getState();
 

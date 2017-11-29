@@ -13,7 +13,6 @@ const userSchema = new Schema({
   zipcode: {type: 'String'},
   phoneNumber: {type: 'String'},
   email: {type: 'String', required: true, unique: true},
-  password: {type: 'String', required: true},
   profileImage: {data: 'Buffer', contentType: 'String'},
   dateAdded: {type: 'Date', default: Date.now},
 });

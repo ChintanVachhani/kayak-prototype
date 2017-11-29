@@ -1,4 +1,5 @@
-let User = require('../models/userDetail');
+let User = require('../models/user');
+let UserDetail = require('../models/userDetail');
 let bcrypt = require('bcryptjs');
 let cuid = require('cuid');
 let sanitizeHtml = require('sanitize-html');
@@ -10,42 +11,50 @@ function handle_request(req, callback) {
   let res;
 
   if (req.name === 'signup') {
-    let user = User({
+    let user = {
       id: cuid(),
       firstName: sanitizeHtml(req.body.firstName),
       lastName: sanitizeHtml(req.body.lastName),
       email: sanitizeHtml(req.body.email),
       password: bcrypt.hashSync(sanitizeHtml(req.body.password), 10),
-    });
-    user.save((error, user) => {
-      if (error) {
+    };
+    User.create(user)
+      .catch((error) => {
         res = {
           status: 400,
           title: 'Signing up failed.',
           error: {message: 'Invalid Data.'},
         };
         callback(null, res);
-      } else {
+      })
+      .then((user) => {
+        let userDetail = UserDetail({
+          id: user.id,
+          firstName: user.firstName,
+          lastName: user.lastName,
+          email: user.email,
+        });
+        userDetail.save();
         res = {
           status: 201,
           message: 'Successfully signed up.',
           userId: user.id,
         };
         callback(null, res);
-      }
-    });
+      });
   }
 
   if (req.name === 'signin') {
-    User.findOne({email: sanitizeHtml(req.body.email)}, (error, user) => {
-      if (error) {
+    User.find({email: sanitizeHtml(req.body.email)})
+      .catch((error) => {
         res = {
           status: 401,
           title: 'Signing in failed.',
           error: {message: 'Invalid credentials.'},
         };
         callback(null, res);
-      } else {
+      })
+      .then((user) => {
         if (user) {
           if (!bcrypt.compareSync(sanitizeHtml(req.body.password), user.password)) {
             res = {
@@ -72,8 +81,7 @@ function handle_request(req, callback) {
           };
           callback(null, res);
         }
-      }
-    });
+      });
   }
 }
 
