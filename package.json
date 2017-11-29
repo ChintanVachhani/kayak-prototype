@@ -42,13 +42,10 @@
     "react-router": "^2.4.1",
     "redux": "^3.5.2",
     "redux-thunk": "^2.1.0",
-<<<<<<< HEAD
     "sanitize-html": "^1.11.4",
     "kafka-node": "^2.2.3",
-    "bootstrap": "^4.0.0-alpha.6"
-=======
+    "bootstrap": "^4.0.0-alpha.6",
     "sanitize-html": "^1.11.4"
->>>>>>> 658f10a7cbf568ec0257c3f55019f08e2d555fa7
   },
   "devDependencies": {
     "ava": "^0.15.2",
