@@ -22,7 +22,6 @@
   },
   "homepage": "https://github.com/ChintanVachhani/kayak-prototype#readme",
   "author": "Chintan Vachhani <chintan.vachhani10@gmail.com>, Sahitya Mullapudi<sahitya.mullapudi@gmail.com>, Sudheer Sammeta <sammetasudheer89@gmail.com>, Suraj Bhukebag <surajbhukebag@gmail.com>, Swarnlata Kumari <swarnlata.kumari@gmail.com>",
-  "license": "MIT",
   "dependencies": {
     "babel-core": "^6.9.1",
     "body-parser": "^1.15.1",

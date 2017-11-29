@@ -1,7 +1,8 @@
-let User = require('../models/user');
+let User = require('../models/userDetail');
 let bcrypt = require('bcryptjs');
 let cuid = require('cuid');
 let sanitizeHtml = require('sanitize-html');
+let jwt = require('jsonwebtoken');
 
 function handle_request(req, callback) {
   console.log("In handle request:" + JSON.stringify(req));
@@ -54,9 +55,11 @@ function handle_request(req, callback) {
             };
             callback(null, res);
           } else {
+            let token = jwt.sign({user: user}, 'secret', {expiresIn: 7200});
             res = {
               status: 200,
               message: 'Successfully signed in.',
+              token: token,
               userId: user.id,
             };
             callback(null, res);
