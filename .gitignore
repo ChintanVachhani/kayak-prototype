@@ -1,5 +1,5 @@
 .DS_Store
-node_modules/
+node_modules/*
 npm-debug.log
 .idea/
 dump.rdb
@@ -8,4 +8,4 @@ public/*
 dist
 coverage/
 .nyc_output/
-kafka-backend/node_modules/
+kafka-backend/node_modules/*
