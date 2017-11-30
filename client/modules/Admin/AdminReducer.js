@@ -1,11 +1,19 @@
 // Import Actions
-import {  } from './AdminActions';
+import { CREATE_FLIGHT } from './AdminActions';
 
 // Initial State
-const initialState = {};
+const initialState = {  };
 
 const AdminReducer = (state = initialState, action) => {
   switch (action.type) {
+
+    case CREATE_FLIGHT:
+      return {
+        ...state,
+        "msg": action.msg
+
+      };
+
     default:
       return state;
   }

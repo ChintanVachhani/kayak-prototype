@@ -1,28 +1,26 @@
 import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import Header from './common/Header';
-import LeftNavigation from './common/LeftNavigation';
-import MainContent from './common/MainContent';
+import Header from './../common/Header';
+import LeftNavigation from './../common/LeftNavigation';
+import CarsHome from './CarsHome';
+import styles from './../Admin.css';
 
-// Import Style
-import styles from './Admin.css';
-
-
-class Admin extends Component {
+class AdminCars extends Component {
   render() {
     return (
-        <div>
+
+    	<div>
   		    <Header />
   		  	<div className={styles['headerMargin']}>
   		    <div className="container-fluid">
         			<div className="row">
         				<LeftNavigation />
-        				<MainContent />
+        				<CarsHome />
         			</div>
         		</div>
         	</div>
-		    </div>
+		</div>
     );
   }
 }
@@ -35,10 +33,10 @@ const mapDispatchToProps = (dispatch) => {
   return {};
 };
 
-Admin.propTypes = {
+AdminCars.propTypes = {
 };
 
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(Admin);
+)(AdminCars);

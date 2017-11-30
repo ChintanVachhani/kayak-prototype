@@ -5,9 +5,9 @@ import App from './modules/App/App';
 import Billing from './modules/Billing/Billing';
 import Admin from "./modules/Admin/Admin";
 import Home from "./modules/Home/Home";
-import CarList from "./modules/Car/CarList";
-import FlightList from "./modules/Flight/FlightList";
-import HotelList from "./modules/Hotel/HotelList";
+import AdminFlights from "./modules/Admin/flights/AdminFlights";
+import AdminHotels from "./modules/Admin/hotels/AdminHotels";
+import AdminCars from "./modules/Admin/cars/AdminCars";
 
 // require.ensure polyfill for node
 if (typeof require.ensure !== 'function') {
@@ -47,9 +47,9 @@ export default (
     />*/}
     <IndexRoute component={Home}/>
     <Route path="admin" component={Admin}/>
-    <Route path="car" component={CarList}/>
-    <Route path="flight" component={FlightList}/>
-    <Route path="hotel" component={HotelList}/>
     <Route path="billing" component={Billing}/>
+    <Route path="adminflights" component={AdminFlights}/>
+    <Route path="adminhotels" component={AdminHotels}/>
+    <Route path="admincars" component={AdminCars}/>
   </Route>
 );

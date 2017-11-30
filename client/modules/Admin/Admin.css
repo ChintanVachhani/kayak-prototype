@@ -2,3 +2,12 @@
 .center{
 
 }
+
+.headerMargin {
+	margin-top: 66px;
+	min-height: 100%;
+}
+
+.headerBrand {
+    padding-top: 10px;
+}
