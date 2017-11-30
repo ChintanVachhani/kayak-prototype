@@ -22,22 +22,22 @@ export default class Hotel extends Component {
 						<span>
 						  {
 						  	Array(5).fill(1).map((el, starPrinted) =>
-						    (starPrinted<hotel.stars)?(<Star size={15}/>):<Star color="#cccccc" size={15}/>)
+						    (starPrinted<hotel.star)?(<Star size={15}/>):<Star color="#cccccc" size={15}/>)
 						  }
 						</span><br/><br/><br/><br/>
 						<div className="row">
 							<div className="col-md-1" id={styles['rating']}>
-								<strong>{hotel.ratings}</strong>
+								<strong>{hotel.avgRatings}</strong>
 							</div>
 							<div className="col-md-10">
-								{hotel.reviews}&nbsp;&nbsp;reviews
+								{hotel.noReviews}&nbsp;&nbsp;reviews
 							</div>
 						</div>
 	                  </div>
 	                </div> 
                 </div>
                 <div className="col-md-2" id= {styles['itemActionBlock']}>
-                    <strong><span className={styles['priceValue']}>{hotel.room[0].price}</span></strong><br/><br/>    
+                    <strong><span className={styles['priceValue']}>{hotel.price.standard}</span></strong><br/><br/>    
                     <button className="btn btn-warning" onClick="">Book Hotel</button>            
                 </div> 
             </div>               

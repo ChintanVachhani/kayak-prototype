@@ -94,7 +94,7 @@ export default class Flight extends Component {
                     </div> 
                 </div>
                 <div className="col-md-2" id={styles['itemActionBlock']}>
-                        <span className={styles['priceValue']}>{flight.price}</span><br/><br/>    
+                        <span className={styles['priceValue']}>{flight.economy.price}</span><br/><br/>    
                         <button className="btn btn-warning" onClick="">Book Flight</button>               
                 </div> 
             </div>               
