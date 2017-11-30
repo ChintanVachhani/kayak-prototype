@@ -1,4 +1,4 @@
-let User = require('./models/user');
+let User = require('./models/userDetail');
 let bcrypt = require('bcryptjs');
 
 module.exports = function () {

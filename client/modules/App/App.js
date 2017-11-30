@@ -25,8 +25,7 @@ export class App extends Component {
         {this.state.isMounted && !window.devToolsExtension && process.env.NODE_ENV === 'development' && <DevTools />}
         <div>
           <Helmet
-            title="MERN Starter - Blog App"
-            titleTemplate="%s - Blog App"
+            title="Kayak Prototype"
             meta={[
               { charset: 'utf-8' },
               {
@@ -39,7 +38,9 @@ export class App extends Component {
               },
             ]}
           />
-          <h1>Testing</h1>
+          <div>
+            {this.props.children}
+          </div>
         </div>
       </div>
     );

@@ -3,7 +3,6 @@ import { } from './AppActions';
 
 // Initial State
 const initialState = {
-  showAddPost: false,
 };
 
 const AppReducer = (state = initialState, action) => {
