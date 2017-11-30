@@ -7,7 +7,13 @@ import Billing from './modules/Billing/Billing';
 =======
 import Admin from "./modules/Admin/Admin";
 import Home from "./modules/Home/Home";
+<<<<<<< HEAD
 >>>>>>> 5b22e3db2d4dcb466545030598186a7457e825f2
+=======
+import CarList from "./modules/Car/CarList";
+import FlightList from "./modules/Flight/FlightList";
+import HotelList from "./modules/Hotel/HotelList";
+>>>>>>> 658f10a7cbf568ec0257c3f55019f08e2d555fa7
 
 // require.ensure polyfill for node
 if (typeof require.ensure !== 'function') {
@@ -50,6 +56,12 @@ export default (
     />*/}
     <IndexRoute component={Home}/>
     <Route path="admin" component={Admin}/>
+<<<<<<< HEAD
 >>>>>>> 5b22e3db2d4dcb466545030598186a7457e825f2
+=======
+    <Route path="car" component={CarList}/>
+    <Route path="flight" component={FlightList}/>
+    <Route path="hotel" component={HotelList}/>
+>>>>>>> 658f10a7cbf568ec0257c3f55019f08e2d555fa7
   </Route>
 );
