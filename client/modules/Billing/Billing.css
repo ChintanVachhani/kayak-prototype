@@ -1,0 +1,113 @@
+/* Billing styles */
+.traveldetails
+{
+	background-color: #DC143C;
+    padding: 2px 125px;
+
+}
+.headerdesign
+{
+	padding: 2px 80px;
+}
+
+.flightdetails
+{
+	padding: 2px 150px;
+	border: 'thin solid black';
+	border-color: #cddae;
+}
+
+.box {
+    width: 300px;
+    height: 100px;
+    border: 1px solid magenta;
+    margin: 0 auto;
+    text-align: center;
+    line-height: 100px;
+    position: relative;
+    left: 20px;
+    padding : 10px;
+}
+
+
+{opacity: 0;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    position: absolute;
+    height: 100%;
+    min-width: 100%;
+    cursor: pointer;
+    filter: alpha(opacity=0);
+    -webkit-appearance: none;
+    font-size: 16px;
+    font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+    font-weight: 400;
+    color: #717585;
+    line-height: 40px;
+}
+.nav-pills > li > a{
+    color:black;
+    background-color:white;
+}
+
+.nav-pills > li > a:hover{
+    color:red;
+    background-color:white;
+}
+
+.nav-pills > li > a:active {
+    color:red;
+    background-color:white;
+}
+
+.nav-pills > li > a:current {
+    color:red;
+    background-color:white;
+}
+
+
+
+
+.arrow {
+    width:50px;
+    height:60px;
+    padding:1px;
+}
+
+
+.form-control1 {
+    min-width: 0;
+    width: 190px !important;
+    height:60px !important;
+     -webkit-border-radius: 0;
+     -moz-border-radius: 0;
+          border-radius: 0;
+    
+}
+
+.form-control2 {
+    min-width: 0;
+    width: 90px !important;
+    height:60px !important;
+     -webkit-border-radius: 0;
+     -moz-border-radius: 0;
+          border-radius: 0;
+    
+}
+
+#hotel-form{
+	min-width: 0;
+    width: 190px !important;
+    height:60px !important;
+     -webkit-border-radius: 0;
+     -moz-border-radius: 0;
+          border-radius: 0;
+
+}
+
+#divInFlights
+{
+	
+}
