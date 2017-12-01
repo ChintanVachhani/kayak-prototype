@@ -2,7 +2,7 @@ let Sequelize = require('sequelize');
 let sequelize = require('../mysql');
 
 let User = sequelize.define('user', {
-  id:{
+  cuid:{
     type: Sequelize.STRING,
     allowNull: false,
   },
@@ -15,6 +15,10 @@ let User = sequelize.define('user', {
     type: Sequelize.STRING,
     allowNull: false,
   },
+  isAdmin:{
+    type: Sequelize.BOOLEAN,
+    defaultValue: false,
+  }
 });
 
 User.sync()
