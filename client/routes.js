@@ -5,6 +5,7 @@ import App from './modules/App/App';
 import Billing from './modules/Billing/Billing';
 import Admin from "./modules/Admin/Admin";
 import Home from "./modules/Home/Home";
+import List from "./modules/List/List";
 import AdminFlights from "./modules/Admin/flights/AdminFlights";
 import AdminHotels from "./modules/Admin/hotels/AdminHotels";
 import AdminCars from "./modules/Admin/cars/AdminCars";
@@ -46,6 +47,7 @@ export default (
       }}
     />*/}
     <IndexRoute component={Home}/>
+    <Route path="/:service" component={List}/>
     <Route path="admin" component={Admin}/>
     <Route path="billing" component={Billing}/>
     <Route path="adminflights" component={AdminFlights}/>
