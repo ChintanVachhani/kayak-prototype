@@ -38,10 +38,10 @@ export default class List extends Component {
 		    	<ServiceForm/>
 	    	</div>	    	
 	    	<div className="row" id={styles['body']}>
-		    	<div className="col-md-3">
+		    	<div className="col-md-3" id={styles['sidebar']}>
 		    		<FilterSidebar/>
-		    	</div>
-		    	<div className="col-md-9">
+		    	</div>	    	
+		    	<div className="col-md-8">
 		    		<Service/>
 		    	</div>
 	    	</div>
