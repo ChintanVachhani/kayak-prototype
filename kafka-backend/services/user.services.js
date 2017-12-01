@@ -11,13 +11,19 @@ function handle_request(req, callback) {
   let res;
 
   if (req.name === 'signup') {
+    let adminFlag = false;
+    if (req.body.isAdmin) {
+      adminFlag = true;
+    }
     let user = {
-      id: cuid(),
+      cuid: cuid(),
       firstName: sanitizeHtml(req.body.firstName),
       lastName: sanitizeHtml(req.body.lastName),
       email: sanitizeHtml(req.body.email),
       password: bcrypt.hashSync(sanitizeHtml(req.body.password), 10),
+      isAdmin: adminFlag,
     };
+
     User.create(user)
       .catch((error) => {
         res = {
@@ -27,18 +33,27 @@ function handle_request(req, callback) {
         };
         callback(null, res);
       })
-      .then((user) => {
+      .then((userObj) => {
         let userDetail = UserDetail({
-          id: user.id,
+          cuid: user.cuid,
           firstName: user.firstName,
           lastName: user.lastName,
           email: user.email,
         });
-        userDetail.save();
+        userDetail.save(function (error) {
+          console.log(error);
+        });
+        let token;
+        if (req.body.isAdmin) {
+          token = jwt.sign({user: user}, 'admin', {expiresIn: 7200});
+        } else {
+          token = jwt.sign({user: user}, 'secret', {expiresIn: 7200});
+        }
         res = {
           status: 201,
           message: 'Successfully signed up.',
-          userId: user.id,
+          token: token,
+          userCuid: userObj.cuid,
         };
         callback(null, res);
       });
@@ -64,12 +79,17 @@ function handle_request(req, callback) {
             };
             callback(null, res);
           } else {
-            let token = jwt.sign({user: user}, 'secret', {expiresIn: 7200});
+            let token;
+            if (req.body.isAdmin) {
+              token = jwt.sign({user: user}, 'admin', {expiresIn: 7200});
+            } else {
+              token = jwt.sign({user: user}, 'secret', {expiresIn: 7200});
+            }
             res = {
               status: 200,
               message: 'Successfully signed in.',
               token: token,
-              userId: user.id,
+              userCuid: user.cuid,
             };
             callback(null, res);
           }
@@ -82,6 +102,67 @@ function handle_request(req, callback) {
           callback(null, res);
         }
       });
+  }
+
+  if (req.name === 'getUser') {
+    UserDetail.findOne({cuid: req.params.cuid})
+      .catch((error) => {
+        res = {
+          status: 404,
+          title: 'User not found.',
+          error: {message: 'Failed to retrieve user.'},
+        };
+        callback(null, res);
+      })
+      .then((user) => {
+        console.log('USER:', user);
+        res = {
+          status: 200,
+          message: 'Successfully retrieved user.',
+          user: user,
+        };
+        callback(null, res);
+      });
+  }
+
+  if (req.name === 'deleteUser') {
+    UserDetail.findOneAndRemove({cuid: req.params.cuid}, (error, user) => {
+      if (error) {
+        res = {
+          status: 404,
+          title: 'User not found.',
+          error: {message: 'Failed to delete user.'},
+        };
+        callback(null, res);
+      } else {
+        User.destroy({where: {cuid: req.params.cuid}});
+        res = {
+          status: 200,
+          message: 'Successfully deleted user.',
+        };
+        callback(null, res);
+      }
+    });
+  }
+
+  if (req.name === 'updateUser') {
+    UserDetail.findOneAndUpdate({cuid: req.params.cuid}, req.body, (error, user) => {
+      if (error) {
+        res = {
+          status: 404,
+          title: 'User not found.',
+          error: {message: 'Failed to update user.'},
+        };
+        callback(null, res);
+      } else {
+        res = {
+          status: 200,
+          message: 'Successfully updated user.',
+          user: req.body,
+        };
+        callback(null, res);
+      }
+    });
   }
 }
 

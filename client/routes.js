@@ -47,11 +47,16 @@ export default (
       }}
     />*/}
     <IndexRoute component={Home}/>
+<<<<<<< HEAD
     <Route path="/:service" component={List}/>
     <Route path="admin" component={Admin}/>
+=======
+    <Route path="admin" component={Admin}>
+      <Route path="/flights" component={AdminFlights}/>
+      <Route path="/hotels" component={AdminHotels}/>
+      <Route path="/cars" component={AdminCars}/>
+    </Route>
+>>>>>>> 881445571c21736387b4c87ef4313bf5cf29be2c
     <Route path="billing" component={Billing}/>
-    <Route path="adminflights" component={AdminFlights}/>
-    <Route path="adminhotels" component={AdminHotels}/>
-    <Route path="admincars" component={AdminCars}/>
   </Route>
 );
