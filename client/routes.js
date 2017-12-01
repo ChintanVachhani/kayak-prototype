@@ -46,10 +46,11 @@ export default (
       }}
     />*/}
     <IndexRoute component={Home}/>
-    <Route path="admin" component={Admin}/>
+    <Route path="admin" component={Admin}>
+      <Route path="/flights" component={AdminFlights}/>
+      <Route path="/hotels" component={AdminHotels}/>
+      <Route path="/cars" component={AdminCars}/>
+    </Route>
     <Route path="billing" component={Billing}/>
-    <Route path="adminflights" component={AdminFlights}/>
-    <Route path="adminhotels" component={AdminHotels}/>
-    <Route path="admincars" component={AdminCars}/>
   </Route>
 );

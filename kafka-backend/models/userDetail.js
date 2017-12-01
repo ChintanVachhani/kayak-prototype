@@ -3,8 +3,8 @@ let mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 let mongooseUniqueValidator = require('mongoose-unique-validator'); //mongoose plugin that provides extra validation check for unique values
 
-const userSchema = new Schema({
-  id: {type: 'String', required: true, unique: true},
+const userDetailSchema = new Schema({
+  cuid: {type: 'String', required: true, unique: true},
   firstName: {type: 'String', required: true},
   lastName: {type: 'String', required: true},
   address: {type: 'String'},
@@ -17,6 +17,6 @@ const userSchema = new Schema({
   dateAdded: {type: 'Date', default: Date.now},
 });
 
-userSchema.plugin(mongooseUniqueValidator);
+userDetailSchema.plugin(mongooseUniqueValidator);
 
-module.exports = mongoose.model('User', userSchema);
+module.exports = mongoose.model('UserDetail', userDetailSchema);
