@@ -7,7 +7,7 @@ const carSchema = new Schema({
   cuid: {type: 'String', required: true, unique: true},
   operator: {type: 'String', required: true},
   class: {type: 'String', required: true},
-  price: {type: 'String', required: true},
+  price: {type: 'Number', required: true},
   model: {type: 'String', required: true},
   capPersons: {type: 'Number', required: true},
   capBags: {type: 'Number', required: true},

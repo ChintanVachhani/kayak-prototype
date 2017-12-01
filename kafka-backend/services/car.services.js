@@ -116,6 +116,50 @@ function handle_request(req, callback) {
     });
   }
 
+  if (req.name === 'searchCars') {
+    //Naive logic - to be optimized later
+    let conditions = {};
+    if (req.query.location !== null && req.query.class !== null && req.query.minPrice !== null && req.query.maxPrice !== null) {
+      conditions = {
+        location: req.query.location,
+        class: req.query.class,
+        price: {$gte: req.query.minPrice, $lte: req.query.maxPrice},
+      };
+    } else if (req.query.location !== null && req.query.class !== null) {
+      conditions = {
+        location: req.query.location,
+        class: req.query.class,
+      };
+    } else if (req.query.location !== null && req.query.minPrice !== null && req.query.maxPrice !== null) {
+      conditions = {
+        location: req.query.location,
+        price: {$gte: req.query.minPrice, $lte: req.query.maxPrice},
+      };
+    } else if (req.query.location !== null) {
+      conditions = {
+        location: req.query.location,
+      };
+    }
+
+    Car.find(conditions, (error, cars) => {
+      if (error) {
+        res = {
+          status: 404,
+          title: 'Cars not retrieved.',
+          error: {message: 'Failed to retrieve cars.'},
+        };
+        callback(null, res);
+      } else {
+        res = {
+          status: 200,
+          message: 'Successfully retrieved all cars.',
+          cars: cars,
+        };
+        callback(null, res);
+      }
+    });
+  }
+
 }
 
 exports.handle_request = handle_request;

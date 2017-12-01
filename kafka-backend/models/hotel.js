@@ -6,11 +6,7 @@ let mongooseUniqueValidator = require('mongoose-unique-validator'); //mongoose p
 const hotelSchema = new Schema({
   cuid: {type: 'String', required: true, unique: true},
   hotelName: {type: 'String', required: true},
-  price: {
-    standard: {type: 'Number', required: true},
-    delux: {type: 'Number', required: true},
-    suite: {type: 'Number', required: true},
-  },
+  price: {type: 'Number', required: true},
   star: {type: 'Number', required: true},
   avgRating: {type: 'Number', default: 0},
   noReviews: {type: 'Number', default: 0},

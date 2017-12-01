@@ -10,11 +10,7 @@ function handle_request(req, callback) {
     let hotel = Hotel({
       cuid: cuid(),
       hotelName: req.body.hotelName,
-      price: {
-        standard: req.body.price.standard,
-        delux: req.body.price.delux,
-        suite: req.body.price.suite,
-      },
+      price: req.body.price,
       star: req.body.star,
       address: req.body.address,
       city: req.body.city,
@@ -101,6 +97,50 @@ function handle_request(req, callback) {
 
   if (req.name === 'getAllHotels') {
     Hotel.find({}, (error, hotels) => {
+      if (error) {
+        res = {
+          status: 404,
+          title: 'Hotels not retrieved.',
+          error: {message: 'Failed to retrieve hotels.'},
+        };
+        callback(null, res);
+      } else {
+        res = {
+          status: 200,
+          message: 'Successfully retrieved all hotels.',
+          hotels: hotels,
+        };
+        callback(null, res);
+      }
+    });
+  }
+
+  if (req.name === 'searchHotels') {
+    //Naive logic - to be optimized later
+    let conditions = {};
+    if (req.query.city !== null && req.query.star !== null && req.query.minPrice !== null && req.query.maxPrice !== null) {
+      conditions = {
+        city: req.query.city,
+        star: req.query.star,
+        price: {$gte: req.query.minPrice, $lte: req.query.maxPrice},
+      };
+    } else if (req.query.city !== null && req.query.star !== null) {
+      conditions = {
+        city: req.query.city,
+        star: req.query.star,
+      };
+    } else if (req.query.city !== null && req.query.minPrice !== null && req.query.maxPrice !== null) {
+      conditions = {
+        city: req.query.city,
+        price: {$gte: req.query.minPrice, $lte: req.query.maxPrice},
+      };
+    } else if (req.query.city !== null) {
+      conditions = {
+        city: req.query.city,
+      };
+    }
+
+    Hotel.find(conditions, (error, hotels) => {
       if (error) {
         res = {
           status: 404,
