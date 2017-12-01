@@ -1,17 +1,26 @@
 import React, { Component, PropTypes } from 'react';
 import {connect} from 'react-redux';
 import { Alert, Button, Modal, ModalHeader, ModalBody, ModalFooter, Form, FormGroup, Label, Input, FormText } from 'reactstrap';
+import {createCar} from "../AdminActions";
 
 class CreateCar extends React.Component {
 
   constructor(props) {
     super(props);
     this.state = {
-      modal: false
+      modal: false,
+      "operator":"",
+      "class":"",
+      "price":"",
+      "model":"",
+      "capPersons":"",
+      "capBags":"",
+      "doors":"",
+      "location":""
     };
 
     this.toggle = this.toggle.bind(this);
-    this.handleCreateFolder = this.handleCreateFolder.bind(this);
+    this.handleCreateCar = this.handleCreateCar.bind(this);
   }
 
   toggle() {
@@ -21,10 +30,9 @@ class CreateCar extends React.Component {
   }
 
 
-  handleCreateFolder() {
-      
+  handleCreateCar() {      
       this.toggle();
-
+      this.props.createCar(this.state);
   }
 
   render() {
@@ -39,50 +47,77 @@ class CreateCar extends React.Component {
             <form>
               <div className="form-row">
                 <div className="form-group col-md-6">
-                  <label for="inputEmail4">From</label>
-                  <input type="text" className="form-control" id="inputEmail4" placeholder="From Where?" required />
+                  <label for="inputEmail4">Operator</label>
+                  <input type="text" className="form-control" id="inputEmail4" placeholder="Operator" required 
+                  onChange={(event) => {
+                                    this.setState({
+                                        operator: event.target.value
+                                    }); }}/>
                 </div>
                 <div className="form-group col-md-6">
-                  <label for="inputPassword4">To</label>
-                  <input type="text" className="form-control" id="inputPassword4" placeholder="To Where?" />
-                </div>
-              </div>
-              <div className="form-row">
-                <div className="form-group col-md-6">
-                  <label for="inputAddress">Flight Number</label>
-                <input type="text" className="form-control" id="inputAddress" placeholder="Flight Number" />
-                </div>
-                <div className="form-group col-md-6">
-                  <label for="inputAddress2">Operator</label>
-                <input type="text" className="form-control" id="inputAddress2" placeholder="Apartment, studio, or floor" />
-                </div>
-              </div>
-              <div className="form-row">
-                <div className="form-group col-md-6">
-                  <label for="inputEmail4">Departure Time</label>
-                  <input type="text" className="form-control" id="inputEmail4" placeholder="Departure" />
-                </div>
-                <div className="form-group col-md-6">
-                  <label for="inputPassword4">Arrival Time</label>
-                  <input type="text" className="form-control" id="inputPassword4" placeholder="Arrival" />
+                  <label for="inputPassword4">Class</label>
+                  <input type="text" className="form-control" id="inputPassword4" placeholder="Class" 
+                  onChange={(event) => {
+                                    this.setState({
+                                        class: event.target.value
+                                    }); }}/>
                 </div>
               </div>
               <div className="form-row">
                 <div className="form-group col-md-4">
-                  <label for="inputCity">Economy Price</label>
-                  <input type="text" className="form-control" id="inputCity" placeholder="Economy Price" />
+                  <label for="inputAddress">Cap Persons</label>
+                <input type="text" className="form-control" id="inputAddress" placeholder="Cap Persons"
+                onChange={(event) => {
+                                    this.setState({
+                                        capPersons: event.target.value
+                                    }); }} />
                 </div>
                 <div className="form-group col-md-4">
-                  <label for="inputState">Business Price</label>
-                  <input type="text" className="form-control" placeholder="Business Price" />
+                  <label for="inputAddress2">Cap Bags</label>
+                <input type="text" className="form-control" id="inputAddress2" placeholder="Cap Bags" 
+                onChange={(event) => {
+                                    this.setState({
+                                        capBags: event.target.value
+                                    }); }}/>
                 </div>
-                <div className="form-group col-md-4">
-                  <label for="inputZip">First Class Price</label>
-                  <input type="text" className="form-control" id="inputZip" placeholder="First Class Price" />
+                 <div className="form-group col-md-4">
+                  <label for="inputAddress2">Doors</label>
+                <input type="text" className="form-control" id="inputAddress2" placeholder="Doors"
+                onChange={(event) => {
+                                    this.setState({
+                                        doors: event.target.value
+                                    }); }} />
                 </div>
               </div>
-              
-              <button type="submit" className="btn btn-primary" onSubmit={() => {this.handleCreateFolder()}}>Create Car</button>
+              <div className="form-row">
+                <div className="form-group col-md-6">
+                  <label for="inputEmail4">Price</label>
+                  <input type="text" className="form-control" id="inputEmail4" placeholder="Price"
+                  onChange={(event) => {
+                                    this.setState({
+                                        price: event.target.value
+                                    }); }} />
+                </div>
+                <div className="form-group col-md-6">
+                  <label for="inputPassword4">Model</label>
+                  <input type="text" className="form-control" id="inputPassword4" placeholder="Model"
+                  onChange={(event) => {
+                                    this.setState({
+                                        model: event.target.value
+                                    }); }} />
+                </div>
+              </div>              
+              <div className="form-row">
+                <div className="form-group col-md-12">
+                  <label for="inputEmail4">Location</label>
+                  <input type="text" className="form-control" id="inputEmail4" placeholder="Location"
+                  onChange={(event) => {
+                                    this.setState({
+                                        location: event.target.value
+                                    }); }} />
+                </div>
+              </div>
+              <button type="button" className="btn btn-primary" onClick={() => {this.handleCreateCar()}}>Create Car</button>
               &nbsp;
                <Button color="secondary" onClick={this.toggle}>Cancel</Button>
             </form>
@@ -99,7 +134,9 @@ const mapStateToProps = (state) => {
 };
 
 const mapDispatchToProps = (dispatch) => {
-  return {};
+  return {
+        createCar : (data) => dispatch(createCar(data))
+    };
 };
 
 CreateCar.propTypes = {

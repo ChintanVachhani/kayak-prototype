@@ -16,6 +16,6 @@ router.route('/:cuid').delete(FlightController.deleteFlight);
 router.route('/:cuid').patch(FlightController.updateFlight);
 
 // Get All Flight
-router.route('/all').get(FlightController.getAllFlights);
+router.route('/').get(FlightController.getAllFlights);
 
 export default router;

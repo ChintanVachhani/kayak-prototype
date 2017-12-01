@@ -24,6 +24,9 @@ function handle_request(req, callback) {
       //operatorImage: req.body.operatorImage,
     });
     flight.save(function (error) {
+      if(error) {
+        console.log("ss : ", error)
+      }
       res = {
         status: 400,
         title: 'Invalid data.',

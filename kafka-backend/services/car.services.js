@@ -20,21 +20,27 @@ function handle_request(req, callback) {
       //carImage: req.body.carImage,
     });
     car.save(function (error) {
+      if(error) {
       res = {
         status: 400,
         title: 'Invalid data.',
         error: {message: 'Failed to create car.'},
       };
       callback(null, res);
-    });
-
-    res = {
+      }
+      else {
+      res = {
       status: 201,
       message: 'Successfully created car.',
       car: car,
     };
 
     callback(null, res);
+      }
+      
+    });
+
+    
   }
 
   if (req.name === 'getCar') {

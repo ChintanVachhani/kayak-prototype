@@ -10,6 +10,12 @@ function ConnectionProvider() {
     this.client.on('ready', function () {
       console.log('client ready!')
     });
+
+        this.client.on('error', function (err) {
+      console.log('client error!', err)
+    });
+
+
     //}
     return this.kafkaConsumerConnection;
   };

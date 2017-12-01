@@ -36,6 +36,7 @@ export function createFlight(req, res) {
 }
 
 export function getFlight(req, res) {
+  console.log("rew : "+ req.params)
   kafka.make_request('flightTopic', {
     name: 'getFlight',
     headers: req.headers,

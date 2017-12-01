@@ -20,7 +20,7 @@ class CarList extends Component {
                                 return(
                                     <Car
                                         key={index}
-                                        car={car}
+                                        car={car} isAdmin={this.props.isAdmin}
                                     />
                                 );
                             })

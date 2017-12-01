@@ -23,21 +23,28 @@ function handle_request(req, callback) {
       //hotelImage: req.body.hotelImage,
     });
     hotel.save(function (error) {
-      res = {
+      if(error) {
+         res = {
         status: 400,
         title: 'Invalid data.',
         error: {message: 'Failed to create hotel.'},
       };
       callback(null, res);
-    });
 
-    res = {
+      }
+      else {
+         res = {
       status: 201,
       message: 'Successfully created hotel.',
       hotel: hotel,
     };
 
     callback(null, res);
+      }
+     
+    });
+
+   
   }
 
   if (req.name === 'getHotel') {

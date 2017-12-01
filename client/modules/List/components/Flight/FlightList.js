@@ -20,7 +20,7 @@ class FlightList extends Component {
                                 return(
                                     <Flight
                                         key={index}
-                                        flight={flight}
+                                        flight={flight} isAdmin={this.props.isAdmin}
                                     />
                                 );
                             })
