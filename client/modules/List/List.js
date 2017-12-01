@@ -27,10 +27,10 @@ export default class List extends Component {
 	    	<div className="row" id={styles['header']}>
 		    	<Header/>
 	    	</div>
-	    	<div className="row">
+	    	<div className="row" id={styles['form-color']}>
 		    	<ServiceForm/>
-	    	</div><br/><br/>	    	
-	    	<div className="row">
+	    	</div>	    	
+	    	<div className="row" id={styles['body']}>
 		    	<div className="col-md-3">
 		    	</div>
 		    	<div className="col-md-9">
