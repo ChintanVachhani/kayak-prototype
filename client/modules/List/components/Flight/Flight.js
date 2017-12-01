@@ -6,7 +6,7 @@ import DeleteFlight from './../../../Admin/flights/DeleteFlight';
 export default class Flight extends Component {
 
     render() {
-        const {flight} = this.props;
+        const {flight,isAdmin} = this.props;
         function calculateInterval(){
             let departure = flight.departureTime.split(':');
             let departureTime = toSeconds(departure[0], departure[1]);
@@ -96,7 +96,7 @@ export default class Flight extends Component {
                       </div>                                                                              
                     </div> 
                 </div>
-                {this.props.isAdmin === 'true' ?
+                {isAdmin === 'true' ?
                     <div className="col-md-2" id={styles['itemActionBlock']}>            
                         <EditFlight /><br/>   
                         <DeleteFlight />               

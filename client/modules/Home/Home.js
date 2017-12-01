@@ -5,6 +5,7 @@ import Header from '../Header/Header';
 import CarContainer from './CarContainer';
 import FlightForm from './FlightForm';
 import HotelForm from './HotelForm';
+import Footer from '../Footer/Footer';
 
 // Import Style
 import styles from './Home.css';
@@ -110,7 +111,10 @@ componentDidMount() {
             	</div>
         	</div>
      	</div>
-    </div>
+    </div>  
+    <div>
+        <Footer/>
+    </div>      
 </div>
     
 

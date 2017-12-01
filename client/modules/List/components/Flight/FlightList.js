@@ -10,26 +10,24 @@ class FlightList extends Component {
   render() {
     const {flightList} = this.props;
     return (
-            <div className="container-fluid">
-                <div className={styles['listBackground']}>
-                    <div className="row">
-                        {
-                        <div className="col-md-12">
-                            {
-                            flightList.map((flight,index) => {
-                                return(
-                                    <Flight
-                                        key={index}
-                                        flight={flight} isAdmin={this.props.isAdmin}
-                                    />
-                                );
-                            })
-                            }
-                        </div>
-                        }
-                    </div>
-                </div>      
-            </div>    	
+        <div className={styles['listBackground']}>
+            <div className="row">
+                {
+                <div className="col-md-12">
+                    {
+                    flightList.map((flight,index) => {
+                        return(
+                            <Flight
+                                key={index}
+                                flight={flight} isAdmin={this.props.isAdmin}
+                            />
+                        );
+                    })
+                    }
+                </div>
+                }
+            </div>
+        </div>  
     );
   }
 }
