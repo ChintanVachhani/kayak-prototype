@@ -99,6 +99,26 @@ function handle_request(req, callback) {
     });
   }
 
+  if (req.name === 'getAllHotels') {
+    Hotel.find({}, (error, hotels) => {
+      if (error) {
+        res = {
+          status: 404,
+          title: 'Hotels not retrieved.',
+          error: {message: 'Failed to retrieve hotels.'},
+        };
+        callback(null, res);
+      } else {
+        res = {
+          status: 200,
+          message: 'Successfully retrieved all hotels.',
+          hotels: hotels,
+        };
+        callback(null, res);
+      }
+    });
+  }
+
 }
 
 exports.handle_request = handle_request;

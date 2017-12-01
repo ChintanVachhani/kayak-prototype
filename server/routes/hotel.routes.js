@@ -15,4 +15,7 @@ router.route('/:cuid').delete(HotelController.deleteHotel);
 // Update Hotel
 router.route('/:cuid').patch(HotelController.updateHotel);
 
+// Get All Hotel
+router.route('/all').get(HotelController.getAllHotels);
+
 export default router;

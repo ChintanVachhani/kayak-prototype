@@ -15,4 +15,7 @@ router.route('/:cuid').delete(CarController.deleteCar);
 // Update Car
 router.route('/:cuid').patch(CarController.updateCar);
 
+// Get All Car
+router.route('/all').get(CarController.getAllCars);
+
 export default router;

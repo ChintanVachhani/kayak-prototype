@@ -96,6 +96,26 @@ function handle_request(req, callback) {
     });
   }
 
+  if (req.name === 'getAllCars') {
+    Car.find({}, (error, cars) => {
+      if (error) {
+        res = {
+          status: 404,
+          title: 'Cars not retrieved.',
+          error: {message: 'Failed to retrieve cars.'},
+        };
+        callback(null, res);
+      } else {
+        res = {
+          status: 200,
+          message: 'Successfully retrieved all cars.',
+          cars: cars,
+        };
+        callback(null, res);
+      }
+    });
+  }
+
 }
 
 exports.handle_request = handle_request;

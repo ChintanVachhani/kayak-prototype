@@ -100,6 +100,26 @@ function handle_request(req, callback) {
     });
   }
 
+  if (req.name === 'getAllFlights') {
+    Flight.find({}, (error, flights) => {
+      if (error) {
+        res = {
+          status: 404,
+          title: 'Flights not retrieved.',
+          error: {message: 'Failed to retrieve flights.'},
+        };
+        callback(null, res);
+      } else {
+        res = {
+          status: 200,
+          message: 'Successfully retrieved all flights.',
+          flights: flights,
+        };
+        callback(null, res);
+      }
+    });
+  }
+
 }
 
 exports.handle_request = handle_request;
