@@ -36,10 +36,19 @@ export default class Hotel extends Component {
 	                  </div>
 	                </div> 
                 </div>
-                <div className="col-md-2" id= {styles['itemActionBlock']}>
-                    <strong><span className={styles['priceValue']}>{hotel.price.standard}</span></strong><br/><br/>    
-                    <button className="btn btn-warning" onClick="">Book Hotel</button>            
-                </div> 
+                {this.props.isAdmin === 'true' ?
+	 				<div className="col-md-2" id= {styles['itemActionBlock']}>
+	                    <button className="btn btn-warning" onClick="">Edit</button><br/><br/>    
+	                    <button className="btn btn-warning" onClick="">Delete</button>            
+	                </div> 
+                :
+                	<div className="col-md-2" id= {styles['itemActionBlock']}>
+	                    <strong><span className={styles['priceValue']}>{hotel.price.standard}</span></strong><br/><br/>    
+	                    <button className="btn btn-warning" onClick="">Book Hotel</button>            
+	                </div>
+
+            	}
+               
             </div>               
             </div>
         );

@@ -105,40 +105,19 @@ function handle_request(req, callback) {
   }
 
   if (req.name === 'getUser') {
-    UserDetail.findOne({cuid: req.params.cuid})
-      .catch((error) => {
+    UserDetail.findOne({cuid: req.params.cuid}, (error, user) => {
+      if (error) {
         res = {
           status: 404,
           title: 'User not found.',
           error: {message: 'Failed to retrieve user.'},
         };
         callback(null, res);
-      })
-      .then((user) => {
-        console.log('USER:', user);
+      } else {
         res = {
           status: 200,
           message: 'Successfully retrieved user.',
           user: user,
-        };
-        callback(null, res);
-      });
-  }
-
-  if (req.name === 'deleteUser') {
-    UserDetail.findOneAndRemove({cuid: req.params.cuid}, (error, user) => {
-      if (error) {
-        res = {
-          status: 404,
-          title: 'User not found.',
-          error: {message: 'Failed to delete user.'},
-        };
-        callback(null, res);
-      } else {
-        User.destroy({where: {cuid: req.params.cuid}});
-        res = {
-          status: 200,
-          message: 'Successfully deleted user.',
         };
         callback(null, res);
       }
@@ -164,6 +143,27 @@ function handle_request(req, callback) {
       }
     });
   }
+
+  if (req.name === 'deleteUser') {
+    UserDetail.findOneAndRemove({cuid: req.params.cuid}, (error, user) => {
+      if (error) {
+        res = {
+          status: 404,
+          title: 'User not found.',
+          error: {message: 'Failed to delete user.'},
+        };
+        callback(null, res);
+      } else {
+        User.destroy({where: {cuid: req.params.cuid}});
+        res = {
+          status: 200,
+          message: 'Successfully deleted user.',
+        };
+        callback(null, res);
+      }
+    });
+  }
+
 }
 
 exports.handle_request = handle_request;

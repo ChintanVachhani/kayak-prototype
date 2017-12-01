@@ -1,5 +1,8 @@
 import React, {Component} from 'react';
 import styles from './Flight.css';
+import EditFlight from './../../../Admin/flights/EditFlight';
+import DeleteFlight from './../../../Admin/flights/DeleteFlight';
+
 export default class Flight extends Component {
 
     render() {
@@ -93,10 +96,18 @@ export default class Flight extends Component {
                       </div>                                                                              
                     </div> 
                 </div>
-                <div className="col-md-2" id={styles['itemActionBlock']}>
-                        <span className={styles['priceValue']}>{flight.price.economy}</span><br/><br/>    
-                        <button className="btn btn-warning" onClick="">Book Flight</button>               
-                </div> 
+                {this.props.isAdmin === 'true' ?
+                    <div className="col-md-2" id={styles['itemActionBlock']}>            
+                        <EditFlight /><br/>   
+                        <DeleteFlight />               
+                    </div>
+                    :
+                    <div className="col-md-2" id={styles['itemActionBlock']}>
+                            <span className={styles['priceValue']}>{flight.price.economy}</span><br/><br/>    
+                            <button className="btn btn-warning" onClick="">Book Flight</button>               
+                    </div> 
+                }
+                
             </div>               
             </div>
         );

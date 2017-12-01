@@ -20,7 +20,7 @@ class HotelList extends Component {
                                 return(
                                     <Hotel
                                         key={index}
-                                        hotel={hotel}
+                                        hotel={hotel} isAdmin={this.props.isAdmin}
                                     />
                                 );
                             })

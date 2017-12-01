@@ -103,9 +103,9 @@ export function getUser(req, res) {
   });
 }
 
-export function deleteUser(req, res) {
+export function updateUser(req, res) {
   kafka.make_request('userTopic', {
-    name: 'deleteUser',
+    name: 'updateUser',
     headers: req.headers,
     params: req.params,
     query: req.query,
@@ -137,9 +137,9 @@ export function deleteUser(req, res) {
   });
 }
 
-export function updateUser(req, res) {
+export function deleteUser(req, res) {
   kafka.make_request('userTopic', {
-    name: 'updateUser',
+    name: 'deleteUser',
     headers: req.headers,
     params: req.params,
     query: req.query,
