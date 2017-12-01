@@ -2,12 +2,10 @@
 import React from 'react';
 import {Route, IndexRoute} from 'react-router';
 import App from './modules/App/App';
-import Billing from './modules/Billing/Billing';
 import Admin from "./modules/Admin/Admin";
 import Home from "./modules/Home/Home";
-import AdminFlights from "./modules/Admin/flights/AdminFlights";
-import AdminHotels from "./modules/Admin/hotels/AdminHotels";
-import AdminCars from "./modules/Admin/cars/AdminCars";
+import List from "./modules/List/List";
+
 
 // require.ensure polyfill for node
 if (typeof require.ensure !== 'function') {
@@ -47,9 +45,6 @@ export default (
     />*/}
     <IndexRoute component={Home}/>
     <Route path="admin" component={Admin}/>
-    <Route path="billing" component={Billing}/>
-    <Route path="adminflights" component={AdminFlights}/>
-    <Route path="adminhotels" component={AdminHotels}/>
-    <Route path="admincars" component={AdminCars}/>
+    <Route path="/:service" component={List}/>
   </Route>
 );
