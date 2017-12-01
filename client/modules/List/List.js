@@ -4,21 +4,40 @@ import { bindActionCreators } from 'redux';
 import CarList from './components/Car/CarList';
 import FlightList from './components/Flight/FlightList';
 import HotelList from './components/Hotel/HotelList';
+import Header from '../Header/Header';
+import CarForm from '../Home/CarForm';
+import FlightForm from '../Home/FlightForm';
+import HotelForm from '../Home/HotelForm';
 
 // Import Style
-// import styles from './List.css';
+import styles from './List.css';
 
 export default class List extends Component {
 
   render() {
 	const components = {
-		car: CarList,
-		flight: FlightList,
-		hotel: HotelList
+		car: [CarList,CarForm],
+		flight: [FlightList,FlightForm],
+		hotel: [HotelList,HotelForm]
 	};	
-  	const Service = components[this.props.params.service];
+  	const Service = components[this.props.params.service][0];
+  	const ServiceForm = components[this.props.params.service][1];
     return (
-    	<Service/>
+    	<div className="container-fluid">
+	    	<div className="row" id={styles['header']}>
+		    	<Header/>
+	    	</div>
+	    	<div className="row">
+		    	<ServiceForm/>
+	    	</div><br/><br/>	    	
+	    	<div className="row">
+		    	<div className="col-md-3">
+		    	</div>
+		    	<div className="col-md-9">
+		    		<Service/>
+		    	</div>
+	    	</div>
+    	</div>
     );
   }
 }
