@@ -4,7 +4,7 @@ import { bindActionCreators } from 'redux';
 
 import StarRatings from 'react-star-ratings';
 
-import 'rc-slider/assets/index.css';
+//import 'rc-slider/assets/index.css';
 import Slider from 'rc-slider';
 
 import Star from 'react-icons/lib/fa/star-o';
@@ -164,4 +164,4 @@ HotelSidebar.propTypes = {
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(PlaneSidebar);
+)(HotelSidebar);
