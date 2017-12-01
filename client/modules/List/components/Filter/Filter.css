@@ -1,0 +1,11 @@
+.rightTextFld {
+	text-align:right;
+	border:none;
+	width: 100px;
+}
+
+.leftTextFld {
+	text-align:left;
+	border:none;
+	width: 100px;
+}
