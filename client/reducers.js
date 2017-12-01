@@ -5,7 +5,6 @@ import { combineReducers } from 'redux';
 
 // Import Reducers
 import app from './modules/App/AppReducer';
-
 import admin from './modules/Admin/AdminReducer';
 
 // Combine all reducers into one root reducer

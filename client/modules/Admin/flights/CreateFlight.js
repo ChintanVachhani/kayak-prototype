@@ -32,10 +32,22 @@ class CreateFlight extends React.Component {
   }
 
 
-  handleCreateFlight() {      
+  handleCreateFlight() {     
+
+    let data = new FormData();
+    data.append('logo', this.props.logo);
+    data.append('from', this.props.from);
+    data.append('to', this.props.to);
+    data.append('flightNumber', this.props.flightNumber);
+    data.append('operator', this.props.operator);
+    data.append('depTime', this.props.depTime);
+    data.append('arvTime', this.props.arvTime);
+    data.append('economyPrice', this.props.economyPrice);
+    data.append('businessPrice', this.props.businessPrice);
+    data.append('firstPrice', this.props.firstPrice);    
 
     this.toggle();
-    this.props.createFlight(this.state);
+    this.props.createFlight(data);
     
 
   }
