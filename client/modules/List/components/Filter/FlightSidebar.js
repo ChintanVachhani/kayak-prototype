@@ -25,7 +25,7 @@ function log(value) {
 
 }
 */
-class PlaneSidebar extends Component {
+class FlightSidebar extends Component {
 
     constructor(props) {
         super(props);
@@ -158,10 +158,10 @@ const mapDispatchToProps = (dispatch) => {
   return {};
 };
 
-PlaneSidebar.propTypes = {
+FlightSidebar.propTypes = {
 };
 
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(PlaneSidebar);
+)(FlightSidebar);
