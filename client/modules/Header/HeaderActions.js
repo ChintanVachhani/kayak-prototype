@@ -4,7 +4,7 @@
 
 export const UPDATE_FORMTYPEHOME = 'UPDATE_FORMTYPEHOME';
 export const UPDATE_USERDETAILS = 'UPDATE_USERDETAILS';
-import history from '../../history';
+//import history from '../../history';
 import callApi from '../../util/apiCaller';
 
 export function changeFormDisplay(displayForm) {

@@ -4,7 +4,8 @@ import { bindActionCreators } from 'redux';
 import CreateCar from './CreateCar';
 import SearchCar from './SearchCar';
 import CarItem from './CarItem';
-
+import { Alert } from 'reactstrap';
+import CarList from './../../List/components/Car/CarList';
 
 class CarsHome extends Component {
   render() {
@@ -25,40 +26,17 @@ class CarsHome extends Component {
         		&nbsp;
         	</div>
         </div>
-
+ 		<br/>
+        {this.props.msg !== undefined ? 
+        	<div className="row">
+				<div className="col-12">
+				 <Alert color="info">{this.props.msg}</Alert>
+				</div>
+			</div>
+        	: ''}    
         <div className="row">
 		<div className="col-12">
-		 <div className="card">
-		        <div className="card-header">
-		          <i className="fa fa-table"></i> Existing Flights</div>
-		        <div className="card-body">
-		          <div className="table-responsive">
-		            <table className="table table-bordered" id="dataTable" width="100%" cellspacing="0">
-		              <thead>
-		                <tr>
-		                  <th>Operator</th>
-		                  <th>FLight Number</th>
-		                  <th>From</th>
-		                  <th>To</th>
-		                  <th>Departure Time</th>
-		                  <th>Arrival Time</th>
-		                  <th>Action</th>
-		                </tr>
-		              </thead>
-		              <tbody>
-		                 {
-		                 	this.props.cars.map((car) => {
-		                 			return (<CarItem operator="CP" number="AX100" from="SJC" to="BLR" depTime="12:30" arvTime="14:50" />);
-		                 	})	                 	
-		                 	
-		                 }
-		               
-		              </tbody>
-		            </table>
-		          </div>
-		        </div>
-		      </div>
-
+			<CarList carList={this.props.cars} isAdmin="true" />
         </div>
            </div>
 
@@ -69,9 +47,10 @@ class CarsHome extends Component {
 }
 
 const mapStateToProps = (state) => {
-	let cars = ["1", "2", "3", "4", "5"]
-
-  return {cars};
+	let cars = state.admin.carList;
+	let msg = state.admin.msg;
+	state.admin.msg = undefined;
+  	return {cars, msg};
   
 };
 

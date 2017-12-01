@@ -9,16 +9,18 @@ class CreateFlight extends React.Component {
     super(props);
     this.state = {
       modal: false,
-      "from": "",
-      "to": "",
-      "flightNumber": "",
+      "origin": "",
+      "destination": "",
+      "flightID": "",
       "operator": "",
-      "depTime": "",
-      "arvTime": "",
+      "departureTime": "",
+      "arrivalTime": "",
       "economyPrice": "",
       "businessPrice": "",
       "firstPrice": "",
-      "logo": ""
+      "duration": "",
+      "logo": "",
+      "price":""
     };
 
     this.toggle = this.toggle.bind(this);
@@ -32,11 +34,15 @@ class CreateFlight extends React.Component {
   }
 
 
-  handleCreateFlight() {      
+  handleCreateFlight() {     
 
+    let price = {};
+    price.economy = this.state.economyPrice;
+    price.business = this.state.businessPrice;
+    price.firstClass = this.state.firstPrice;
+    this.state.price = price;
     this.toggle();
-    this.props.createFlight(this.state);
-    
+    this.props.createFlight(this.state);    
 
   }
 
@@ -55,14 +61,14 @@ class CreateFlight extends React.Component {
                   <label for="inputEmail4">From</label>
                   <input type="text" className="form-control" id="inputEmail4" placeholder="From Where?" required onChange={(event) => {
                                     this.setState({
-                                        from: event.target.value
+                                        origin: event.target.value
                                     }); }} />
                 </div>
                 <div className="form-group col-md-6">
                   <label for="inputPassword4">To</label>
                   <input type="text" className="form-control" id="inputPassword4" placeholder="To Where?" onChange={(event) => {
                                     this.setState({
-                                        to: event.target.value
+                                        destination: event.target.value
                                     }); }} />
                 </div>
               </div>
@@ -71,7 +77,7 @@ class CreateFlight extends React.Component {
                   <label for="inputAddress">Flight Number</label>
                 <input type="text" className="form-control" id="inputAddress" placeholder="Flight Number" onChange={(event) => {
                                     this.setState({
-                                        flightNumber: event.target.value
+                                        flightID: event.target.value
                                     }); }} />
                 </div>
                 <div className="form-group col-md-6">
@@ -83,19 +89,27 @@ class CreateFlight extends React.Component {
                 </div>
               </div>
               <div className="form-row">
-                <div className="form-group col-md-6">
+                <div className="form-group col-md-4">
                   <label for="inputEmail4">Departure Time</label>
                   <input type="text" className="form-control" id="inputEmail4" placeholder="Departure Time" onChange={(event) => {
                                     this.setState({
-                                        depTime: event.target.value
+                                        departureTime: event.target.value
                                     }); }} />
                 </div>
-                <div className="form-group col-md-6">
+                <div className="form-group col-md-4">
                   <label for="inputPassword4">Arrival Time</label>
                   <input type="text" className="form-control" id="inputPassword4" placeholder="Arrival Time"  
                   onChange={(event) => {
                                     this.setState({
-                                        arvTime: event.target.value
+                                        arrivalTime: event.target.value
+                                    }); }} />
+                </div>
+                <div className="form-group col-md-4">
+                  <label for="inputPassword4">Duration</label>
+                  <input type="text" className="form-control" id="inputPassword4" placeholder="Duration"  
+                  onChange={(event) => {
+                                    this.setState({
+                                        duration: event.target.value
                                     }); }} />
                 </div>
               </div>

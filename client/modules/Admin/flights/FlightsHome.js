@@ -5,7 +5,7 @@ import { Alert } from 'reactstrap';
 import CreateFlight from './CreateFlight';
 import SearchFlight from './SearchFlight';
 import FlightItem from './FlightItem';
-
+import FlightList from './../../List/components/Flight/FlightList';
 
 class FlightsHome extends Component {
   render() {
@@ -33,42 +33,11 @@ class FlightsHome extends Component {
 				 <Alert color="info">{this.props.msg}</Alert>
 				</div>
 			</div>
-        	: ''}
-	        
+        	: ''}        
 
         <div className="row">
 		<div className="col-12">
-		 <div className="card">
-		        <div className="card-header">
-		          <i className="fa fa-table"></i> Existing Flights</div>
-		        <div className="card-body">
-		          <div className="table-responsive">
-		            <table className="table table-bordered" id="dataTable" width="100%" cellspacing="0">
-		              <thead>
-		                <tr>
-		                  <th>Operator</th>
-		                  <th>FLight Number</th>
-		                  <th>From</th>
-		                  <th>To</th>
-		                  <th>Departure Time</th>
-		                  <th>Arrival Time</th>
-		                  <th>Action</th>
-		                </tr>
-		              </thead>
-		              <tbody>
-		                 {
-		                 	this.props.flights.map((flight) => {
-		                 			return (<FlightItem operator="CP" number="AX100" from="SJC" to="BLR" depTime="12:30" arvTime="14:50" />);
-		                 	})	                 	
-		                 	
-		                 }
-		               
-		              </tbody>
-		            </table>
-		          </div>
-		        </div>
-		      </div>
-
+			<FlightList flightList={this.props.flights} isAdmin="true" />
         </div>
            </div>
 
@@ -79,11 +48,10 @@ class FlightsHome extends Component {
 }
 
 const mapStateToProps = (state) => {
-	let flights = ["1", "2", "3", "4", "5"]
-
+	let flights = state.admin.flightList;
+  console.log("lllllll : ", flights)
 	let msg = state.admin.msg;
-	console.log("msg from admin : ",state);
-	console.log("msg from admin : "+msg);
+	state.admin.msg = undefined;
   return {flights, msg};
   
 };
