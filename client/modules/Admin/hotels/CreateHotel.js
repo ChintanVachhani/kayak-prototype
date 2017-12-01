@@ -17,11 +17,7 @@ class CreateHotel extends React.Component {
       "address":"",
       "city":"", 
       "state":"",
-      "zipCode":"",
-      "standard":"",
-      "delux":"",
-      "suite":""
-
+      "zipCode":""
     };
 
     this.toggle = this.toggle.bind(this);
@@ -36,11 +32,6 @@ class CreateHotel extends React.Component {
 
 
   handleCreateHotel() {
-    let price = {};
-    price.standard = this.state.standard;
-    price.delux = this.state.delux;
-    price.suite = this.state.suite;
-    this.state.price = price;
     this.toggle();
     this.props.createHotel(this.state);  
 
@@ -102,34 +93,16 @@ class CreateHotel extends React.Component {
               </div>
 
               <div className="form-row">
-                <div className="form-group col-md-4">
-                  <label for="inputCity">Standard Price</label>
-                  <input type="text" className="form-control" id="inputCity" placeholder="Standard Price" 
+                <div className="form-group col-md-6">
+                  <label for="inputCity">Price</label>
+                  <input type="text" className="form-control" id="inputCity" placeholder="Price" 
                   onChange={(event) => {
                                     this.setState({
-                                        standard: event.target.value
+                                        price: event.target.value
                                     }); }} />
                 </div>
-                <div className="form-group col-md-4">
-                  <label for="inputState">Deluxe Price</label>
-                  <input type="text" className="form-control" placeholder="Deluxe Price"
-                  onChange={(event) => {
-                                    this.setState({
-                                        delux: event.target.value
-                                    }); }} />
-                </div>
-                <div className="form-group col-md-4">
-                  <label for="inputZip">Suite Price</label>
-                  <input type="text" className="form-control" id="inputZip" placeholder="Suite Price" 
-                  onChange={(event) => {
-                                    this.setState({
-                                        suite: event.target.value
-                                    }); }}/>
-                </div>
-              </div>
 
-              <div className="form-row">
-                <div className="form-group col-md-4">
+                 <div className="form-group col-md-6">
                   <label for="inputCity">Star</label>
                   <input type="text" className="form-control" id="inputCity" placeholder="Star" 
                   onChange={(event) => {
@@ -137,7 +110,12 @@ class CreateHotel extends React.Component {
                                         star: event.target.value
                                     }); }}/>
                 </div>
-                <div className="form-group col-md-4">
+   
+              </div>
+
+              <div className="form-row">
+               
+                <div className="form-group col-md-6">
                   <label for="inputState">Average Rating</label>
                   <input type="text" className="form-control" placeholder="Average Rating" 
                   onChange={(event) => {
@@ -145,7 +123,7 @@ class CreateHotel extends React.Component {
                                         avgRating: event.target.value
                                     }); }}/>
                 </div>
-                <div className="form-group col-md-4">
+                <div className="form-group col-md-6">
                   <label for="inputZip">Number of Reviews</label>
                   <input type="text" className="form-control" id="inputZip" placeholder="Reviews Number"
                   onChange={(event) => {
