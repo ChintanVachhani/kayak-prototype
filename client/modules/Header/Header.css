@@ -1,1 +1,349 @@
 /* Header styles */
+
+/* Header styles */
+/* HeaderCmp styles */
+
+
+
+/*#main-header, #nav-bar, #logo, #account-tab, #main-footer, #main-body, #services{
+    border: solid 1px black;
+}*/
+
+
+
+#main-body {
+    min-height: 300px;
+}
+
+#main-footer {
+    min-height: 200px;
+    background-color: black;
+}
+
+#nav-bar, #services {
+    width: 100%;
+}
+
+#nav-bar {
+    height: 48px;
+    border-bottom: solid 2px darkgray;
+}
+
+#logo, #nav-tabs, #account-tab {
+    margin-top: 12px;
+}
+
+#logo {
+    padding: 0 45px 0 0;
+}
+
+#logo-img{
+    height: 30px;
+}
+
+#account-tab{
+    color: white;
+    text-align: right;
+    vertical-align: middle;
+    font-size: 14px;
+    padding: 0;
+    line-height: 2;
+}
+
+#services {
+    min-height: 437px;
+}
+
+.nav-item {
+    height: 100%;
+    margin-right: 25px;
+    padding: 5px;
+    float: left;
+    color: white;
+    line-height: 1.25;
+    font-weight: bold;
+    font-size: small;
+}
+
+.nav-item.active {
+    border-bottom: solid 2px white;
+}
+
+#my-account-dropdown-button{
+    background: transparent;
+    border: none;
+    color: white;
+    text-decoration: none;
+}
+
+#my-account-dropdown-menu{
+    margin-top: 5px;
+    border-radius: 0;
+    padding: 20px 5px;
+    min-width: 300px;
+}
+
+#signup-btn{
+    background-color: #FF690F;
+    border: solid 1px #FF690F;
+    color: white;
+}
+
+#signin-btn{
+    background-color: white;
+    border: solid 1px #FF690F;
+    color: #FF690F;
+}
+
+#signup-btn, #signin-btn, #signout-btn{
+    width: 100%;
+    border-radius: 0;
+    text-align: center;
+    font-weight: bold;
+    font-size: 14px;
+}
+
+
+.traveldetails
+{
+	background-color: #DC143C;
+    padding: 2px 125px;
+
+}
+.headerdesign
+{
+	padding: 2px 80px;
+}
+
+.flightdetails
+{
+	padding: 2px 150px;
+	border: 'thin solid black';
+	border-color: #cddae;
+}
+
+.box {
+    width: 300px;
+    height: 100px;
+    border: 1px solid magenta;
+    margin: 0 auto;
+    text-align: center;
+    line-height: 100px;
+    position: relative;
+    left: 20px;
+    padding : 10px;
+}
+
+
+{opacity: 0;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
+    position: absolute;
+    height: 100%;
+    min-width: 100%;
+    cursor: pointer;
+    filter: alpha(opacity=0);
+    -webkit-appearance: none;
+    font-size: 16px;
+    font-family: "Helvetica Neue",Helvetica,Arial,sans-serif;
+    font-weight: 400;
+    color: #717585;
+    line-height: 40px;
+}
+.nav-pills > li > a{
+    color:black;
+    background-color:white;
+}
+
+.nav-pills > li > a:hover{
+    color:red;
+    background-color:white;
+}
+
+.nav-pills > li > a:active {
+    color:red;
+    background-color:white;
+}
+
+.nav-pills > li > a:current {
+    color:red;
+    background-color:white;
+}
+
+
+
+
+.arrow {
+    width:50px;
+    height:50px;
+    padding:1px;
+}
+
+
+/*#main-header, #nav-bar, #logo, #account-tab, #main-footer, #main-body, #services{
+    border: solid 1px black;
+}*/
+
+#main-header {
+    min-height: 485px;
+    background-size: cover;
+    background: url("./main-header-bg.jpeg") top;
+}
+
+#main-body {
+    min-height: 300px;
+}
+
+#main-footer {
+    min-height: 200px;
+    background-color: black;
+}
+
+#nav-bar, #services {
+    width: 100%;
+}
+
+#nav-bar {
+    height: 48px;
+    border-bottom: solid 2px darkgray;
+}
+
+#logo, #nav-tabs, #account-tab {
+    margin-top: 12px;
+}
+
+#logo {
+    padding: 0 45px 0 0;
+}
+
+#logo-img{
+    height: 30px;
+}
+
+#account-tab{
+    color: white;
+    text-align: right;
+    vertical-align: middle;
+    font-size: 14px;
+    padding: 0;
+    line-height: 2;
+}
+
+#services {
+    min-height: 437px;
+}
+
+#nav-item {
+    height: 100%;
+    margin-right: 25px;
+    padding: 5px;
+    float: left;
+    color: white;
+    line-height: 1.25;
+    font-weight: bold;
+    font-size: small;
+}
+
+#nav-item.active {
+    border-bottom: solid 2px white;
+}
+
+#my-account-dropdown-button{
+    background: transparent;
+    border: none;
+    color: white;
+    text-decoration: none;
+}
+
+#my-account-dropdown-menu{
+    margin-top: 5px;
+    border-radius: 0;
+    padding: 20px 5px;
+    min-width: 300px;
+}
+
+#signup-btn{
+    background-color: #FF690F;
+    border: solid 1px #FF690F;
+    color: white;
+}
+
+#signin-btn{
+    background-color: white;
+    border: solid 1px #FF690F;
+    color: #FF690F;
+}
+
+#signup-btn, #signin-btn, #signout-btn{
+    width: 100%;
+    border-radius: 0;
+    text-align: center;
+    font-weight: bold;
+    font-size: 14px;
+}
+
+#whereform{
+    width: 100%;
+    border-radius: 0;
+    font-weight: bold;
+    font-size: 14px;
+}
+
+
+.popup
+{
+ 
+    position: fixed;
+    width:325px;
+    height:350px;
+    top: 30%;
+    left: 50%;
+    margin-left:-155px;
+    margin-top:-110px;
+    border:1px thin black;
+    background-color:#e6e6ff;
+    padding: 5px;
+    padding-top:100px;
+
+    z-index:102;
+    font-family:Verdana;
+    font-size:10pt;
+    -webkit-border-radius: 0;
+     -moz-border-radius: 0;
+          border-radius: 0;
+}
+
+
+#xbutton
+{
+    position : absolute; 
+    top:0;
+    right:0;
+    width: 25px;
+    
+    font-size: 13px;
+    font-color: black;
+}
+
+
+.centerxa {
+    position: absolute;
+    left: 30%;
+    height: auto;
+    -webkit-transform: translateX(-50%);
+    -moz-transform: translateX(-50%);
+    -ms-transform: translateX(-50%);
+    -o-transform: translateX(-50%);
+    transform: translateX(-50%);
+}
+
+.formElement {
+    width: 300px;
+    height: 30px;
+    margin: 10px auto;
+    background-color: #EEEEEE;
+    display: block;
+}
+
