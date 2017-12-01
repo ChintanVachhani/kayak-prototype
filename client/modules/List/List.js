@@ -20,9 +20,9 @@ export default class List extends Component {
 
   render() {
 	const components = {
-		car: [CarList,CarForm],
-		flight: [FlightList,FlightForm],
-		hotel: [HotelList,HotelForm]
+		car: [CarList,CarForm,CarSidebar],
+		flight: [FlightList,FlightForm,FlightSidebar],
+		hotel: [HotelList,HotelForm,HotelSidebar]
 	};	
   	const Service = components[this.props.params.service][0];
   	const ServiceForm = components[this.props.params.service][1];
