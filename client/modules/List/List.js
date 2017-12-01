@@ -9,9 +9,9 @@ import CarForm from '../Home/CarForm';
 import FlightForm from '../Home/FlightForm';
 import HotelForm from '../Home/HotelForm';
 import Footer from '../Footer/Footer';
-// import CarSidebar from './components/Filter/CarSidebar';
-// import FlightSidebar from './components/Filter/FlightSidebar';
-// import HotelSidebar from './components/Filter/HotelSidebar';
+import CarSidebar from './components/Filter/CarSidebar';
+import FlightSidebar from './components/Filter/FlightSidebar';
+import HotelSidebar from './components/Filter/HotelSidebar';
 
 
 // Import Style
@@ -20,19 +20,14 @@ import styles from './List.css';
 export default class List extends Component {
 
   render() {
-	// const components = {
-	// 	car: [CarList,CarForm,CarSidebar],
-	// 	flight: [FlightList,FlightForm,FlightSidebar],
-	// 	hotel: [HotelList,HotelForm,HotelSidebar]
-	// };	
 	const components = {
-		car: [CarList,CarForm],
-		flight: [FlightList,FlightForm],
-		hotel: [HotelList,HotelForm]
+		car: [CarList,CarForm,CarSidebar],
+		flight: [FlightList,FlightForm,FlightSidebar],
+		hotel: [HotelList,HotelForm,HotelSidebar]
 	};	
   	const Service = components[this.props.params.service][0];
   	const ServiceForm = components[this.props.params.service][1];
-  	// const FilterSidebar = components[this.props.params.service][2];
+  	const FilterSidebar = components[this.props.params.service][2];
   	
     return (
     	<div className="container-fluid">
@@ -44,6 +39,7 @@ export default class List extends Component {
 	    	</div>	    	
 	    	<div className="row" id={styles['body']}>
 		    	<div className="col-md-3">
+		    		<FilterSidebar/>
 		    	</div>
 		    	<div className="col-md-9">
 		    		<Service/>
