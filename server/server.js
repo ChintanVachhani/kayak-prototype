@@ -31,9 +31,6 @@ import Helmet from 'react-helmet';
 import routes from '../client/routes';
 import {fetchComponentData} from './util/fetchData';
 import user from './routes/user.routes';
-import car from './routes/car.routes';
-import flight from './routes/flight.routes';
-import hotel from './routes/hotel.routes';
 import serverConfig from './config';
 
 // Apply body Parser and server public assets and routes
@@ -42,9 +39,6 @@ app.use(bodyParser.json({limit: '20mb'}));
 app.use(bodyParser.urlencoded({limit: '20mb', extended: false}));
 app.use(Express.static(path.resolve(__dirname, '../dist/client')));
 app.use('/api/user', user);
-app.use('/api/car', car);
-app.use('/api/flight', flight);
-app.use('/api/hotel', hotel);
 
 // Render Initial HTML
 const renderFullPage = (html, initialState) => {

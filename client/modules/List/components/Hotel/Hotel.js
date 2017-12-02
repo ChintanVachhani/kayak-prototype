@@ -4,7 +4,7 @@ import styles from './Hotel.css';
 export default class Hotel extends Component {
 
     render() {
-        const {hotel,isAdmin} = this.props;
+        const {hotel} = this.props;
         let starPrinted = 0;
         let stars= function(){
 
@@ -36,19 +36,10 @@ export default class Hotel extends Component {
 	                  </div>
 	                </div> 
                 </div>
-                {isAdmin === 'true' ?
-	 				<div className="col-md-2" id= {styles['itemActionBlock']}>
-	                    <button className="btn btn-warning" onClick="">Edit</button><br/><br/>    
-	                    <button className="btn btn-warning" onClick="">Delete</button>            
-	                </div> 
-                :
-                	<div className="col-md-2" id= {styles['itemActionBlock']}>
-	                    <strong><span className={styles['priceValue']}>{hotel.price.standard}</span></strong><br/><br/>    
-	                    <button className="btn btn-warning" onClick="">Book Hotel</button>            
-	                </div>
-
-            	}
-               
+                <div className="col-md-2" id= {styles['itemActionBlock']}>
+                    <strong><span className={styles['priceValue']}>{hotel.price.standard}</span></strong><br/><br/>    
+                    <button className="btn btn-warning" onClick="">Book Hotel</button>            
+                </div> 
             </div>               
             </div>
         );

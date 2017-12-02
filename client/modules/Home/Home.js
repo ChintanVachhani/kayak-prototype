@@ -6,7 +6,7 @@ import CarContainer from './CarContainer';
 import FlightForm from './FlightForm';
 import HotelForm from './HotelForm';
 import {changeForm} from './HomeActions';
-import Footer from '../Footer/Footer';
+
 // Import Style
 import styles from './Home.css';
 
@@ -100,9 +100,6 @@ changeTravelType = (name) => {
                 </div>
             </div>
           </div>
-      <div>
-        <Footer/>
-      </div>
       </div>
     );
   }

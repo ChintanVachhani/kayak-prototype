@@ -10,24 +10,26 @@ class CarList extends Component {
   render() {
     const {carList} = this.props;
     return (
-        <div className={styles['listBackground']}>
-            <div className="row">
-                {
-                <div className="col-md-12">
-                    {
-                    carList.map((car,index) => {
-                        return(
-                            <Car
-                                key={index}
-                                car={car} isAdmin={this.props.isAdmin}
-                            />
-                        );
-                    })
-                    }
-                </div>
-                }
-            </div>
-        </div>   	
+            <div className="container-fluid">
+                <div className={styles['listBackground']}>
+                    <div className="row">
+                        {
+                        <div className="col-md-12">
+                            {
+                            carList.map((car,index) => {
+                                return(
+                                    <Car
+                                        key={index}
+                                        car={car}
+                                    />
+                                );
+                            })
+                            }
+                        </div>
+                        }
+                    </div>
+                </div>      
+            </div>    	
     );
   }
 }

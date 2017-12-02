@@ -34,7 +34,7 @@ class DeleteFlight extends React.Component {
 
     return (
       <div>
-        <button type="button" className="btn btn-warning" onClick={this.toggle}>Delete</button>
+        <button type="button" className="btn btn-primary" onClick={this.toggle}>Delete</button>
         
         <Modal isOpen={this.state.modal} toggle={this.toggle} className={this.props.className}>
           <ModalHeader><h3>Delete Flight</h3></ModalHeader>

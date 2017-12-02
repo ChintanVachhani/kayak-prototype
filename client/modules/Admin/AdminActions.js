@@ -1,80 +1,41 @@
 import * as API from './api/AdminApi';
-import callApi from './../../util/apiCaller';
 
 // Export Constants
 export const CREATE_FLIGHT = 'CREATE_FLIGHT';
-export const CREATE_HOTEL = 'CREATE_HOTEL';
-export const ADMIN_SIGNIN = 'ADMIN_SIGNIN';
-export const ADMIN_SIGNOUT = 'ADMIN_SIGNOUT';
+
 
 // Export Actions
 export function createFlight(data) {
-  console.log("ss ", data)
-  return (dispatch) => {
-    return callApi('flight', 'put', data).then(res => dispatch(createFlightResponse(res)));
-  };
+	
+	let req = {};
+	req.flightID = data.flightNumber;
+	let price = {economy: data.economyPrice, business: data.businessPrice, firstClass: data.firstPrice }
+	req.price = price;
+	req.operator = data.operator;
+	req.departureTime = data.depTime;
+	req.arrivalTime = data.arvTime;
+	req.origin = data.from;
+	req.destination = data.to;
+	req.duration = 1;
+
+	return function(dispatch) {
+		return  API.createFlight(req)
+			    	.then((resData) => {
+			    		if(resData.code === 502) {
+			    			dispatch(createFlightResponse()); 
+			    		}
+			    		else {
+			    			dispatch(createFlightResponse()); 	
+			    		}
+				        
+	      		});
+	  	};
 
 }
 
-function createFlightResponse(res) {
-  console.log("ss : ", res)
-  return (dispatch) => {
-    return callApi('flight').then(res => dispatch(updateFlightList(res)));
-  };
-  
-}
-
-function updateFlightList(data) {
-  return {
-    type: CREATE_FLIGHT,
-    msg: "New Flight Created",
-    flights: data.flights
-  }
-}
-
-export function adminsignin(data) {
-  let req = {};
-  req.email = data.email;
-  req.password = data.password;
-  req.isAdmin = true;
-
-  return (dispatch) => {
-    return callApi('/user/login', 'post', req).then(res => dispatch(adminlogin(res)));
-  };
-}
-
-function adminlogin(responseData) {
-  return {
-    type: ADMIN_SIGNIN,
-    data: responseData,
-    status: responseData.status
-  }
-}
-
-export function adminsignout() {
-   return {
-    type: ADMIN_SIGNOUT
-  }  
-}
-
-export function createHotel(data) {
-  return (dispatch) => {
-    return callApi('hotel', 'put', data).then(res => dispatch(createHotelResponse(res)));
-  };
-
-}
-
-function createHotelResponse(res) {
-  return (dispatch) => {
-    return callApi('hotel').then(res => dispatch(updateHotelList(res)));
-  };
-  
-}
-
-function updateHotelList(data) {
-  return {
-    type: CREATE_HOTEL,
-    msg: "New Hotel Created",
-    hotels: data.hotels
-  }
+function createFlightResponse() {
+	return {
+		type: CREATE_FLIGHT,
+		msg : "New Flight Created"
+	}
 }

@@ -1,12 +1,9 @@
 import React, {Component} from 'react';
 import styles from './Flight.css';
-import EditFlight from './../../../Admin/flights/EditFlight';
-import DeleteFlight from './../../../Admin/flights/DeleteFlight';
-
 export default class Flight extends Component {
 
     render() {
-        const {flight,isAdmin} = this.props;
+        const {flight} = this.props;
         function calculateInterval(){
             let departure = flight.departureTime.split(':');
             let departureTime = toSeconds(departure[0], departure[1]);
@@ -96,18 +93,10 @@ export default class Flight extends Component {
                       </div>                                                                              
                     </div> 
                 </div>
-                {isAdmin === 'true' ?
-                    <div className="col-md-2" id={styles['itemActionBlock']}>            
-                        <EditFlight /><br/>   
-                        <DeleteFlight />               
-                    </div>
-                    :
-                    <div className="col-md-2" id={styles['itemActionBlock']}>
-                            <span className={styles['priceValue']}>{flight.price.economy}</span><br/><br/>    
-                            <button className="btn btn-warning" onClick="">Book Flight</button>               
-                    </div> 
-                }
-                
+                <div className="col-md-2" id={styles['itemActionBlock']}>
+                        <span className={styles['priceValue']}>{flight.price.economy}</span><br/><br/>    
+                        <button className="btn btn-warning" onClick="">Book Flight</button>               
+                </div> 
             </div>               
             </div>
         );

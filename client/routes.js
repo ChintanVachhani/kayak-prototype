@@ -48,6 +48,5 @@ export default (
     <IndexRoute component={Home}/>
     <Route path="admin" component={Admin}/>
     <Route path="/:service" component={List}/>
-    <Route path="admin/:service" component={Admin}/>
   </Route>
 );

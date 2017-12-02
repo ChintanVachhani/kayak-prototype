@@ -37,19 +37,10 @@ export default class Car extends Component {
                           </div>
                         </div> 
                 </div>
-
-                {this.props.isAdmin === 'true' ?
-                    <div className="col-md-2" id= {styles['itemActionBlock']}>
-                        <button className="btn btn-warning" onClick="">Edit</button><br/><br/>    
-                        <button className="btn btn-warning" onClick="">Delete</button>            
-                    </div> 
-                :
-                    <div className="col-md-2" id= {styles['itemActionBlock']}>
+                <div className="col-md-2" id= {styles['itemActionBlock']}>
                         <strong><span className={styles['priceValue']}>{car.price}</span></strong><br/><br/>    
                         <button className="btn btn-warning" onClick="">Book Car</button>            
-                    </div> 
-                }
-
+                </div> 
             </div>               
             </div>
         );
