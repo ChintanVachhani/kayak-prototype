@@ -7,37 +7,35 @@ export const API_URL = (typeof window === 'undefined' || process.env.NODE_ENV ==
 
 export default function callApi(endpoint, method = 'get', body, header) {
   let reqBody;
-  if(method === 'get') {
+  if (method === 'get') {
     reqBody = {
-        headers: { 'content-type': 'application/json' },
-        method,
-      }
-  }
-  else if(header) {
-  reqBody = {
-    method,
-    body: body,
-  }
-}
-  else {
-    reqBody = {
-    headers: { 'content-type': 'application/json' },
-    method,
-    body: JSON.stringify(body),
-  }  
-  }
-  console.log("reqqqqqq : ", reqBody)
-  return fetch(`${API_URL}/${endpoint}`, reqBody)
-  .then(response => response.json().then(json => ({ json, response })))
-  .then(({ json, response }) => {
-    if (!response.ok) {
-      return Promise.reject(json);
+      headers: { 'content-type': 'application/json' },
+      method,
     }
+  } else if (header) {
+    reqBody = {
+      method,
+      body: body,
+    }
+  } else {
+    reqBody = {
+      headers: { 'content-type': 'application/json' },
+      method,
+      body: JSON.stringify(body),
+    }
+  }
 
-    return json;
-  })
-  .then(
-    response => response,
-    error => error
-  );
+  return fetch(`${API_URL}/${endpoint}`, reqBody)
+    .then(response => response.json().then(json => ({ json, response })))
+    .then(({ json, response }) => {
+      if (!response.ok) {
+        return Promise.reject(json);
+      }
+
+      return json;
+    })
+    .then(
+      response => response,
+      error => error
+    );
 }

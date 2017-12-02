@@ -1,11 +1,13 @@
 // Import Actions
-import { UPDATE_CARFORM, UPDATE_FLIGHTFORM, UPDATE_HOTELFORM } from './HomeActions';
+import { UPDATE_CARFORM, UPDATE_FLIGHTFORM, UPDATE_HOTELFORM, UPDATE_FORMTYPE } from './HomeActions';
+import {UPDATE_FORMTYPEHEADER} from '../Header/HeaderActions';
 
 // Initial State
 const initialState = {
 	carFormData : { place: '', toDate: '', fromDate: ''},
 	flightFormData : { fromPlace: '', toPlace: '', departDate:'', returnDate: '', passengers: '', cabinClass: ''},
-	hotelFormData : {place: '', checkin: '', checkout: '', rooms: ''}
+	hotelFormData : {place: '', checkin: '', checkout: '', rooms: ''},
+  formType: ''
 };
 
 const HomeReducer = (state = initialState, action) => {
@@ -13,12 +15,13 @@ const HomeReducer = (state = initialState, action) => {
 
   	case UPDATE_CARFORM :
         console.log("in update car form reducer case");
-        
-        temp = this.state.carFormData;
-        temp.place : action.carDetails.place;
-        temp.toDate : action.carDetails.toDate;
-        temp.fromDate : action.carDetails.fromDate;
-        
+       
+        let temp = state.carFormData;
+        temp.place = action.carDetails.place;
+        temp.toDate = action.carDetails.toDate;
+        temp.fromDate = action.carDetails.fromDate;
+        console.log("this is tmep");
+        console.log(temp.place);
            return {
                ...state,
                
@@ -28,13 +31,13 @@ const HomeReducer = (state = initialState, action) => {
     case UPDATE_FLIGHTFORM :
         console.log("in update flight form reducer case");
         
-        temp = this.state.flightFormData;
-        temp.fromPlace : action.flightDetails.fromPlace;
-        temp.toPlace : action.flightDetails.toPlace;
-        temp.departDate : action.flightDetails.departDate;
-        temp.returnDate : action.flightDetails.returnDate;
-        temp.passengers : action.flightDetails.passengers;
-        temp.cabinClass : action.flightDetails.cabinClass;
+        temp = state.flightFormData;
+        temp.fromPlace = action.flightDetails.fromPlace;
+        temp.toPlace = action.flightDetails.toPlace;
+        temp.departDate = action.flightDetails.departDate;
+        temp.returnDate = action.flightDetails.returnDate;
+        temp.passengers = action.flightDetails.passengers;
+        temp.cabinClass = action.flightDetails.cabinClass;
         
            return {
                ...state,
@@ -45,21 +48,34 @@ const HomeReducer = (state = initialState, action) => {
     case UPDATE_HOTELFORM :
         console.log("in update flight form reducer case");
         console.log("this is action user " + action.hotelDetails.username );
-        temp = this.state.hotelFormData;
-        temp.place : action.hotelDetails.place;
-        temp.checkin : action.hotelDetails.checkin;
-        temp.checkout : action.hotelDetails.checkout;
-        temp.rooms : action.hotelDetails.rooms;
+        temp = state.hotelFormData;
+        temp.place = action.hotelDetails.place;
+        temp.checkin = action.hotelDetails.checkin;
+        temp.checkout = action.hotelDetails.checkout;
+        temp.rooms = action.hotelDetails.rooms;
         
         
            return {
                ...state,
-               
                hotelFormData : temp
+           };
+    case UPDATE_FORMTYPE :
+           
+          return {
+               ...state,
+               formType : action.displayForm
            };
 
     default:
       return state;
+
+    case UPDATE_FORMTYPEHEADER :
+        console.log("in update formtype coming from header");
+        
+          return {
+               ...state,
+               formType : action.displayForm
+           };
   }
 };
 

@@ -1,7 +1,6 @@
 let mongoose = require('mongoose');
 
 const Schema = mongoose.Schema;
-let mongooseUniqueValidator = require('mongoose-unique-validator'); //mongoose plugin that provides extra validation check for unique values
 
 const carSchema = new Schema({
   operator: {type: 'String', required: true},
@@ -15,7 +14,5 @@ const carSchema = new Schema({
   carImage: {data: 'Buffer', contentType: 'String'},
   dateAdded: {type: 'Date', default: Date.now},
 });
-
-carSchema.plugin(mongooseUniqueValidator);
 
 module.exports = mongoose.model('Car', carSchema);

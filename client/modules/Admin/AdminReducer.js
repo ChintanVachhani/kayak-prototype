@@ -30,28 +30,28 @@ const AdminReducer = (state = initialState, action) => {
       };
 
     case ADMIN_SIGNIN:
-     	console.log("staus : ", action.data)
-     	if(action.status === 200) {
-     		return {
-		        ...state,
-		        isLoggedIn: true,
-		        "msg": action.msg
-		    };
-     	}
-     	else {
-     		if(action.data.error !== undefined) {
-     			return {
-     				...state,
-     				"msg": action.data.error.message
-     			}	
-     		} else {
-     			return {
-     				...state,
-     				isLoggedIn: true
-     			}	
-     		}
-     		
-     	}   
+      console.log("staus : ", action.data)
+      if(action.status === 200) {
+        return {
+            ...state,
+            isLoggedIn: true,
+            "msg": action.msg
+        };
+      }
+      else {
+        if(action.data.error !== undefined) {
+          return {
+            ...state,
+            "msg": action.data.error.message
+          } 
+        } else {
+          return {
+            ...state,
+            isLoggedIn: true
+          } 
+        }
+        
+      }   
 
     case ADMIN_SIGNOUT:
                   return {

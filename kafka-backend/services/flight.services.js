@@ -1,5 +1,4 @@
 let Flight = require('../models/flight');
-let cuid = require('cuid');
 
 function handle_request(req, callback) {
   console.log("In handle request:" + JSON.stringify(req));
@@ -7,8 +6,7 @@ function handle_request(req, callback) {
   let res;
 
   if (req.name === 'createFlight') {
-    let flight = Flight({
-      cuid: cuid(),
+       let flight = Flight({
       flightID: req.body.flightID,
       price: {
         economy: req.body.economy,
@@ -49,8 +47,8 @@ function handle_request(req, callback) {
   }
 
   if (req.name === 'getFlight') {
-    Flight.findOne({cuid: req.params.cuid}, (error, flight) => {
-      if (error) {
+    Flight.findOne({_id: req.params._id}, (error, flight) => {
+      if (error || !flight) {
         res = {
           status: 404,
           title: 'Flight not found.',
@@ -69,8 +67,8 @@ function handle_request(req, callback) {
   }
 
   if (req.name === 'updateFlight') {
-    Flight.findOneAndUpdate({cuid: req.params.cuid}, req.body, (error, flight) => {
-      if (error) {
+    Flight.findOneAndUpdate({_id: req.params._id}, req.body, (error, flight) => {
+      if (error || !flight) {
         res = {
           status: 404,
           title: 'Flight not found.',
@@ -89,8 +87,8 @@ function handle_request(req, callback) {
   }
 
   if (req.name === 'deleteFlight') {
-    Flight.findOneAndRemove({cuid: req.params.cuid}, (error, flight) => {
-      if (error) {
+    Flight.findOneAndRemove({_id: req.params._id}, (error, flight) => {
+      if (error || !flight) {
         res = {
           status: 404,
           title: 'Flight not found.',
@@ -111,7 +109,7 @@ function handle_request(req, callback) {
     Flight.find({}, (error, flights) => {
       if (error) {
         res = {
-          status: 404,
+          status: 500,
           title: 'Flights not retrieved.',
           error: {message: 'Failed to retrieve flights.'},
         };

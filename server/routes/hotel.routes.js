@@ -7,15 +7,15 @@ const router = new Router();
 router.route('/').put(HotelController.createHotel);
 
 // Get Hotel
-router.route('/:cuid').get(HotelController.getHotel);
+router.route('/:_id').get(HotelController.getHotel);
 
 // Delete Hotel
-router.route('/:cuid').delete(HotelController.deleteHotel);
+router.route('/:_id').delete(HotelController.deleteHotel);
 
 // Update Hotel
-router.route('/:cuid').patch(HotelController.updateHotel);
+router.route('/:_id').patch(HotelController.updateHotel);
 
 // Get All Hotel
-router.route('/').get(HotelController.getAllHotels);
+router.route('/all').get(HotelController.getAllHotels);
 
 export default router;

@@ -10,12 +10,12 @@ router.route('/signup').post(UserController.signup);
 router.route('/signin').post(UserController.signin);
 
 // Get User
-router.route('/:cuid').get(UserController.getUser);
+router.route('/:email').get(UserController.getUser);
 
 // Delete User
-router.route('/:cuid').delete(UserController.deleteUser);
+router.route('/:email').delete(UserController.deleteUser);
 
 // Update User
-router.route('/:cuid').patch(UserController.updateUser);
+router.route('/:email').patch(UserController.updateUser);
 
 export default router;

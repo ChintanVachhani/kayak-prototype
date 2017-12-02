@@ -1,12 +1,11 @@
 let Car = require('../models/car');
-let cuid = require('cuid');
 
 function handle_request(req, callback) {
   console.log("In handle request:" + JSON.stringify(req));
 
   let res;
 
-  if (req.name === 'createCar') {
+  if (req.name === 'createCar') {   
     let car = Car({
       operator: req.body.operator,
       class: req.body.class,
@@ -39,11 +38,11 @@ function handle_request(req, callback) {
 
     });
 
-
   }
 
+
   if (req.name === 'getCar') {
-    Car.findOne({ cuid: req.params.cuid }, (error, car) => {
+   Car.findOne({_id: req.params._id}, (error, car) => {
       if (error) {
         res = {
           status: 404,
@@ -63,8 +62,9 @@ function handle_request(req, callback) {
   }
 
   if (req.name === 'updateCar') {
-    Car.findOneAndUpdate({ cuid: req.params.cuid }, req.body, (error, car) => {
-      if (error) {
+
+    Car.findOneAndUpdate({_id: req.params._id}, req.body, (error, car) => {
+      if (error || !car) {
         res = {
           status: 404,
           title: 'Car not found.',
@@ -83,8 +83,9 @@ function handle_request(req, callback) {
   }
 
   if (req.name === 'deleteCar') {
-    Car.findOneAndRemove({ cuid: req.params.cuid }, (error, car) => {
-      if (error) {
+
+    Car.findOneAndRemove({_id: req.params._id}, (error, car) => {
+      if (error || !car) {
         res = {
           status: 404,
           title: 'Car not found.',
@@ -105,7 +106,7 @@ function handle_request(req, callback) {
     Car.find({}, (error, cars) => {
       if (error) {
         res = {
-          status: 404,
+          status: 500,
           title: 'Cars not retrieved.',
           error: { message: 'Failed to retrieve cars.' },
         };
@@ -124,6 +125,9 @@ function handle_request(req, callback) {
   if (req.name === 'searchCars') {
     //Naive logic - to be optimized later
     let conditions = {};
+
+    //$or:[ {class: req.query.economy ? 'Economy' : ''}, {class:param}, {class:param} ]
+
     if (req.query.location !== null && req.query.class !== null && req.query.minPrice !== null && req.query.maxPrice !== null) {
       conditions = {
         location: req.query.location,
@@ -149,7 +153,7 @@ function handle_request(req, callback) {
     Car.find(conditions, (error, cars) => {
       if (error) {
         res = {
-          status: 404,
+          status: 500,
           title: 'Cars not retrieved.',
           error: { message: 'Failed to retrieve cars.' },
         };

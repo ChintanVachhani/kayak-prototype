@@ -4,7 +4,6 @@ const Schema = mongoose.Schema;
 let mongooseUniqueValidator = require('mongoose-unique-validator'); //mongoose plugin that provides extra validation check for unique values
 
 const userDetailSchema = new Schema({
-  cuid: {type: 'String', required: true, unique: true},
   firstName: {type: 'String', required: true},
   lastName: {type: 'String', required: true},
   address: {type: 'String', default: ""},

@@ -7,15 +7,15 @@ const router = new Router();
 router.route('/').put(FlightController.createFlight);
 
 // Get Flight
-router.route('/:cuid').get(FlightController.getFlight);
+router.route('/:_id').get(FlightController.getFlight);
 
 // Delete Flight
-router.route('/:cuid').delete(FlightController.deleteFlight);
+router.route('/:_id').delete(FlightController.deleteFlight);
 
 // Update Flight
-router.route('/:cuid').patch(FlightController.updateFlight);
+router.route('/:_id').patch(FlightController.updateFlight);
 
 // Get All Flight
-router.route('/').get(FlightController.getAllFlights);
+router.route('/all').get(FlightController.getAllFlights);
 
 export default router;

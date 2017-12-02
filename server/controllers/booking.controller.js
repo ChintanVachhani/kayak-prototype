@@ -1,83 +1,14 @@
 // Please put 'kafka' directory containing 'client.js', 'Connection.js' & 'kafkarpc.js', in the routes folder
 let kafka = require('../routes/kafka/client');
-var fs = require('fs');
-var multer = require('multer');
 
-var storage = multer.diskStorage({
-  destination: function(req, file, callback) {
-    callback(null, './files');
-  },
-  filename: function(req, file, callback) {
-    callback(null, file.originalname);
-  }
-});
-
-var upload = multer({
-  storage: storage
-}).any();
-
-export function createFlight(req, res) {
-
-  upload(req, res, function(err) {
-    if (err) {
-      res.send(JSON.stringify({ code: 500, msg: "File Upload Failed" }));
-    } else {
-      let name = req.files[0].originalname;
-      let type = req.files[0].mimetype;
-      fs.readFile("./files/" + name, "base64", function(err, data) {
-        let imageData = { data: data, contentType: type };
-        req.body.operatorImage = imageData;
-        fs.unlink("./files/" + name, function(err) {
-
-          kafka.make_request('flightTopic', {
-            name: 'createFlight',
-            headers: req.headers,
-            params: req.params,
-            query: req.query,
-            body: req.body
-          }, function(err, response) {
-            console.log('in result--->');
-            console.log(response);
-
-            switch (response.status) {
-              case 200:
-                res.status(200).json(response);
-                break;
-              case 201:
-                res.status(201).json(response);
-                break;
-              case 400:
-                res.status(400).json(response);
-                break;
-              case 401:
-                res.status(401).json(response);
-                break;
-              case 404:
-                res.status(404).json(response);
-                break;
-              case 500:
-                res.status(500).json(response);
-                break;
-            }
-          });
-
-        });
-
-      });
-    }
-
-  });
-}
-
-export function getFlight(req, res) {
-
-  kafka.make_request('flightTopic', {
-    name: 'getFlight',
+export function createBooking(req, res) {
+  kafka.make_request('bookingTopic', {
+    name: 'createBooking',
     headers: req.headers,
     params: req.params,
     query: req.query,
     body: req.body
-  }, function(err, response) {
+  }, function (err, response) {
     console.log('in result--->');
     console.log(response);
 
@@ -104,14 +35,14 @@ export function getFlight(req, res) {
   });
 }
 
-export function updateFlight(req, res) {
-  kafka.make_request('flightTopic', {
-    name: 'updateFlight',
+export function getBooking(req, res) {
+  kafka.make_request('bookingTopic', {
+    name: 'getBooking',
     headers: req.headers,
     params: req.params,
     query: req.query,
     body: req.body
-  }, function(err, response) {
+  }, function (err, response) {
     console.log('in result--->');
     console.log(response);
 
@@ -138,14 +69,14 @@ export function updateFlight(req, res) {
   });
 }
 
-export function deleteFlight(req, res) {
-  kafka.make_request('flightTopic', {
-    name: 'deleteFlight',
+export function updateBooking(req, res) {
+  kafka.make_request('bookingTopic', {
+    name: 'updateBooking',
     headers: req.headers,
     params: req.params,
     query: req.query,
     body: req.body
-  }, function(err, response) {
+  }, function (err, response) {
     console.log('in result--->');
     console.log(response);
 
@@ -172,14 +103,48 @@ export function deleteFlight(req, res) {
   });
 }
 
-export function getAllFlights(req, res) {
-  kafka.make_request('flightTopic', {
-    name: 'getAllFlights',
+export function deleteBooking(req, res) {
+  kafka.make_request('bookingTopic', {
+    name: 'deleteBooking',
     headers: req.headers,
     params: req.params,
     query: req.query,
     body: req.body
-  }, function(err, response) {
+  }, function (err, response) {
+    console.log('in result--->');
+    console.log(response);
+
+    switch (response.status) {
+      case 200:
+        res.status(200).json(response);
+        break;
+      case 201:
+        res.status(201).json(response);
+        break;
+      case 400:
+        res.status(400).json(response);
+        break;
+      case 401:
+        res.status(401).json(response);
+        break;
+      case 404:
+        res.status(404).json(response);
+        break;
+      case 500:
+        res.status(500).json(response);
+        break;
+    }
+  });
+}
+
+export function getAllBookings(req, res) {
+  kafka.make_request('bookingTopic', {
+    name: 'getAllBookings',
+    headers: req.headers,
+    params: req.params,
+    query: req.query,
+    body: req.body
+  }, function (err, response) {
     console.log('in result--->');
     console.log(response);
 

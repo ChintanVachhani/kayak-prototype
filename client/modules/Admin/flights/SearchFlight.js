@@ -57,13 +57,10 @@ class SearchFlight extends React.Component {
                   <input type="text" className="form-control" id="inputPassword4" placeholder="Arrival Time" />
                 </div>
               </div>
-             <div className="form-row">
-               <div className="form-group col-md-12">
+            
               <button type="submit" className="btn btn-primary" onSubmit={() => {this.handleCreateFolder()}}>Search Flight</button>
               &nbsp;
                <Button color="secondary" onClick={this.toggle}>Cancel</Button>
-               </div>
-               </div>
             </form>
           </ModalBody>
         </Modal>

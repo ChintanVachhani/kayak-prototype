@@ -1,5 +1,4 @@
 let Hotel = require('../models/hotel');
-let cuid = require('cuid');
 
 function handle_request(req, callback) {
   console.log("In handle request:" + JSON.stringify(req));
@@ -7,8 +6,7 @@ function handle_request(req, callback) {
   let res;
 
   if (req.name === 'createHotel') {
-    let hotel = Hotel({
-      cuid: cuid(),
+        let hotel = Hotel({
       hotelName: req.body.hotelName,
       price: req.body.price,
       star: req.body.star,
@@ -40,13 +38,11 @@ function handle_request(req, callback) {
       }
      
     });
-
-   
   }
 
   if (req.name === 'getHotel') {
-    Hotel.findOne({cuid: req.params.cuid}, (error, hotel) => {
-      if (error) {
+    Hotel.findOne({_id: req.params._id}, (error, hotel) => {
+      if (error || !hotel) {
         res = {
           status: 404,
           title: 'Hotel not found.',
@@ -65,8 +61,8 @@ function handle_request(req, callback) {
   }
 
   if (req.name === 'updateHotel') {
-    Hotel.findOneAndUpdate({cuid: req.params.cuid}, req.body, (error, hotel) => {
-      if (error) {
+    Hotel.findOneAndUpdate({_id: req.params._id}, req.body, (error, hotel) => {
+      if (error || !hotel) {
         res = {
           status: 404,
           title: 'Hotel not found.',
@@ -85,8 +81,8 @@ function handle_request(req, callback) {
   }
 
   if (req.name === 'deleteHotel') {
-    Hotel.findOneAndRemove({cuid: req.params.cuid}, (error, hotel) => {
-      if (error) {
+    Hotel.findOneAndRemove({_id: req.params._id}, (error, hotel) => {
+      if (error || !hotel) {
         res = {
           status: 404,
           title: 'Hotel not found.',
@@ -107,7 +103,7 @@ function handle_request(req, callback) {
     Hotel.find({}, (error, hotels) => {
       if (error) {
         res = {
-          status: 404,
+          status: 500,
           title: 'Hotels not retrieved.',
           error: {message: 'Failed to retrieve hotels.'},
         };
@@ -151,7 +147,7 @@ function handle_request(req, callback) {
     Hotel.find(conditions, (error, hotels) => {
       if (error) {
         res = {
-          status: 404,
+          status: 500,
           title: 'Hotels not retrieved.',
           error: {message: 'Failed to retrieve hotels.'},
         };
