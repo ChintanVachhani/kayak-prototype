@@ -4,7 +4,7 @@ import * as HotelController from '../controllers/hotel.controller';
 const router = new Router();
 
 // Get All Hotels
-router.route('/all').get(HotelController.getAllHotels);
+router.route('/').get(HotelController.getAllHotels);
 
 // Search Hotels
 router.route('/search').get(HotelController.searchHotels);

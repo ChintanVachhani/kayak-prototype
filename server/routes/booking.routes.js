@@ -4,7 +4,7 @@ import * as BookingController from '../controllers/booking.controller';
 const router = new Router();
 
 // Get All Bookings
-router.route('/all').get(BookingController.getAllBookings);
+router.route('/').get(BookingController.getAllBookings);
 
 // Create Booking
 router.route('/').put(BookingController.createBooking);

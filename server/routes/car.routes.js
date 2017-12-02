@@ -4,7 +4,7 @@ import * as CarController from '../controllers/car.controller';
 const router = new Router();
 
 // Get All Cars
-router.route('/all').get(CarController.getAllCars);
+router.route('/').get(CarController.getAllCars);
 
 // Search Cars
 router.route('/search').get(CarController.searchCars);

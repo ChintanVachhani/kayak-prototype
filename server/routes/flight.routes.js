@@ -5,7 +5,7 @@ const router = new Router();
 
 
 // Get All Flights
-router.route('/all').get(FlightController.getAllFlights);
+router.route('/').get(FlightController.getAllFlights);
 
 // Search Flights
 router.route('/search').get(FlightController.searchFlights);
