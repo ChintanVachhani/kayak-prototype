@@ -12,22 +12,7 @@ import styles from './Home.css';
 
 class Home extends Component {
 
-	state = {
-		type : 'flights',
-	}
-
-
-  
-componentDidMount() {
-    console.log(" Refreshing Home page");
-    console.log(this.state.type);
-  
-        
-    }
-
     render() {
-
-      
 
     return (
 
