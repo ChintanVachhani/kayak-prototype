@@ -43,7 +43,7 @@ function handle_request(req, callback) {
 
   if (req.name === 'getFlight') {
     Flight.findOne({cuid: req.params.cuid}, (error, flight) => {
-      if (error) {
+      if (error || !flight) {
         res = {
           status: 404,
           title: 'Flight not found.',
@@ -63,7 +63,7 @@ function handle_request(req, callback) {
 
   if (req.name === 'updateFlight') {
     Flight.findOneAndUpdate({cuid: req.params.cuid}, req.body, (error, flight) => {
-      if (error) {
+      if (error || !flight) {
         res = {
           status: 404,
           title: 'Flight not found.',
@@ -83,7 +83,7 @@ function handle_request(req, callback) {
 
   if (req.name === 'deleteFlight') {
     Flight.findOneAndRemove({cuid: req.params.cuid}, (error, flight) => {
-      if (error) {
+      if (error || !flight) {
         res = {
           status: 404,
           title: 'Flight not found.',
@@ -104,7 +104,7 @@ function handle_request(req, callback) {
     Flight.find({}, (error, flights) => {
       if (error) {
         res = {
-          status: 404,
+          status: 500,
           title: 'Flights not retrieved.',
           error: {message: 'Failed to retrieve flights.'},
         };

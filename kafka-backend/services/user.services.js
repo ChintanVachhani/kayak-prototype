@@ -106,7 +106,7 @@ function handle_request(req, callback) {
 
   if (req.name === 'getUser') {
     UserDetail.findOne({cuid: req.params.cuid}, (error, user) => {
-      if (error) {
+      if (error || !user) {
         res = {
           status: 404,
           title: 'User not found.',
@@ -115,9 +115,9 @@ function handle_request(req, callback) {
         callback(null, res);
       } else {
         res = {
-          status: 200,
-          message: 'Successfully retrieved user.',
-          user: user,
+          status: 404,
+          title: 'User not found.',
+          error: {message: 'Failed to retrieve user.'},
         };
         callback(null, res);
       }
@@ -126,7 +126,7 @@ function handle_request(req, callback) {
 
   if (req.name === 'updateUser') {
     UserDetail.findOneAndUpdate({cuid: req.params.cuid}, req.body, (error, user) => {
-      if (error) {
+      if (error || !user) {
         res = {
           status: 404,
           title: 'User not found.',
@@ -146,7 +146,7 @@ function handle_request(req, callback) {
 
   if (req.name === 'deleteUser') {
     UserDetail.findOneAndRemove({cuid: req.params.cuid}, (error, user) => {
-      if (error) {
+      if (error || !user) {
         res = {
           status: 404,
           title: 'User not found.',

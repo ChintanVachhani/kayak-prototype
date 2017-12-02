@@ -38,7 +38,7 @@ function handle_request(req, callback) {
 
   if (req.name === 'getHotel') {
     Hotel.findOne({cuid: req.params.cuid}, (error, hotel) => {
-      if (error) {
+      if (error || !hotel) {
         res = {
           status: 404,
           title: 'Hotel not found.',
@@ -58,7 +58,7 @@ function handle_request(req, callback) {
 
   if (req.name === 'updateHotel') {
     Hotel.findOneAndUpdate({cuid: req.params.cuid}, req.body, (error, hotel) => {
-      if (error) {
+      if (error || !hotel) {
         res = {
           status: 404,
           title: 'Hotel not found.',
@@ -78,7 +78,7 @@ function handle_request(req, callback) {
 
   if (req.name === 'deleteHotel') {
     Hotel.findOneAndRemove({cuid: req.params.cuid}, (error, hotel) => {
-      if (error) {
+      if (error || !hotel) {
         res = {
           status: 404,
           title: 'Hotel not found.',
@@ -99,7 +99,7 @@ function handle_request(req, callback) {
     Hotel.find({}, (error, hotels) => {
       if (error) {
         res = {
-          status: 404,
+          status: 500,
           title: 'Hotels not retrieved.',
           error: {message: 'Failed to retrieve hotels.'},
         };
@@ -143,7 +143,7 @@ function handle_request(req, callback) {
     Hotel.find(conditions, (error, hotels) => {
       if (error) {
         res = {
-          status: 404,
+          status: 500,
           title: 'Hotels not retrieved.',
           error: {message: 'Failed to retrieve hotels.'},
         };
