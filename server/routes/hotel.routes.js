@@ -16,6 +16,6 @@ router.route('/:_id').delete(HotelController.deleteHotel);
 router.route('/:_id').patch(HotelController.updateHotel);
 
 // Get All Hotel
-router.route('/all').get(HotelController.getAllHotels);
+router.route('/').get(HotelController.getAllHotels);
 
 export default router;

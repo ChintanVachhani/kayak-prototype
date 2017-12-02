@@ -4,7 +4,6 @@ const Schema = mongoose.Schema;
 let mongooseUniqueValidator = require('mongoose-unique-validator'); //mongoose plugin that provides extra validation check for unique values
 
 const hotelSchema = new Schema({
-  cuid: {type: 'String', required: true, unique: true},
   hotelName: {type: 'String', required: true},
   price: {type: 'Number', required: true},
   star: {type: 'Number', required: true},

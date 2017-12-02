@@ -44,7 +44,7 @@ class EditFlight extends React.Component {
 
     return (
       <div>
-        <button type="button" className="btn btn-primary" onClick={this.toggle}>Edit</button>
+        <button type="button" className="btn btn-warning" onClick={this.toggle}>Edit</button>
         
         <Modal isOpen={this.state.modal} toggle={this.toggle} className={this.props.className}>
           <ModalHeader><h3>Update Flight</h3></ModalHeader>
@@ -133,7 +133,7 @@ class EditFlight extends React.Component {
               </div>
               <div className="form-row">
                <div className="form-group col-md-12">
-              <button type="button" className="btn btn-primary" onClick={() => {this.handleCreateFlight()}}>Create Flight</button>
+              <button type="button" className="btn btn-primary" onClick={() => {this.handleCreateFlight()}}>Update Flight</button>
               &nbsp;
                <button type="button" className="btn btn-secondary" onClick={this.toggle}>Cancel</button>
                </div>
