@@ -5,7 +5,7 @@ import CreateCar from './CreateCar';
 import SearchCar from './SearchCar';
 import CarItem from './CarItem';
 import { Alert } from 'reactstrap';
-import CarList from './../../List/components/Car/CarList';
+import CarList from './CarList';
 
 class CarsHome extends Component {
   render() {

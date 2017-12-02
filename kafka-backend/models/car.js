@@ -4,7 +4,6 @@ const Schema = mongoose.Schema;
 let mongooseUniqueValidator = require('mongoose-unique-validator'); //mongoose plugin that provides extra validation check for unique values
 
 const carSchema = new Schema({
-  cuid: {type: 'String', required: true, unique: true},
   operator: {type: 'String', required: true},
   class: {type: 'String', required: true},
   price: {type: 'Number', required: true},

@@ -11,9 +11,9 @@ function handle_request(req, callback) {
       cuid: cuid(),
       flightID: req.body.flightID,
       price: {
-        economy: req.body.price.economy,
-        business: req.body.price.business,
-        firstClass: req.body.price.firstClass,
+        economy: req.body.economy,
+        business: req.body.business,
+        firstClass: req.body.firstClass,
       },
       operator: req.body.operator,
       departureTime: req.body.departureTime,
@@ -21,27 +21,31 @@ function handle_request(req, callback) {
       duration: req.body.duration,
       origin: req.body.origin,
       destination: req.body.destination,
-      //operatorImage: req.body.operatorImage,
+      operatorImage: req.body.operatorImage,
     });
     flight.save(function (error) {
       if(error) {
         console.log("ss : ", error)
-      }
+      
       res = {
         status: 400,
         title: 'Invalid data.',
         error: {message: 'Failed to create flight.'},
       };
       callback(null, res);
-    });
-
-    res = {
+    }
+    else {
+       res = {
       status: 201,
       message: 'Successfully created flight.',
       flight: flight,
     };
 
     callback(null, res);
+    }
+    });
+
+   
   }
 
   if (req.name === 'getFlight') {

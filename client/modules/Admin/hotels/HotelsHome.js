@@ -5,7 +5,7 @@ import CreateHotel from './CreateHotel';
 import SearchHotel from './SearchHotel';
 import { Alert } from 'reactstrap';
 import HotelItem from './HotelItem';
-import HotelList from './../../List/components/Hotel/HotelList';
+import HotelList from './HotelList';
 
 class HotelsHome extends Component {
   render() {

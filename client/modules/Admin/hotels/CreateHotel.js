@@ -17,7 +17,8 @@ class CreateHotel extends React.Component {
       "address":"",
       "city":"", 
       "state":"",
-      "zipCode":""
+      "zipCode":"",
+      "data":""
     };
 
     this.toggle = this.toggle.bind(this);
@@ -31,9 +32,26 @@ class CreateHotel extends React.Component {
   }
 
 
+  updateLogo = (event) => {
+      const data = new FormData();
+      data.append('hotelName', this.state.hotelName);
+    data.append('star', this.state.star);
+    data.append('avgRating', this.state.avgRating);
+    data.append('noReviews', this.state.noReviews);
+    data.append('price', this.state.price);
+    data.append('address', this.state.address);
+    data.append('city', this.state.city);
+    data.append('state', this.state.state);
+    data.append('zipCode', this.state.zipCode);
+    data.append('file', event.target.files[0]);
+    this.setState({
+      data: data
+    });
+  }
+
   handleCreateHotel() {
     this.toggle();
-    this.props.createHotel(this.state);  
+    this.props.createHotel(this.state.data);  
 
   }
 
@@ -132,10 +150,19 @@ class CreateHotel extends React.Component {
                                     }); }} />
                 </div>
               </div>
-              
+             <div className="form-row">
+                <div className="form-group col-md-12">
+                  <label for="inputCity">Operator Logo</label>
+                  <input className="form-control-file" type="file" onChange={this.updateLogo} />
+                </div>
+              </div>
+              <div className="form-row">
+                <div className="form-group col-md-12">
               <button type="button" className="btn btn-primary" onClick={() => {this.handleCreateHotel()}}>Create Hotel</button>
               &nbsp;
                <Button color="secondary" onClick={this.toggle}>Cancel</Button>
+               </div>
+               </div>
             </form>
           </ModalBody>
         </Modal>

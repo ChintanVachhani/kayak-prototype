@@ -6,7 +6,10 @@ import DeleteFlight from './../../../Admin/flights/DeleteFlight';
 export default class Flight extends Component {
 
     render() {
+
         const {flight,isAdmin} = this.props;
+        const imgTag = "data:"+flight.operatorImage.contentType+";base64," + flight.operatorImage.data.data;
+        console.log(imgTag)
         function calculateInterval(){
             let departure = flight.departureTime.split(':');
             let departureTime = toSeconds(departure[0], departure[1]);
@@ -46,7 +49,7 @@ export default class Flight extends Component {
                       <div className="col-md-4">
                         <div className="row">
                             <div className="col-md-12">
-                                image
+                                <img src={imgTag} />
                             </div>
                         </div>
                         <div className="row">

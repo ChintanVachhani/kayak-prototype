@@ -8,7 +8,6 @@ function handle_request(req, callback) {
 
   if (req.name === 'createCar') {
     let car = Car({
-      cuid: cuid(),
       operator: req.body.operator,
       class: req.body.class,
       price: req.body.price,
@@ -17,39 +16,39 @@ function handle_request(req, callback) {
       capBags: req.body.capBags,
       doors: req.body.doors,
       location: req.body.location,
-      //carImage: req.body.carImage,
+      carImage: req.body.carImage,
     });
-    car.save(function (error) {
-      if(error) {
-      res = {
-        status: 400,
-        title: 'Invalid data.',
-        error: {message: 'Failed to create car.'},
-      };
-      callback(null, res);
-      }
-      else {
-      res = {
-      status: 201,
-      message: 'Successfully created car.',
-      car: car,
-    };
+    car.save(function(error) {
+      if (error) {
+        console.log("error : ", error)
+        res = {
+          status: 400,
+          title: 'Invalid data.',
+          error: { message: 'Failed to create car.' },
+        };
+        callback(null, res);
+      } else {
+        res = {
+          status: 201,
+          message: 'Successfully created car.',
+          car: car,
+        };
 
-    callback(null, res);
+        callback(null, res);
       }
-      
+
     });
 
-    
+
   }
 
   if (req.name === 'getCar') {
-    Car.findOne({cuid: req.params.cuid}, (error, car) => {
+    Car.findOne({ cuid: req.params.cuid }, (error, car) => {
       if (error) {
         res = {
           status: 404,
           title: 'Car not found.',
-          error: {message: 'Failed to retrieve car.'},
+          error: { message: 'Failed to retrieve car.' },
         };
         callback(null, res);
       } else {
@@ -64,12 +63,12 @@ function handle_request(req, callback) {
   }
 
   if (req.name === 'updateCar') {
-    Car.findOneAndUpdate({cuid: req.params.cuid}, req.body, (error, car) => {
+    Car.findOneAndUpdate({ cuid: req.params.cuid }, req.body, (error, car) => {
       if (error) {
         res = {
           status: 404,
           title: 'Car not found.',
-          error: {message: 'Failed to update car.'},
+          error: { message: 'Failed to update car.' },
         };
         callback(null, res);
       } else {
@@ -84,12 +83,12 @@ function handle_request(req, callback) {
   }
 
   if (req.name === 'deleteCar') {
-    Car.findOneAndRemove({cuid: req.params.cuid}, (error, car) => {
+    Car.findOneAndRemove({ cuid: req.params.cuid }, (error, car) => {
       if (error) {
         res = {
           status: 404,
           title: 'Car not found.',
-          error: {message: 'Failed to delete car.'},
+          error: { message: 'Failed to delete car.' },
         };
         callback(null, res);
       } else {
@@ -108,7 +107,7 @@ function handle_request(req, callback) {
         res = {
           status: 404,
           title: 'Cars not retrieved.',
-          error: {message: 'Failed to retrieve cars.'},
+          error: { message: 'Failed to retrieve cars.' },
         };
         callback(null, res);
       } else {
@@ -129,7 +128,7 @@ function handle_request(req, callback) {
       conditions = {
         location: req.query.location,
         class: req.query.class,
-        price: {$gte: req.query.minPrice, $lte: req.query.maxPrice},
+        price: { $gte: req.query.minPrice, $lte: req.query.maxPrice },
       };
     } else if (req.query.location !== null && req.query.class !== null) {
       conditions = {
@@ -139,7 +138,7 @@ function handle_request(req, callback) {
     } else if (req.query.location !== null && req.query.minPrice !== null && req.query.maxPrice !== null) {
       conditions = {
         location: req.query.location,
-        price: {$gte: req.query.minPrice, $lte: req.query.maxPrice},
+        price: { $gte: req.query.minPrice, $lte: req.query.maxPrice },
       };
     } else if (req.query.location !== null) {
       conditions = {
@@ -152,7 +151,7 @@ function handle_request(req, callback) {
         res = {
           status: 404,
           title: 'Cars not retrieved.',
-          error: {message: 'Failed to retrieve cars.'},
+          error: { message: 'Failed to retrieve cars.' },
         };
         callback(null, res);
       } else {

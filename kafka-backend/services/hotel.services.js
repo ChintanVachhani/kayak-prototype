@@ -16,9 +16,10 @@ function handle_request(req, callback) {
       city: req.body.city,
       state: req.body.state,
       zipCode: req.body.zipCode,
-      //hotelImage: req.body.hotelImage,
+      hotelImage: req.body.hotelImage,
     });
     hotel.save(function (error) {
+      console.log("error : ", error)
       if(error) {
          res = {
         status: 400,
