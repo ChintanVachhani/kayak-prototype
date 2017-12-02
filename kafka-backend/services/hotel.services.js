@@ -121,30 +121,22 @@ function handle_request(req, callback) {
 
   if (req.name === 'searchHotels') {
     //Naive logic - to be optimized later
-    let conditions = {};
-    if (req.query.city !== null && req.query.star !== null && req.query.minPrice !== null && req.query.maxPrice !== null) {
-      conditions = {
-        city: req.query.city,
-        star: req.query.star,
-        price: {$gte: req.query.minPrice, $lte: req.query.maxPrice},
-      };
-    } else if (req.query.city !== null && req.query.star !== null) {
-      conditions = {
-        city: req.query.city,
-        star: req.query.star,
-      };
-    } else if (req.query.city !== null && req.query.minPrice !== null && req.query.maxPrice !== null) {
-      conditions = {
-        city: req.query.city,
-        price: {$gte: req.query.minPrice, $lte: req.query.maxPrice},
-      };
-    } else if (req.query.city !== null) {
-      conditions = {
-        city: req.query.city,
-      };
+    let conditions = [];
+
+    if (req.query.star !== undefined) {
+      conditions.push({star: req.query.star});
+    }
+    if (req.query.city !== undefined) {
+      conditions.push({city: req.query.city});
+    }
+    if (req.query.minPrice !== undefined) {
+      conditions.push({price: {$gte: req.query.minPrice}});
+    }
+    if (req.query.maxPrice !== undefined) {
+      conditions.push({price: {$lte: req.query.maxPrice}});
     }
 
-    Hotel.find(conditions, (error, hotels) => {
+    Hotel.find({$and: conditions}, (error, hotels) => {
       if (error) {
         res = {
           status: 500,

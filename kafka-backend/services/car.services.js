@@ -5,7 +5,7 @@ function handle_request(req, callback) {
 
   let res;
 
-  if (req.name === 'createCar') {   
+  if (req.name === 'createCar') {
     let car = Car({
       operator: req.body.operator,
       class: req.body.class,
@@ -15,15 +15,14 @@ function handle_request(req, callback) {
       capBags: req.body.capBags,
       doors: req.body.doors,
       location: req.body.location,
-      carImage: req.body.carImage,
+      //carImage: req.body.carImage,
     });
-    car.save(function(error) {
+    car.save(function (error) {
       if (error) {
-        console.log("error : ", error)
         res = {
           status: 400,
           title: 'Invalid data.',
-          error: { message: 'Failed to create car.' },
+          error: {message: 'Failed to create car.'},
         };
         callback(null, res);
       } else {
@@ -32,22 +31,18 @@ function handle_request(req, callback) {
           message: 'Successfully created car.',
           car: car,
         };
-
         callback(null, res);
       }
-
     });
-
   }
 
-
   if (req.name === 'getCar') {
-   Car.findOne({_id: req.params._id}, (error, car) => {
-      if (error) {
+    Car.findOne({_id: req.params._id}, (error, car) => {
+      if (error || !car) {
         res = {
           status: 404,
           title: 'Car not found.',
-          error: { message: 'Failed to retrieve car.' },
+          error: {message: 'Failed to retrieve car.'},
         };
         callback(null, res);
       } else {
@@ -62,13 +57,12 @@ function handle_request(req, callback) {
   }
 
   if (req.name === 'updateCar') {
-
     Car.findOneAndUpdate({_id: req.params._id}, req.body, (error, car) => {
       if (error || !car) {
         res = {
           status: 404,
           title: 'Car not found.',
-          error: { message: 'Failed to update car.' },
+          error: {message: 'Failed to update car.'},
         };
         callback(null, res);
       } else {
@@ -83,13 +77,12 @@ function handle_request(req, callback) {
   }
 
   if (req.name === 'deleteCar') {
-
     Car.findOneAndRemove({_id: req.params._id}, (error, car) => {
       if (error || !car) {
         res = {
           status: 404,
           title: 'Car not found.',
-          error: { message: 'Failed to delete car.' },
+          error: {message: 'Failed to delete car.'},
         };
         callback(null, res);
       } else {
@@ -108,7 +101,7 @@ function handle_request(req, callback) {
         res = {
           status: 500,
           title: 'Cars not retrieved.',
-          error: { message: 'Failed to retrieve cars.' },
+          error: {message: 'Failed to retrieve cars.'},
         };
         callback(null, res);
       } else {
@@ -124,38 +117,38 @@ function handle_request(req, callback) {
 
   if (req.name === 'searchCars') {
     //Naive logic - to be optimized later
-    let conditions = {};
+    let conditions = [];
+    let classConditions = [];
 
-    //$or:[ {class: req.query.economy ? 'Economy' : ''}, {class:param}, {class:param} ]
-
-    if (req.query.location !== null && req.query.class !== null && req.query.minPrice !== null && req.query.maxPrice !== null) {
-      conditions = {
-        location: req.query.location,
-        class: req.query.class,
-        price: { $gte: req.query.minPrice, $lte: req.query.maxPrice },
-      };
-    } else if (req.query.location !== null && req.query.class !== null) {
-      conditions = {
-        location: req.query.location,
-        class: req.query.class,
-      };
-    } else if (req.query.location !== null && req.query.minPrice !== null && req.query.maxPrice !== null) {
-      conditions = {
-        location: req.query.location,
-        price: { $gte: req.query.minPrice, $lte: req.query.maxPrice },
-      };
-    } else if (req.query.location !== null) {
-      conditions = {
-        location: req.query.location,
-      };
+    if (Array.isArray(req.query.class)) {
+      console.error('class', req.query.class);
+      for (let i = 0; i < req.query.class.length; i++) {
+        classConditions.push({class: req.query.class[i]});
+      }
+    } else if (req.query.class !== undefined) {
+      classConditions.push({class: req.query.class});
     }
 
-    Car.find(conditions, (error, cars) => {
+    if (req.query.location !== undefined) {
+      conditions.push({location: req.query.location});
+    }
+    if (req.query.minPrice !== undefined) {
+      conditions.push({price: {$gte: req.query.minPrice}});
+    }
+    if (req.query.maxPrice !== undefined) {
+      conditions.push({price: {$lte: req.query.maxPrice}});
+    }
+    if (classConditions.length > 0) {
+      console.error(classConditions);
+      conditions.push({$or: classConditions});
+    }
+
+    Car.find({$and: conditions}, (error, cars) => {
       if (error) {
         res = {
           status: 500,
           title: 'Cars not retrieved.',
-          error: { message: 'Failed to retrieve cars.' },
+          error: {message: 'Failed to retrieve cars.'},
         };
         callback(null, res);
       } else {

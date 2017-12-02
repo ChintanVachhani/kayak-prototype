@@ -9,3 +9,4 @@ dist
 coverage/
 .nyc_output/
 kafka-backend/node_modules/*
+kafka-backend/npm-debug.log

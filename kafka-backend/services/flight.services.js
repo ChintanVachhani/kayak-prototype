@@ -24,7 +24,7 @@ function handle_request(req, callback) {
     flight.save(function (error) {
       if(error) {
         console.log("ss : ", error)
-      
+
       res = {
         status: 400,
         title: 'Invalid data.',
@@ -43,7 +43,7 @@ function handle_request(req, callback) {
     }
     });
 
-   
+
   }
 
   if (req.name === 'getFlight') {
@@ -108,6 +108,55 @@ function handle_request(req, callback) {
   if (req.name === 'getAllFlights') {
     Flight.find({}, (error, flights) => {
       if (error) {
+        res = {
+          status: 500,
+          title: 'Flights not retrieved.',
+          error: {message: 'Failed to retrieve flights.'},
+        };
+        callback(null, res);
+      } else {
+        res = {
+          status: 200,
+          message: 'Successfully retrieved all flights.',
+          flights: flights,
+        };
+        callback(null, res);
+      }
+    });
+  }
+
+  if (req.name === 'searchFlights') {
+    //Naive logic - to be optimized later
+    let conditions = [];
+
+    if (req.query.origin !== undefined) {
+      conditions.push({origin: req.query.origin});
+    }
+    if (req.query.destination !== undefined) {
+      conditions.push({destination: req.query.destination});
+    }
+    if (req.query.minPrice !== undefined) {
+      conditions.push({price: {$gte: req.query.minPrice}});
+    }
+    if (req.query.maxPrice !== undefined) {
+      conditions.push({price: {$lte: req.query.maxPrice}});
+    }
+    if (req.query.minDepartureTime !== undefined) {
+      conditions.push({departureTime: {$gte: req.query.minDepartureTime}});
+    }
+    if (req.query.maxDepartureTime !== undefined) {
+      conditions.push({departureTime: {$lte: req.query.maxDepartureTime}});
+    }
+    if (req.query.minArrivalTime !== undefined) {
+      conditions.push({arrivalTime: {$gte: req.query.minArrivalTime}});
+    }
+    if (req.query.maxArrivalTime !== undefined) {
+      conditions.push({arrivalTime: {$lte: req.query.maxArrivalTime}});
+    }
+
+    Flight.find({$and: conditions}, (error, flights) => {
+      if (error) {
+        console.error(error);
         res = {
           status: 500,
           title: 'Flights not retrieved.',

@@ -3,6 +3,9 @@ import * as BookingController from '../controllers/booking.controller';
 
 const router = new Router();
 
+// Get All Bookings
+router.route('/all').get(BookingController.getAllBookings);
+
 // Create Booking
 router.route('/').put(BookingController.createBooking);
 
@@ -14,8 +17,5 @@ router.route('/:cuid').delete(BookingController.deleteBooking);
 
 // Update Booking
 router.route('/:cuid').patch(BookingController.updateBooking);
-
-// Get All Booking
-router.route('/all').get(BookingController.getAllBookings);
 
 export default router;
