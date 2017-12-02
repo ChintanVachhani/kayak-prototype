@@ -1,5 +1,4 @@
 let Flight = require('../models/flight');
-let cuid = require('cuid');
 
 function handle_request(req, callback) {
   console.log("In handle request:" + JSON.stringify(req));
@@ -8,7 +7,6 @@ function handle_request(req, callback) {
 
   if (req.name === 'createFlight') {
     let flight = Flight({
-      cuid: cuid(),
       flightID: req.body.flightID,
       price: {
         economy: req.body.price.economy,
@@ -42,7 +40,7 @@ function handle_request(req, callback) {
   }
 
   if (req.name === 'getFlight') {
-    Flight.findOne({cuid: req.params.cuid}, (error, flight) => {
+    Flight.findOne({_id: req.params._id}, (error, flight) => {
       if (error || !flight) {
         res = {
           status: 404,
@@ -62,7 +60,7 @@ function handle_request(req, callback) {
   }
 
   if (req.name === 'updateFlight') {
-    Flight.findOneAndUpdate({cuid: req.params.cuid}, req.body, (error, flight) => {
+    Flight.findOneAndUpdate({_id: req.params._id}, req.body, (error, flight) => {
       if (error || !flight) {
         res = {
           status: 404,
@@ -82,7 +80,7 @@ function handle_request(req, callback) {
   }
 
   if (req.name === 'deleteFlight') {
-    Flight.findOneAndRemove({cuid: req.params.cuid}, (error, flight) => {
+    Flight.findOneAndRemove({_id: req.params._id}, (error, flight) => {
       if (error || !flight) {
         res = {
           status: 404,

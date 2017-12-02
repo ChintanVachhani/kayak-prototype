@@ -7,13 +7,13 @@ const router = new Router();
 router.route('/').put(CarController.createCar);
 
 // Get Car
-router.route('/:cuid').get(CarController.getCar);
+router.route('/:_id').get(CarController.getCar);
 
 // Delete Car
-router.route('/:cuid').delete(CarController.deleteCar);
+router.route('/:_id').delete(CarController.deleteCar);
 
 // Update Car
-router.route('/:cuid').patch(CarController.updateCar);
+router.route('/:_id').patch(CarController.updateCar);
 
 // Get All Car
 router.route('/all').get(CarController.getAllCars);

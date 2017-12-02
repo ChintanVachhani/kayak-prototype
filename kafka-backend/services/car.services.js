@@ -1,5 +1,4 @@
 let Car = require('../models/car');
-let cuid = require('cuid');
 
 function handle_request(req, callback) {
   console.log("In handle request:" + JSON.stringify(req));
@@ -8,7 +7,6 @@ function handle_request(req, callback) {
 
   if (req.name === 'createCar') {
     let car = Car({
-      cuid: cuid(),
       operator: req.body.operator,
       class: req.body.class,
       price: req.body.price,
@@ -20,25 +18,27 @@ function handle_request(req, callback) {
       //carImage: req.body.carImage,
     });
     car.save(function (error) {
-      res = {
-        status: 400,
-        title: 'Invalid data.',
-        error: {message: 'Failed to create car.'},
-      };
-      callback(null, res);
+      if (error) {
+        console.error(error);
+        res = {
+          status: 400,
+          title: 'Invalid data.',
+          error: {message: 'Failed to create car.'},
+        };
+        callback(null, res);
+      } else {
+        res = {
+          status: 201,
+          message: 'Successfully created car.',
+          car: car,
+        };
+        callback(null, res);
+      }
     });
-
-    res = {
-      status: 201,
-      message: 'Successfully created car.',
-      car: car,
-    };
-
-    callback(null, res);
   }
 
   if (req.name === 'getCar') {
-    Car.findOne({cuid: req.params.cuid}, (error, car) => {
+    Car.findOne({_id: req.params._id}, (error, car) => {
       if (error || !car) {
         res = {
           status: 404,
@@ -58,7 +58,7 @@ function handle_request(req, callback) {
   }
 
   if (req.name === 'updateCar') {
-    Car.findOneAndUpdate({cuid: req.params.cuid}, req.body, (error, car) => {
+    Car.findOneAndUpdate({_id: req.params._id}, req.body, (error, car) => {
       if (error || !car) {
         res = {
           status: 404,
@@ -78,7 +78,7 @@ function handle_request(req, callback) {
   }
 
   if (req.name === 'deleteCar') {
-    Car.findOneAndRemove({cuid: req.params.cuid}, (error, car) => {
+    Car.findOneAndRemove({_id: req.params._id}, (error, car) => {
       if (error || !car) {
         res = {
           status: 404,
