@@ -1,6 +1,7 @@
 import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
+import {changeType} from './HeaderActions';
 
 // Import Style
 import styles from './Header.css';
@@ -10,7 +11,7 @@ class Header extends Component {
 	state = {
         signin: {email : '', password:''},
         signup: {email : '', password:''},
-        travelType:''
+        
      };
 
 
@@ -63,6 +64,9 @@ class Header extends Component {
 
     render() {
 
+      console.log(this.props);
+      console.log("testing here");
+
       
 
     return (
@@ -73,13 +77,13 @@ class Header extends Component {
                    <a href=""><img src="https://a1.r9cdn.net/rimg/provider-logos/common/socialmedia/kayak-logo.png" id={styles['logo-img']}></img></a>
                 </div>
                 <div className="col" id={styles['nav-tabs']}>
-                    <a href="" onClick={(event) => {this.setState({travelType: 'hotels'});}} >
+                    <a onClick={() => {this.props.changeType('hotels');}} >
                         <div className={styles['nav-item']}>Hotels</div>
                     </a>
-                    <a href="" onClick={(event) => {this.setState({travelType: 'flights'});}}>
+                    <a onClick={() => {this.props.changeType('flights');}}>
                         <div className={styles['nav-item']}>Flights</div>
                     </a>
-                    <a href="" onClick={(event) => {this.setState({travelType: 'cars'});}}>
+                    <a onClick={() => {this.props.changeType('cars');}}>
                         <div className={styles['nav-item']}>Cars</div>
                     </a>
                 </div>
@@ -218,15 +222,14 @@ class Header extends Component {
 }
 
 
-/*function mapDispatchToProps(dispatch) {
+function mapDispatchToProps(dispatch) {
+  console.log("in header dipatch ot props");
    return {
-       signInvalidation : (signInDetails) => dispatch(signInvalidation(signInDetails)),
-       signUpvalidation : (signUpDetails) => dispatch(signUpvalidation(signUpDetails))
+       changeType : (name) => dispatch(changeType(name))
     };
-}*/
+}
 
-
-  export default Header;
+export default connect(null, mapDispatchToProps)(Header);
 
 
 

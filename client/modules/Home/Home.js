@@ -5,7 +5,8 @@ import Header from '../Header/Header';
 import CarContainer from './CarContainer';
 import FlightForm from './FlightForm';
 import HotelForm from './HotelForm';
-
+import Footer from '../Footer/Footer';
+import {changeForm} from './HomeActions';
 // Import Style
 import styles from './Home.css';
 
@@ -37,10 +38,7 @@ componentDidMount() {
            		<Header />
             </div>
             <div className="row m-0 row align-items-center" id={styles['services']}>
-                
-          
                 <div>
-                
                     <div className=" col-md-offset-3 col-md-5" >
                         <nav id="servicelist">
                             <div className="container-fluid">
@@ -48,7 +46,7 @@ componentDidMount() {
                                     
                                     <li role="tab" role="button" style={{'padding': '2px', 'background-color':'white'}}>
                                     
-                                        <a role="button" style={{ 'justify-content': 'center'}}   onClick={(event) => {this.setState({type: 'hotels'}); } }  >
+                                        <a role="button" style={{ 'justify-content': 'center'}}   onClick={() => {this.props.changeForm('hotels'); } }  >
                                             <span className="icon" >
                                                 <svg xmlns="http://www.w3.org/2000/svg" width="25" height="17" fill="currentColor" viewBox="0 0 25 17">
                                                     <path d="M2 14.77h21v2H2z"></path>
@@ -57,11 +55,10 @@ componentDidMount() {
                                             </span>
                                             <span><b>HOTELS</b></span>
                                         </a>
-
                                     </li>
                                     
                                     <li role="tab" style={{'padding': '2px', 'background-color':'white'}}>
-                                        <a role="button" style={{ 'justify-content': 'center'}} onClick={(event) => {this.setState({type: 'flights'});}}>
+                                        <a role="button" style={{ 'justify-content': 'center'}} onClick={() => {this.props.changeForm('flights');}}>
                                             <span className="icon" >
                                                 <svg xmlns="http://www.w3.org/2000/svg" width="25" height="17" fill="currentColor" viewBox="0 0 25 17">
                                                     <path d="M2 14.77h21v2H2z"></path>
@@ -74,7 +71,7 @@ componentDidMount() {
                                         </a>
                                     </li>
                                     <li role="tab" style={{'padding': '2px', 'background-color':'white'}}>
-                                        <a role="button" style={{ 'justify-content': 'center'}} onClick={(event) => {this.setState({type: 'cars'});}}>
+                                        <a role="button" style={{ 'justify-content': 'center'}} onClick={() => {this.props.changeForm('cars');}}>
                                             <span className="icon" >
                                                 <svg xmlns="http://www.w3.org/2000/svg" width="32" height="16" fill="currentColor" viewBox="0 0 32 17">
                                                     <path d="M10.6 2.77L.61 1.2V0h9.99v2.77"></path>
@@ -94,33 +91,41 @@ componentDidMount() {
                         </nav>
                     </div>
                 	{
-                		this.state.type == 'cars' ? 
-                		<div  className=" col-md-offset-1 col-md-8" style={{'background-color':'#f2f2f2', 'padding':'10px', 'display':'block', 'height': '175px'}}>
-                    		<CarContainer />
-                		</div>
-                	:this.state.type == 'flights' ?
-                		<div className=" col-md-offset-1 col-md-9" style={{'background-color':'#f2f2f2', 'padding':'10px', 'display':'block', 'height': '175px'}}>
-                    		<FlightForm />
-                		</div>
-                	:
-                	<div  className=" col-md-offset-1 col-md-8" style={{'background-color':'#f2f2f2', 'padding':'10px', 'display':'block', 'height': '175px'}}>
-                    	<HotelForm />
-                	</div>
+                		this.props.formType == 'cars' ? 
+                		  <div  className=" col-md-offset-1 col-md-8" style={{'background-color':'#f2f2f2', 'padding':'10px', 'display':'block', 'height': '175px'}}>
+                    		  <CarContainer />
+                		  </div>
+                	   :this.props.formType == 'flights' ?
+                		  <div className=" col-md-offset-1 col-md-9" style={{'background-color':'#f2f2f2', 'padding':'10px', 'display':'block', 'height': '175px'}}>
+                    		  <FlightForm />
+                		  </div>
+                	   :
+                	       <div  className=" col-md-offset-1 col-md-8" style={{'background-color':'#f2f2f2', 'padding':'10px', 'display':'block', 'height': '175px'}}>
+                    	       <HotelForm />
+                	       </div>
             		}
             	</div>
         	</div>
      	</div>
     </div>
+    <div>
+        <Footer />
+    </div>
 </div>
-    
+);
+}
+}
 
+function mapStateToProps(store) {
+    //const {home} = store;
+    console.log("this is home mapstateto prop reducer " );
+    let formType = store.home.formType
+  return {formType};
+}
+function mapDispatchToProps(dispatch) {
+   return {
+       changeForm : (name) => dispatch(changeForm(name))
+    };
+}
 
-
-      );
-    }
-  }
-
-
-
-
-export default Home;
+export default connect(mapStateToProps, mapDispatchToProps)(Home);
