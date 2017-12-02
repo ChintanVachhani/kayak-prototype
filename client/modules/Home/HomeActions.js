@@ -8,6 +8,8 @@ export const UPDATE_FORMTYPE = 'UPDATE_FORMTYPE';
 
 
 import callApi from '../../util/apiCaller';
+//import {push} from 'react-router-redux';
+import {Router, browserHistory, Route} from 'react-router';
 
 
 export function carFormUpdate(carDetails) {
@@ -29,7 +31,7 @@ export function changeFormDisplay(displayForm) {
 }
 
 export function flightFormUpdate(flightDetails) {
-	console.log("this is carFormUpdate" + JSON.stringify(carDetails));
+	console.log("this is carFormUpdate" + JSON.stringify(flightDetails));
                     
                     return {
                      type : UPDATE_FLIGHTFORM,
@@ -39,7 +41,7 @@ export function flightFormUpdate(flightDetails) {
 }
 
 export function hotelFormUpdate(hotelDetails) {
-	console.log("this is carFormUpdate" + JSON.stringify(carDetails));
+	console.log("this is carFormUpdate" + JSON.stringify(hotelDetails));
                     
                     return {
                      type : UPDATE_HOTELFORM,
@@ -53,7 +55,7 @@ export function handleCar(carDetails) {
     return dispatch => {
     
     	dispatch(carFormUpdate(carDetails));
-        history.push('/Car');
+        browserHistory.push('/car');
       
      }
 }
@@ -62,7 +64,7 @@ export function handleFlight(flightDetails) {
     return dispatch => {
     
     	dispatch(flightFormUpdate(flightDetails));
-        history.push('/Flight');
+        browserHistory.push('/flight');
       
      }
 }
@@ -71,7 +73,7 @@ export function handleHotel(hotelDetails) {
     return dispatch => {
     
     	dispatch(hotelFormUpdate(hotelDetails));
-        history.push('/Hotel');
+        browserHistory.push('/hotel');
       
      }
 }

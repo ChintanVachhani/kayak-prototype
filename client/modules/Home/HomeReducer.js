@@ -15,12 +15,13 @@ const HomeReducer = (state = initialState, action) => {
 
   	case UPDATE_CARFORM :
         console.log("in update car form reducer case");
-        
-        temp = this.state.carFormData;
+       
+        let temp = state.carFormData;
         temp.place = action.carDetails.place;
         temp.toDate = action.carDetails.toDate;
         temp.fromDate = action.carDetails.fromDate;
-        
+        console.log("this is tmep");
+        console.log(temp.place);
            return {
                ...state,
                
@@ -30,7 +31,7 @@ const HomeReducer = (state = initialState, action) => {
     case UPDATE_FLIGHTFORM :
         console.log("in update flight form reducer case");
         
-        temp = this.state.flightFormData;
+        temp = state.flightFormData;
         temp.fromPlace = action.flightDetails.fromPlace;
         temp.toPlace = action.flightDetails.toPlace;
         temp.departDate = action.flightDetails.departDate;
@@ -47,7 +48,7 @@ const HomeReducer = (state = initialState, action) => {
     case UPDATE_HOTELFORM :
         console.log("in update flight form reducer case");
         console.log("this is action user " + action.hotelDetails.username );
-        temp = this.state.hotelFormData;
+        temp = state.hotelFormData;
         temp.place = action.hotelDetails.place;
         temp.checkin = action.hotelDetails.checkin;
         temp.checkout = action.hotelDetails.checkout;

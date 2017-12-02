@@ -106,6 +106,13 @@ componentDidMount() {
     	);
 }
 }
+
+function mapStateToProps(store) {
+    const {home} = store;
+    console.log("this is checkig reduer");
+    console.log(home);
+  return {};
+}
 function mapDispatchToProps(dispatch) {
    return {
        handleCar : (carDetails) => dispatch(handleCar(carDetails))
