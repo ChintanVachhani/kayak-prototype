@@ -2,13 +2,16 @@ import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
-import StarRatings from 'react-star-ratings';
+//import StarRatings from 'react-star-ratings';
 
-//import 'rc-slider/assets/index.css';
+import 'rc-slider/assets/index.css';
 import Slider from 'rc-slider';
 
 import Star from 'react-icons/lib/fa/star-o';
 import FillStar from 'react-icons/lib/fa/star';
+
+import {filterCars} from '../../ListActions';
+
 
 const Range = Slider.Range;
 
@@ -33,11 +36,12 @@ class CarSidebar extends Component {
         //this.changeRating = this.changeRating.bind(this);
         //this.changeStarFilter = this.changeStarFilter.bind(this);
         this.log = this.log.bind(this);
+        this.log2 = this.log2.bind(this);
         //let step = (this.props.maxPrice - this.props.minPrice)/100;
         this.state = { 
           carfromprice:this.props.minPrice,
           cartoprice:this.props.maxPrice,
-          carTypes : ['compact', 'economy', 'intermediate']
+          carTypes : ['Compact', 'Economy', 'Intermediate']
         };
     }
 
@@ -55,16 +59,25 @@ class CarSidebar extends Component {
     log(value) {
       console.log(value); //eslint-disable-line
       this.setState({ carfromprice: value[0], cartoprice: value[1] });
+      console.log(this.state);
+    }
+
+    log2(value) {
+      console.log(value); //eslint-disable-line
+      console.log(this.state);
     }
 
     changeLeft = (e) => {
         console.log("left value changed: " + e.target.value);
         this.setState({carfromprice: e.target.value});
+        console.log(this.state);
+        //this.props.filterCars(this.state);
     }
 
     changeRight = (e) => {
         console.log("Right value changed: " + e.target.value);
         this.setState({cartoprice: e.target.value});
+        //this.props.filterCars(this.state);
     }
 
 
@@ -82,7 +95,7 @@ class CarSidebar extends Component {
             return item !== e.target.name
         });
       }
-      this.setState({carTypes : arr});
+      this.setState({carTypes : arr}, function(){this.props.filterCars(this.state)});
     }
 
 
@@ -99,10 +112,10 @@ class CarSidebar extends Component {
         <div style={style}>
           <p><strong>Price</strong></p><hr />
 
-          <input className={styles['leftTextFld']} type="text" id="fromPrice" value= {carfromprice} onChange={this.changeLeft}/>
-          <input className={styles['rightTextFld']} type="text" id="toPrice" value= {cartoprice} onChange={this.changeRight}/>
+          <input className={styles['leftTextFld']} type="text" id="fromPrice" value= {carfromprice} onChange={this.changeLeft} onBlur={() => { this.props.filterCars(this.state); }}/>
+          <input className={styles['rightTextFld']} type="text" id="toPrice" value= {cartoprice} onChange={this.changeRight} onBlur={() => { this.props.filterCars(this.state); }}/>
           
-          <Range min={this.props.minPrice} max={this.props.maxPrice} allowCross={false} defaultValue={[carfromprice, cartoprice]} onChange={this.log} />
+          <Range min={this.props.minPrice} max={this.props.maxPrice} allowCross={false} defaultValue={[carfromprice, cartoprice]} value={[carfromprice, cartoprice]} onChange={this.log} onAfterChange={() => { this.props.filterCars(this.state); }}/>
 
         </div>
 
@@ -117,7 +130,7 @@ class CarSidebar extends Component {
                 <label>
                   <input
                     type="checkbox"
-                    name="compact"
+                    name="Compact"
                     defaultChecked
                     onChange={this.toggleCheckbox}
                     disabled={this.state.disabled}
@@ -131,7 +144,7 @@ class CarSidebar extends Component {
                 <label>
                   <input
                     type="checkbox"
-                    name="economy"
+                    name="Economy"
                     defaultChecked
                     onChange={this.toggleCheckbox}
                     disabled={this.state.disabled}
@@ -145,7 +158,7 @@ class CarSidebar extends Component {
                 <label>
                   <input
                     type="checkbox"
-                    name="intermediate"
+                    name="Intermediate"
                     defaultChecked
                     onChange={this.toggleCheckbox}
                     disabled={this.state.disabled}
@@ -169,15 +182,14 @@ class CarSidebar extends Component {
 
 const mapStateToProps = (state) => {
   return {
-    minPrice : 20,
-    maxPrice : 120
+    minPrice : 40,
+    maxPrice : 300
   };
 };
 
 const mapDispatchToProps = (dispatch) => {
   return {
-    toggleStar : (fileId) => dispatch(fileActions.toggleStar(fileId)),
-    deleteFile : (fileId) => dispatch(fileActions.deleteFile(fileId)),
+    filterCars : (filters) => dispatch(filterCars(filters))
   };
 };
 
