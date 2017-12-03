@@ -30,19 +30,19 @@ class CarSidebar extends Component {
     constructor(props) {
         super(props);
         
-        this.changeRating = this.changeRating.bind(this);
-        this.changeStarFilter = this.changeStarFilter.bind(this);
+        //this.changeRating = this.changeRating.bind(this);
+        //this.changeStarFilter = this.changeStarFilter.bind(this);
         this.log = this.log.bind(this);
+        //let step = (this.props.maxPrice - this.props.minPrice)/100;
         this.state = { 
-          rating: 0,
-          fromprice:0,
-          toprice:100,
-          stars:3
+          carfromprice:this.props.minPrice,
+          cartoprice:this.props.maxPrice,
+          carTypes : ['compact', 'economy', 'intermediate']
         };
     }
 
-    changeRating(rating) {
-    	console.log(rating);
+    /*changeRating(rating) {
+      console.log(rating);
         this.setState({
           rating: rating
         })
@@ -50,100 +50,117 @@ class CarSidebar extends Component {
 
     changeStarFilter(index){
         this.setState({stars : index});
-    }
+    }*/
 
     log(value) {
-	  console.log(value); //eslint-disable-line
-	  this.setState({ fromprice: value[0], toprice: value[1] });
-	}
+      console.log(value); //eslint-disable-line
+      this.setState({ carfromprice: value[0], cartoprice: value[1] });
+    }
+
+    changeLeft = (e) => {
+        console.log("left value changed: " + e.target.value);
+        this.setState({carfromprice: e.target.value});
+    }
+
+    changeRight = (e) => {
+        console.log("Right value changed: " + e.target.value);
+        this.setState({cartoprice: e.target.value});
+    }
+
+
+    toggleCheckbox = (e) => {
+      console.log(e.target.name);
+      var arr = this.state.carTypes;
+      console.log(arr);
+      if(e.target.checked){
+        console.log("checked");
+        arr.push(e.target.name);
+      }
+      else{
+        console.log("unchecked");
+        var arr = this.state.carTypes.filter(function(item) { 
+            return item !== e.target.name
+        });
+      }
+      this.setState({carTypes : arr});
+    }
 
 
   render() {
 
-  	const { fromprice, toprice } = this.state;
-
-  	let a = [1,2,3,4,5];
+    const { carfromprice, cartoprice } = this.state;
+    console.log(this.state);
 
 
     return (
-    	<div className="page-wrap">
-        <div>
-          <StarRatings
-            rating={this.state.rating}
-            isSelectable={true}
-            starRatedColor={'blue'}
-            isAggregateRating={false}
-            changeRating={this.changeRating}
-            numOfStars={5}
-            starWidthAndHeight={'24px'}
-            starSpacing={'2px'}
-          />
-        </div>
-        <div>
-          <StarRatings
-            rating={3.33}
-            isSelectable={false}
-            isAggregateRating={true}
-            starWidthAndHeight={'24px'}
-            starSpacing={'2px'}
-          />
-        </div>
-
-        <div style={style}>
-        	<p><strong>Price</strong></p><hr />
-
-        	<span>
-        		<div class="row">
-	        		<input className={styles['leftTextFld']} type="text" id="fromPrice" value= {fromprice}/>
-	        		<input className={styles['rightTextFld']} type="text" id="toPrice" value= {toprice}/>
-        		</div>
-        	</span>
-
-			<Range allowCross={false} defaultValue={[fromprice, toprice]} onChange={this.log} />
-
-        </div>
-        
+      <div className="page-wrap">
         <br/><br/>
 
         <div style={style}>
-        	<p><strong>Take-off</strong></p><hr />
+          <p><strong>Price</strong></p><hr />
 
-        	<span>
-        		<div class="row">
-	        		<input className={styles['leftTextFld']} type="text" id="fromArrivalTime" value= {fromprice}/>
-	        		<input className={styles['rightTextFld']} type="text" id="toArrivalTime" value= {toprice}/>
-        		</div>
-        	</span>
-
-			<Range allowCross={false} defaultValue={[fromprice, toprice]} onChange={this.log} />
+          <input className={styles['leftTextFld']} type="text" id="fromPrice" value= {carfromprice} onChange={this.changeLeft}/>
+          <input className={styles['rightTextFld']} type="text" id="toPrice" value= {cartoprice} onChange={this.changeRight}/>
+          
+          <Range min={this.props.minPrice} max={this.props.maxPrice} allowCross={false} defaultValue={[carfromprice, cartoprice]} onChange={this.log} />
 
         </div>
+
+        <br />
+
+
+       <div style={style}>
+          <p><strong>Car Type</strong></p><hr />
+
+          <span>
+              <p>
+                <label>
+                  <input
+                    type="checkbox"
+                    name="compact"
+                    defaultChecked
+                    onChange={this.toggleCheckbox}
+                    disabled={this.state.disabled}
+                  />
+                  &nbsp; Compact
+                </label>
+                &nbsp;&nbsp;
+              </p>
+
+              <p>
+                <label>
+                  <input
+                    type="checkbox"
+                    name="economy"
+                    defaultChecked
+                    onChange={this.toggleCheckbox}
+                    disabled={this.state.disabled}
+                  />
+                  &nbsp; Economy
+                </label>
+                &nbsp;&nbsp;
+              </p>
+
+              <p>
+                <label>
+                  <input
+                    type="checkbox"
+                    name="intermediate"
+                    defaultChecked
+                    onChange={this.toggleCheckbox}
+                    disabled={this.state.disabled}
+                  />
+                  &nbsp; Intermediate
+                </label>
+                &nbsp;&nbsp;
+              </p>
+
+          </span>
+
+        </div>
+
 
         <br/><br/>
-
-        <div style={style}>
-        	<p><strong>Landing</strong></p><hr />
-
-        	<span>
-        		<div class="row">
-	        		<input className={styles['leftTextFld']} type="text" id="fromDepTime" value= {fromprice}/>
-	        		<input className={styles['rightTextFld']} type="text" id="toDepTime" value= {toprice}/>
-        		</div>
-        	</span>
-
-			<Range allowCross={false} defaultValue={[fromprice, toprice]} onChange={this.log} />
-
-        </div>
-
-        <div>
-
-        {
-        a.map((index, value) =>{
-                  return(index < this.state.stars? <Star onClick={() => { this.changeStarFilter(index); }} size={30}/> : <FillStar onClick={() => { this.changeStarFilter(index); }} color="#0000ff" size={30}/> );
-            })
-        }
-
-        </div>
 
         </div>
     );
@@ -151,11 +168,17 @@ class CarSidebar extends Component {
 }
 
 const mapStateToProps = (state) => {
-  return {};
+  return {
+    minPrice : 20,
+    maxPrice : 120
+  };
 };
 
 const mapDispatchToProps = (dispatch) => {
-  return {};
+  return {
+    toggleStar : (fileId) => dispatch(fileActions.toggleStar(fileId)),
+    deleteFile : (fileId) => dispatch(fileActions.deleteFile(fileId)),
+  };
 };
 
 CarSidebar.propTypes = {

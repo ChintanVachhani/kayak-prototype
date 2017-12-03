@@ -2,6 +2,8 @@
 export const UPDATE_FORMTYPEHEADER = 'UPDATE_FORMTYPEHEADER';
 export const SIGNUP_SUCCESS = 'SIGNUP_SUCCESS';
 export const SIGNIN_SUCCESS = 'SIGNIN_SUCCESS';
+export const EDIT_PROFILE_SUCCESS = 'EDIT_PROFILE_SUCCESS';
+export const EDIT_CARD_SUCCESS = 'EDIT_CARD_SUCCESS';
 
 import callApi from '../../util/apiCaller';
 import {Router, browserHistory, Route} from 'react-router';
@@ -33,21 +35,43 @@ export function accountPage() {
   browserHistory.push('/account');
 }
 
-export function deleteAccount() {
+export function deleteProfileSuccess(data) {
   
  browserHistory.push('/');
 }
 
-export function handleEditProfile(userDetails) {
+export function editProfileSuccess(data) {
+  console.log("this is in handle");
+  return {
+  type : EDIT_PROFILE_SUCCESS,
+  data
+  }
+}
+
+export function deleteAccount(email) {
+  return (dispatch) => {
+    return callApi('user/email', 'delete', req).then(res => dispatch(deleteProfileSuccess(res)));
+  };
+}
+
+export function handleEditProfile(data) {
   console.log("in handleEditprofile actions");
+  let req = {};
+  console.log("this is in action signup"+ data.firstName);
+  req.firstName = data.firstName;
+  req.lastName = data.lastName;
+  req.picture = data.picture;
+  req.hobbies = data.hobbies;
+  req.phone = data.phone;
+  req.address = data.address;
+  let userEmail = data.email;
+  return (dispatch) => {
+    return callApi('user/userEmail', 'patch', req).then(res => dispatch(editProfileSuccess(res)));
+  };
  
 }
 
-export function handleCard(cardDetails) {
 
-  console.log("in actions handle card");
- 
-}
 
 export function signinSuccess(data) {
   console.log("this is in signinsuccess");
@@ -73,7 +97,28 @@ export function signupSuccess(data) {
   }
 }
 
+export function editCardSuccess(data) {
+  console.log("this is in editCardSuccess");
+  
+  return {
+  type : EDIT_CARD_SUCCESS,
+  data
+  }
+}
 
+export function handleEditCard(data) {
+  console.log("in actions handle card");
+  let req = {};
+  let userEmail = data.email;
+  req.cardNumber = data.cardNumber;
+  req.cardName = data.cardName;
+  req.exp_year = data.exp_year;
+  req.secureCode = data.secureCode;
+  return (dispatch) => {
+    return callApi('user/userEmail', 'patch', req).then(res => dispatch(editCardSuccess(res)));
+  };
+ 
+}
 
 export function signUpvalidation(data) {
   let req = {};

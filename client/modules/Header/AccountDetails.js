@@ -93,26 +93,6 @@ class AccountDetails extends Component {
                         <div style={{'padding' : '20px'}}>
                             <div className="row">
                                 <div className="col-md-3">
-                                    <h5>Email</h5>
-                                </div>
-                                <div className="col-md-offset-1 col-md-8">
-                                    <input
-                                        className="form-control"
-                                        type="email"
-                                        label="email"
-                                        name = "email"
-                                        placeholder="Enter Email"
-                                        value = {this.state.email}
-                                                onChange={(event) => {
-                                                    this.setState({lastName: event.target.value});
-                                                }} 
-                                    required />
-                                </div>
-                            </div>
-                        </div>
-                        <div style={{'padding' : '20px'}}>
-                            <div className="row">
-                                <div className="col-md-3">
                                     <h5>Phone</h5>
                                 </div>
                                 <div className="col-md-offset-1 col-md-8">
@@ -222,7 +202,7 @@ class AccountDetails extends Component {
                                 onClick={() => {this.setState({ edit: 'true'});}}>Edit Profile</a>
                     		</td>
                     		<td style={{'float': 'right', 'padding' : '10px', 'width': '150px'}}>
-                    			<a className="btn btn-primary btn-lg" role="button" style={{'background-color': '#DC143C'}} onClick={this.props.deleteAccount}>Delete Account</a>
+                    			<a className="btn btn-primary btn-lg" role="button" style={{'background-color': '#DC143C'}} onClick={this.props.deleteAccount(this.state.email)}>Delete Account</a>
                     		</td>
                     	</tr>
                     </tbody>
@@ -245,7 +225,7 @@ function mapStateToProps(store) {
 function mapDispatchToProps(dispatch) {
   
    return {
-     deleteAccount : () => dispatch(deleteAccount()),
+     deleteAccount : (email) => dispatch(deleteAccount(email)),
      handleEditProfile: (userDetails) => dispatch(handleEditProfile(userDetails))
     };
 }

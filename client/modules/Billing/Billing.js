@@ -58,7 +58,8 @@ componentWillMount() {
 
     return (
     		
-    		
+    		<div>
+        <div className="row">
     			<div style={{'background-color':'#f2f2f2', 'margin':'auto', 'height':'auto', 'height':'1800px'}}>
 
     				<div className={styles['headerdesign']}>
@@ -459,15 +460,15 @@ componentWillMount() {
                     	
                     					<div>
                     						<div className="row">
-												<div className = "col-md-6">
-													<div className="form-group">
+												            <div className = "col-md-6">
+													           <div className="form-group">
                             							<h5><b>Card Details</b></h5>
-                        							</div>
-                    							</div>
+                        						</div>
+                    							 </div>
                    							</div>
                    							<div className="row">
-												<div className = "col-md-6">
-													<div className="form-group">
+												          <div className = "col-md-6">
+													           <div className="form-group">
                             							<input
                                 						className="form-control"
                                 						type="text"
@@ -482,9 +483,9 @@ componentWillMount() {
                                 						
                             							required />
                          							</div>
-                        						</div>
-                        						<div className = "col-md-6">
-													<div className="form-group">
+                        					</div>
+                        					<div className = "col-md-6">
+													             <div className="form-group">
                             							<input
                                 						className="form-control"
                                 						type="text"
@@ -498,8 +499,8 @@ componentWillMount() {
                                             }}
                                 						
                             							required />
-                        							</div>
-                        						</div>
+                        							   </div>
+                        				  </div>
                     						</div>
                     						<div className="row">
                     							<div className = "col-md-3">
@@ -512,24 +513,24 @@ componentWillMount() {
                                    								 console.log("this is printing state");
                                 						console.log(this.state.card_Month);
                                 						}} > 
-															<option value="" title="">Month</option>
-															<option value="1" title="Jan" >01-Jan</option>
-															<option value="2" title="Feb" >02-Feb</option>
-															<option value="3" title="Mar" >03-Mar</option>
-															<option value="4" title="Apr" >04-Apr</option>
-															<option value="5" title="May" >05-May</option>
-															<option value="6" title="Jun" >06-Jun</option>
-															<option value="7" title="Jul" >07-Jul</option>
-															<option value="8" title="Aug" >08-Aug</option>
-															<option value="9" title="Sep" >09-Sep</option>
-															<option value="10" title="Oct" >10-Oct</option>
-															<option value="11" title="Nov" >11-Nov</option>
-															<option value="12" title="Dec" >12-Dec</option>
-														</select>
+															           <option value="" title="">Month</option>
+															           <option value="1" title="Jan" >01-Jan</option>
+															           <option value="2" title="Feb" >02-Feb</option>
+															           <option value="3" title="Mar" >03-Mar</option>
+															           <option value="4" title="Apr" >04-Apr</option>
+															           <option value="5" title="May" >05-May</option>
+															           <option value="6" title="Jun" >06-Jun</option>
+															           <option value="7" title="Jul" >07-Jul</option>
+															           <option value="8" title="Aug" >08-Aug</option>
+															           <option value="9" title="Sep" >09-Sep</option>
+            															<option value="10" title="Oct" >10-Oct</option>
+            															<option value="11" title="Nov" >11-Nov</option>
+            															<option value="12" title="Dec" >12-Dec</option>
+														            </select>
 
-													</div>
-                        						</div>
-                        						<div className = "col-md-2">
+													           </div>
+                        					</div>
+                        					<div className = "col-md-2">
                     								<div className="form-group">
                             							<select id="cardIssuedYear" className="form-control" onChange={(event) => {
                                             this.setState({
@@ -537,37 +538,37 @@ componentWillMount() {
                                                    });
                                     							
                                 						}}>
-															<option value="" title="Year">Year</option>
-															<option value="2017" title="1" >2017</option>
-															<option value="2016" title="2" >2016</option>
-															<option value="2015" title="3" >2015</option>
-															<option value="2014" title="4" >2014</option>
-															<option value="2013" title="5" >2013</option>
-															<option value="2012" title="6" >2012</option>
-															<option value="2011" title="7" >2011</option>
-															<option value="2010" title="8" >2010</option>
-															<option value="2009" title="9" >2009</option>
-															<option value="2008" title="10" >2008</option>
-															<option value="2007" title="11" >2007</option>
-															<option value="2006" title="12" >2006</option>
-															<option value="2005" title="13" >2005</option>
-															<option value="2004" title="14" >2004</option>
-															<option value="2003" title="15" >2003</option>
-															<option value="2002" title="16" >2002</option>
-															<option value="2001" title="17" >2001</option>
-															<option value="2000" title="18" >2000</option>
-                              <option value="1999" title="16" >1999</option>
-                              <option value="1998" title="17" >1998</option>
-                              <option value="1997" title="18" >1997</option>
-                              <option value="1996" title="16" >1996</option>
-                              <option value="1995" title="17" >1995</option>
-                              <option value="1994" title="18" >1994</option>
-                              <option value="1993" title="16" >1993</option>
-                              <option value="1992" title="17" >1992</option>
-                              <option value="1991" title="18" >1991</option>
+            															<option value="" title="Year">Year</option>
+            															<option value="2017" title="1" >2017</option>
+            															<option value="2016" title="2" >2016</option>
+            															<option value="2015" title="3" >2015</option>
+            															<option value="2014" title="4" >2014</option>
+            															<option value="2013" title="5" >2013</option>
+            															<option value="2012" title="6" >2012</option>
+            															<option value="2011" title="7" >2011</option>
+            															<option value="2010" title="8" >2010</option>
+            															<option value="2009" title="9" >2009</option>
+            															<option value="2008" title="10" >2008</option>
+            															<option value="2007" title="11" >2007</option>
+            															<option value="2006" title="12" >2006</option>
+            															<option value="2005" title="13" >2005</option>
+            															<option value="2004" title="14" >2004</option>
+            															<option value="2003" title="15" >2003</option>
+            															<option value="2002" title="16" >2002</option>
+            															<option value="2001" title="17" >2001</option>
+            															<option value="2000" title="18" >2000</option>
+                                          <option value="1999" title="16" >1999</option>
+                                          <option value="1998" title="17" >1998</option>
+                                          <option value="1997" title="18" >1997</option>
+                                          <option value="1996" title="16" >1996</option>
+                                          <option value="1995" title="17" >1995</option>
+                                          <option value="1994" title="18" >1994</option>
+                                          <option value="1993" title="16" >1993</option>
+                                          <option value="1992" title="17" >1992</option>
+                                          <option value="1991" title="18" >1991</option>
 
-														</select>
-													</div>
+														            </select>
+													           </div>
                         						</div>
                         						<div className = "col-md-3">
                     								<div className="form-group">
@@ -585,7 +586,7 @@ componentWillMount() {
                                             	
                                 						}} 
                             							required />
-													</div>
+													           </div>
                         						</div>
                         					</div>
                     					</div>
@@ -658,11 +659,11 @@ componentWillMount() {
 						</div>
 
 					</div>
-          <div>
-              <Footer />
-          </div>
+          
 				</div>
-			
+        </div>
+        
+			</div>
 
     	);
 
@@ -680,7 +681,4 @@ function mapDispatchToProps(dispatch) {
 
 
 
-export default connect(
-  null,
-  mapDispatchToProps
-)(Billing);
+export default connect( null,  mapDispatchToProps)(Billing);

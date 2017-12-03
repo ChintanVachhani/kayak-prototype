@@ -4,9 +4,9 @@ import {UPDATE_FORMTYPEHEADER} from '../Header/HeaderActions';
 
 // Initial State
 const initialState = {
-	carFormData : { place: '', toDate: '', fromDate: ''},
-	flightFormData : { fromPlace: '', toPlace: '', departDate:'', returnDate: '', passengers: '', cabinClass: ''},
-	hotelFormData : {place: '', checkin: '', checkout: '', rooms: ''},
+	carFormData : { place: '', toDate: '', fromDate: '', passengers:'1'},
+	flightFormData : { fromPlace: '', toPlace: '', departDate:'', returnDate: '', passengers: '1', cabinClass: ''},
+	hotelFormData : {place: '', checkin: '', checkout: '', rooms: '', passengers:'1'},
   formType: ''
 };
 
