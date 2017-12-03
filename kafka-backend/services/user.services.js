@@ -55,7 +55,7 @@ function handle_request(req, callback) {
   }
 
   if (req.name === 'signin') {
-    User.find({email: req.body.email})
+    User.find({where: {email: req.body.email}})
       .catch((error) => {
         res = {
           status: 401,
