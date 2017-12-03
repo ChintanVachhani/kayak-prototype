@@ -9,6 +9,9 @@ router.route('/signup').post(UserController.signup);
 // User Sign in
 router.route('/signin').post(UserController.signin);
 
+// Get All Users
+router.route('/').get(UserController.getAllUsers);
+
 // Get User
 router.route('/:email').get(UserController.getUser);
 

@@ -29,77 +29,72 @@ class FlightSidebar extends Component {
 
     constructor(props) {
         super(props);
-        
-        this.changeRating = this.changeRating.bind(this);
-        this.changeStarFilter = this.changeStarFilter.bind(this);
-        this.log = this.log.bind(this);
-        this.state = { 
-          rating: 0,
-          fromprice:0,
-          toprice:100,
-          stars:3
+        this.state = {
+          initFromPrice : 12,
+          initToPrice:200,
+          fromPrice:12,
+          toPrice:200,
+          fromArrivalTime: 1,
+          toArrivalTime:23,
+          fromDepTime:1,
+          toDepTime:23
         };
     }
 
-    changeRating(rating) {
-    	console.log(rating);
-        this.setState({
-          rating: rating
-        })
+    changePrice = (value) => {
+	   console.log(value); //eslint-disable-line
+	   this.setState({ fromPrice: value[0], toPrice: value[1] });
+	  }
+
+    changeTakeOff = (value) => {
+     console.log(value); //eslint-disable-line
+     this.setState({ fromArrivalTime: value[0], toArrivalTime: value[1] });
     }
 
-    changeStarFilter(index){
-        this.setState({stars : index});
+    changeLanding = (value) => {
+     console.log(value); //eslint-disable-line
+     this.setState({ fromDepTime: value[0], toDepTime: value[1] });
     }
 
-    log(value) {
-	  console.log(value); //eslint-disable-line
-	  this.setState({ fromprice: value[0], toprice: value[1] });
-	}
+    changeLeft = (e) => {
+        console.log("left value changed: " + e.target.value + e.target.id);
+        if(e.target.id == "fromDepTime")
+          this.setState({fromDepTime : e.target.value});
+        else if(e.target.id == "fromArrivalTime")
+          this.setState({fromArrivalTime : e.target.value});
+        else if(e.target.id == "fromPrice")
+          this.setState({fromPrice : e.target.value});
+    }
+
+    changeRight = (e) => {
+        console.log("Right value changed: " + e.target.value);
+        if(e.target.id == "toDepTime")
+          this.setState({toDepTime : e.target.value});
+        else if(e.target.id == "toArrivalTime")
+          this.setState({toArrivalTime : e.target.value});
+        else if(e.target.id == "toPrice")
+          this.setState({toPrice : e.target.value});
+    }
+
+
 
 
   render() {
 
-  	const { fromprice, toprice } = this.state;
-
-  	let a = [1,2,3,4,5];
+  	const { fromPrice, toPrice, fromArrivalTime, toArrivalTime, fromDepTime, toDepTime } = this.state;
 
 
     return (
     	<div className="page-wrap">
-        <div>
-          <StarRatings
-            rating={this.state.rating}
-            isSelectable={true}
-            starRatedColor={'blue'}
-            isAggregateRating={false}
-            changeRating={this.changeRating}
-            numOfStars={5}
-            starWidthAndHeight={'24px'}
-            starSpacing={'2px'}
-          />
-        </div>
-        <div>
-          <StarRatings
-            rating={3.33}
-            isSelectable={false}
-            isAggregateRating={true}
-            starWidthAndHeight={'24px'}
-            starSpacing={'2px'}
-          />
-        </div>
+        
 
         <div style={style}>
         	<p><strong>Price</strong></p><hr />
 
-        	<span>
-        		<div class="row">
-	        		<input className={styles['leftTextFld']} type="text" id="fromPrice" value= {fromprice}/>
-	        		<input className={styles['rightTextFld']} type="text" id="toPrice" value= {toprice}/>
-        		</div>
-        	</span>
+      		<input className={styles['leftTextFld']} type="text" id="fromPrice" value= {fromPrice} onChange={this.changeLeft}/>
+      		<input className={styles['rightTextFld']} type="text" id="toPrice" value= {toPrice} onChange={this.changeRight}/>
 
-			<Range allowCross={false} defaultValue={[fromprice, toprice]} onChange={this.log} />
+		      <Range min={this.state.initFromPrice} max={this.state.initToPrice} allowCross={false} defaultValue={[fromPrice, toPrice]} value= {[fromPrice, toPrice]} onChange={this.changePrice} />
 
         </div>
         
@@ -107,15 +102,11 @@ class FlightSidebar extends Component {
 
         <div style={style}>
         	<p><strong>Take-off</strong></p><hr />
-
-        	<span>
-        		<div class="row">
-	        		<input className={styles['leftTextFld']} type="text" id="fromArrivalTime" value= {fromprice}/>
-	        		<input className={styles['rightTextFld']} type="text" id="toArrivalTime" value= {toprice}/>
-        		</div>
-        	</span>
-
-			<Range allowCross={false} defaultValue={[fromprice, toprice]} onChange={this.log} />
+  
+      		<input className={styles['leftTextFld']} type="text" id="fromArrivalTime" value= {fromArrivalTime} onChange={this.changeLeft}/>
+      		<input className={styles['rightTextFld']} type="text" id="toArrivalTime" value= {toArrivalTime} onChange={this.changeRight}/>
+  
+			    <Range min={0} max={24} allowCross={false} defaultValue={[fromArrivalTime, toArrivalTime]} value={[fromArrivalTime, toArrivalTime]} onChange={this.changeTakeOff} />
 
         </div>
 
@@ -124,28 +115,14 @@ class FlightSidebar extends Component {
         <div style={style}>
         	<p><strong>Landing</strong></p><hr />
 
-        	<span>
-        		<div class="row">
-	        		<input className={styles['leftTextFld']} type="text" id="fromDepTime" value= {fromprice}/>
-	        		<input className={styles['rightTextFld']} type="text" id="toDepTime" value= {toprice}/>
-        		</div>
-        	</span>
+      		<input className={styles['leftTextFld']} type="text" id="fromDepTime" value= {fromDepTime} onChange={this.changeLeft} />
+      		<input className={styles['rightTextFld']} type="text" id="toDepTime" value= {toDepTime} onChange={this.changeRight}/>
 
-			<Range allowCross={false} defaultValue={[fromprice, toprice]} onChange={this.log} />
+			    <Range min={0} max={24} allowCross={false} defaultValue={[fromDepTime, toDepTime]} onChange={this.changeLanding} value={[fromDepTime, toDepTime]} />
 
         </div>
 
-        <div>
-
-        {
-        a.map((index, value) =>{
-                  return(index < this.state.stars? <Star onClick={() => { this.changeStarFilter(index); }} size={30}/> : <FillStar onClick={() => { this.changeStarFilter(index); }} color="#0000ff" size={30}/> );
-            })
-        }
-
-        </div>
-
-        </div>
+      </div>
     );
   }
 }
