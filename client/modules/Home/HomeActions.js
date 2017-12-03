@@ -16,7 +16,8 @@ import {Router, browserHistory, Route} from 'react-router';
 export function citiesUpdate(data) {
     return {
      type : UPDATE_CITIES,
-     cities:data.cities                                // this is same as newItem : newItem in ES6
+     cities:data.cities,
+     states:data.states                                // this is same as newItem : newItem in ES6
     }                               
 }
 

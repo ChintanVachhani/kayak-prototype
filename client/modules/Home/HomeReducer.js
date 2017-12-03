@@ -8,7 +8,8 @@ const initialState = {
 	flightFormData : { fromPlace: '', toPlace: '', departDate:'', returnDate: '', passengers: '', cabinClass: ''},
 	hotelFormData : {place: '', checkin: '', checkout: '', rooms: ''},
   formType: '',
-  cities:[]
+  cities:[],
+  states:[]
 };
 
 const HomeReducer = (state = initialState, action) => {
@@ -70,7 +71,8 @@ const HomeReducer = (state = initialState, action) => {
            
           return {
                ...state,
-               cities : action.cities
+               cities : action.cities,
+               states:action.states
            };           
 
     default:

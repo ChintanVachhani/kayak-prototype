@@ -23,8 +23,11 @@ router.get('/location', function (req, res, next) {
 	}
 	let input = fs.createReadStream('cities.txt');  
     readLines(input,function(cities){ 
-	  res.status(200).json({
-	  	cities:cities
+		let inputStates = fs.createReadStream('states.txt');  
+		readLines(inputStates,function(states){ 
+		  res.status(200).json({
+		  	cities:cities,states:states
+	  	});	
 	  });	
 	});
 });
