@@ -6,8 +6,15 @@ import SearchCar from './SearchCar';
 import CarItem from './CarItem';
 import { Alert } from 'reactstrap';
 import CarList from './CarList';
+import {getAllCars} from './../AdminActions';
 
 class CarsHome extends Component {
+
+  componentDidMount() {
+
+    this.props.getAllCars();
+  }
+
   render() {
     return (
 
@@ -55,7 +62,9 @@ const mapStateToProps = (state) => {
 };
 
 const mapDispatchToProps = (dispatch) => {
-  return {};
+  return {
+        getAllCars : () => dispatch(getAllCars())
+    };
 };
 
 CarsHome.propTypes = {

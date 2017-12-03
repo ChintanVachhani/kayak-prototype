@@ -6,8 +6,16 @@ import CreateFlight from './CreateFlight';
 import SearchFlight from './SearchFlight';
 import FlightItem from './FlightItem';
 import FlightList from './FlightList';
+import {getAllFlights} from './../AdminActions';
 
 class FlightsHome extends Component {
+
+  componentDidMount() {
+
+    this.props.getAllFlights();
+  }
+
+
   render() {
     return (
 
@@ -56,7 +64,9 @@ const mapStateToProps = (state) => {
 };
 
 const mapDispatchToProps = (dispatch) => {
-  return {};
+  return {
+        getAllFlights : () => dispatch(getAllFlights())
+    };
 };
 
 FlightsHome.propTypes = {

@@ -15,7 +15,7 @@ function handle_request(req, callback) {
       capBags: req.body.capBags,
       doors: req.body.doors,
       location: req.body.location,
-      //carImage: req.body.carImage,
+      carImage: req.body.carImage,
     });
     car.save(function (error) {
       if (error) {

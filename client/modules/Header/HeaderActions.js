@@ -4,6 +4,8 @@ export const SIGNUP_SUCCESS = 'SIGNUP_SUCCESS';
 export const SIGNIN_SUCCESS = 'SIGNIN_SUCCESS';
 export const EDIT_PROFILE_SUCCESS = 'EDIT_PROFILE_SUCCESS';
 export const EDIT_CARD_SUCCESS = 'EDIT_CARD_SUCCESS';
+export const GET_USER_DETAILS = 'GET_USER_DETAILS';
+export const UPLOAD_IMAGE_SUCCESS = 'UPLOAD_IMAGE_SUCCESS';
 
 import callApi from '../../util/apiCaller';
 import {Router, browserHistory, Route} from 'react-router';
@@ -24,10 +26,8 @@ export function changeFormDisplay(displayForm) {
 
 
 export function changeType(name) {
-  
   return dispatch => {
     dispatch(changeFormDisplay(name));
-  
    }
 }
 
@@ -36,7 +36,6 @@ export function accountPage() {
 }
 
 export function deleteProfileSuccess(data) {
-  
  browserHistory.push('/');
 }
 
@@ -48,34 +47,69 @@ export function editProfileSuccess(data) {
   }
 }
 
-export function deleteAccount(email) {
+export function uploadImageSuccess(data) {
+  console.log("this is in handle uploadImageSuccess");
+  return {
+    type : UPLOAD_IMAGE_SUCCESS,
+    data
+  }
+}
+
+export function deleteAccount() {
+  let userEmail = localStorage.getItem('email');
+  let req = {};
   return (dispatch) => {
-    return callApi('user/email', 'delete', req).then(res => dispatch(deleteProfileSuccess(res)));
+    return callApi('user/userEmail', 'delete', req).then(res => dispatch(deleteProfileSuccess(res)));
+  };
+}
+
+export function getUserDetails() {
+  console.log("in getUserDetails actions");
+  let userEmail = localStorage.getItem('email');
+  let req = {};
+  return (dispatch) => {
+    return callApi('user/userEmail', 'get', req).then(res => dispatch(getUserSuccess(res)));
   };
 }
 
 export function handleEditProfile(data) {
   console.log("in handleEditprofile actions");
-  let req = {};
-  console.log("this is in action signup"+ data.firstName);
-  req.firstName = data.firstName;
-  req.lastName = data.lastName;
-  req.picture = data.picture;
-  req.hobbies = data.hobbies;
-  req.phone = data.phone;
-  req.address = data.address;
-  let userEmail = data.email;
+  let req = {
+        firstName: data.firstName,
+        lastName: data.lastName,
+        address: data.address,
+        city: data.city,
+        state: data.state,
+        zipcode: data.zipcode,
+        email : data.email,
+        phoneNumber: data.phoneNumber
+    };
+  let userEmail = localStorage.getItem('email');
   return (dispatch) => {
     return callApi('user/userEmail', 'patch', req).then(res => dispatch(editProfileSuccess(res)));
   };
- 
 }
 
+export function handleImageEdit(imageFormData) {
+  console.log("in handleImageEdit actions");
+  let userEmail = localStorage.getItem('email');
+  return (dispatch) => {
+    return callApi('user/userEmail', 'post', imageFormData, "upload").then(res => dispatch(uploadImageSuccess(res)));
+  };
+}
 
+export function getUserSuccess(data) {
+  console.log("this is in getUserSuccess");
+  return {
+  type : GET_USER_DETAILS,
+    data
+  }
+}
 
 export function signinSuccess(data) {
   console.log("this is in signinsuccess");
   localStorage.setItem('token', data.token);
+  localStorage.setItem('email', data.id);
   let email1 = data.id;
   console.log("this is emain in signin success" + emai11);
   return {
@@ -89,7 +123,7 @@ export function signupSuccess(data) {
   console.log(data);
   console.log(data.token);
   localStorage.setItem('token', data.token);
-
+  localStorage.setItem('email', data.id);
   let email = data.id;
   return {
   type : SIGNUP_SUCCESS,
@@ -109,13 +143,14 @@ export function editCardSuccess(data) {
 export function handleEditCard(data) {
   console.log("in actions handle card");
   let req = {};
-  let userEmail = data.email;
+  userEmail = localStorage.getItem('email');
   req.cardNumber = data.cardNumber;
   req.cardName = data.cardName;
   req.exp_year = data.exp_year;
   req.secureCode = data.secureCode;
+  req.exp_month= data.exp_month
   return (dispatch) => {
-    return callApi('user/userEmail', 'patch', req).then(res => dispatch(editCardSuccess(res)));
+    return callApi('user/addCard', 'post', req).then(res => dispatch(editCardSuccess(res)));
   };
  
 }
@@ -140,6 +175,13 @@ export function signInvalidation(data) {
   return (dispatch) => {
     return callApi('user/signin', 'post', req).then(res => dispatch(signinSuccess(res)));
   };
+}
+
+export function signOut() {
+  console.log("this is in action signOut");
+  localStorage.clear();
+  console.log("local storage after clear" + JSON.stringify(localStorage));
+  browserHistory.push('/');
 }
 /*
 *   {

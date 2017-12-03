@@ -15,17 +15,16 @@ class AccountPage extends Component {
         secureCode : '',
         cardName : '',
         exp_year: '',
-        email: ''
+        exp_month: ''
     }
 
     componentDidMount(){
        this.setState({
-
                 cardNumber : this.props.card.cardNumber,
                 secureCode : this.props.card.secureCode,
                 cardName: this.props.card.cardName,
                 exp_year: this.props.card.exp_year,
-                email : this.props.email
+                exp_month: this.props.card.exp_month
             });     
     }
 
@@ -33,6 +32,7 @@ class AccountPage extends Component {
       console.log("in showing credit form");
       this.refs.creditForm.style="display: inline-block";
     }
+
     closeCreditForm= (event) => {
       console.log("in closing credit form");
       this.refs.creditForm.style="display: none";
@@ -170,6 +170,28 @@ class AccountPage extends Component {
                                               </select>
                                               </div>
                                           </div>
+                                          <div className="col-md-4">
+                                            <div className="form-group">
+                                              
+                                              <select id="cardIssuedMonth" className="form-control" onChange={(event) => {
+                                                this.setState({ exp_month: event.target.value  });
+                                                }}>
+                                                  <option value="" title="Year">Year</option>
+                                                  <option value="1" title="1" >01</option>
+                                                  <option value="2" title="2" >02</option>
+                                                  <option value="3" title="3" >03</option>
+                                                  <option value="4" title="4" >04</option>
+                                                  <option value="5" title="5" >05</option>
+                                                  <option value="6" title="6" >06</option>
+                                                  <option value="7" title="7" >07</option>
+                                                  <option value="8" title="8" >08</option>
+                                                  <option value="9" title="9" >09</option>
+                                                  <option value="10" title="10" >10</option>
+                                                  <option value="11" title="11" >11</option>
+                                                  <option value="12" title="12" >12</option>
+                                                </select>
+                                              </div>
+                                          </div>
                                           </div>
                                           <div className="row">
                                               <button type="Button" className="btn btn-primary btn-block" style={{'background-color': '#DC143C'}}
@@ -198,8 +220,7 @@ function mapStateToProps(store) {
     console.log("this is home mapstateto prop reducer ", store );
     const {header} = store;
     let card = header.card;
-    let email = header.userdetails.email;
-  return {card, email};
+  return {card};
 }
 function mapDispatchToProps(dispatch) {
   

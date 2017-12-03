@@ -2,7 +2,7 @@ import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
-import {signInvalidation, signUpvalidation, changeType, accountPage } from './HeaderActions';
+import {signInvalidation, signUpvalidation, changeType, accountPage, signOut } from './HeaderActions';
 //import {Link } from 'react-router';
 
 // Import Style
@@ -17,8 +17,6 @@ class Header extends Component {
     popSigninWindow= (event) => {
       this.refs.signinPopup.style="display: inline-block";
     }
-
-   
 
     signinSubmit = (event) => {
       console.log("in signinsubmit");
@@ -93,7 +91,7 @@ class Header extends Component {
                                 <button className="dropdown-item py-1"  onClick={this.props.accountPage}><i className="fa fa-cog" aria-hidden="true"></i>&nbsp;&nbsp;&nbsp;&nbsp;Account Preferences</button>
                                 <a className="dropdown-item py-1" ><i className="fa fa-briefcase" aria-hidden="true"></i>&nbsp;&nbsp;&nbsp;&nbsp;Bookings</a>
                                 <a className="dropdown-item py-1" >
-                                    <div className="btn btn-secondary" id={styles['signout-btn']}>Sign out</div>
+                                    <div className="btn btn-secondary" onClick={this.props.signOut} id={styles['signout-btn']}>Sign out</div>
                                 </a>
                             </div>
                         </div>
@@ -194,7 +192,8 @@ function mapDispatchToProps(dispatch) {
        signInvalidation : (signInData) => dispatch(signInvalidation(signInData)),
        signUpvalidation : (signUpData) => dispatch(signUpvalidation(signUpData)),
        changeType : (formType) => dispatch(changeType(formType)),
-       accountPage : () => dispatch(accountPage())
+       accountPage : () => dispatch(accountPage()),
+       signOut : () => dispatch(signOut())
     };
 }
 

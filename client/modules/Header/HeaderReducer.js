@@ -1,5 +1,5 @@
 // Import Actions
-import { SIGNUP_SUCCESS, SIGNIN_SUCCESS, EDIT_PROFILE_SUCCESS, EDIT_CARD_SUCCESS } from './HeaderActions';
+import { SIGNUP_SUCCESS, SIGNIN_SUCCESS, EDIT_PROFILE_SUCCESS, EDIT_CARD_SUCCESS, GET_USER_DETAILS, UPLOAD_IMAGE_SUCCESS } from './HeaderActions';
 
 // Initial State
 
@@ -8,16 +8,19 @@ const initialState = {
         firstName: '',
         lastName : '',
         email: '',
-        phone: '',
+        phoneNumber: '',
         address : '',
-        hobbies : '',
-        picture: ''
+        city : '',
+        state: '',
+        zipcode: '',
+        profileImage: ''
     },
     card: {
       secureCode: '',
       cardName : '',
       exp_year: '',
-      cardNumber: ''
+      cardNumber: '',
+      exp_month:''
     }
 };
 
@@ -41,15 +44,39 @@ const HeaderReducer = (state = initialState, action) => {
                ...state,
                userdetails : user
            };
-
+      case UPLOAD_IMAGE_SUCCESS :
+       user = state.userdetails;
+       user.profileImage = action.data.file;
+        return {
+            ...state,
+            userdetails : user
+        };
+      case GET_USER_DETAILS : 
+        console.log("in get user success reducer");
+        user = state.userdetails;
+        user.firstName = action.data.firstName;
+        user.lastName = action.data.lastName;
+        user.phoneNumber = action.data.phoneNumber;
+        user.address = action.data.address;
+        user.city = action.data.city;
+        user.state = action.data.state;
+        user.zipcode = action.data.zipcode;
+        user.profileImage = action.data.profileImage;
+        return {
+           ...state,
+           userdetails : user
+       };
       case EDIT_PROFILE_SUCCESS :
         console.log("in edit profile success reducer");
         user = state.userdetails;
         user.firstName = action.data.firstName;
         user.lastName = action.data.lastName;
-        user.phone = action.data.phone;
+        user.phoneNumber = action.data.phoneNumber;
         user.address = action.data.address;
-        user.hobbies = action.data.hobbies;
+        user.city = action.data.city;
+        user.state = action.data.state;
+        user.zipcode = action.data.zipcode;
+        user.profileImage = action.data.profileImage;
            return {
                ...state,
                userdetails : user
@@ -62,6 +89,7 @@ const HeaderReducer = (state = initialState, action) => {
         carddet.cardName = action.data.cardName;
         carddet.exp_year = action.data.exp_year;
         carddet.cardNumber = action.data.cardNumber;
+        carddet.exp_month = action.data.exp_month;
          return {
                ...state,
                card : carddet

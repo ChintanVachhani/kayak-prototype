@@ -63,3 +63,7 @@
         color:#999999;
         font-family: 'Pacifico';
       }   
+      .imgWidth {
+        width: 50%;
+        height: 100%;
+      }

@@ -8,39 +8,28 @@ export default class Flight extends Component {
     render() {
 
         const {flight,isAdmin} = this.props;
-        const imgTag = "data:"+flight.operatorImage.contentType+";base64," + flight.operatorImage.data.data;
-        console.log(imgTag)
-        function calculateInterval(){
-            let departure = flight.departureTime.split(':');
-            let departureTime = toSeconds(departure[0], departure[1]);
-            let arrival = flight.arrivalTime.split(':');
-            let arrivalTime = toSeconds(arrival[0], arrival[1]);
-            let difference = arrivalTime - departureTime;
-            console.log("time diff",difference);
-            if (difference < 0)
-            {
-                difference = Math.abs(difference);
-            }
-            let hours = parseInt(difference/3600) 
-            hours = hours < 10 ? "0" + hours : hours;
-            let minutes =  parseInt((difference/3600) % 1 *60)
-            minutes = minutes < 10 ? "0" + minutes : minutes;
-
-            return (hours + "h " + minutes+"m");
+        let depTime = flight.departureTime.toString();
+        let arvTime = flight.arrivalTime.toString();
+        switch(depTime.length) {
+            case 1 : depTime = "000"+depTime;
+                    break;
+            case 2 : depTime = "00"+depTime;
+                    break;
+            case 3 : depTime = "0"+depTime;
+                    break;
         }
-
-        function toSeconds(hours, minutes)
-        {
-            console.log("recevd in sec",hours+':'+minutes);
-            let seconds = 0;
-            if ( (hours >= 0 && hours < 24) && (minutes >= 0 && minutes < 60))
-            {
-                seconds += (parseInt(hours)*3600) + (parseInt(minutes)*60);
-            }
-            return seconds;
-        }        
-        let duration = calculateInterval();
-        console.log(duration);
+        let f = depTime.substring(0, 2)+":"+depTime.substring(2, 4);
+        switch(arvTime.length) {
+            case 1 : arvTime = "000"+arvTime;
+                    break;
+            case 2 : arvTime = "00"+arvTime;
+                    break;
+            case 3 : arvTime = "0"+arvTime;
+                    break;
+        }
+        let a = arvTime.substring(0, 2)+":"+arvTime.substring(2, 4);
+        var imgSrc = new Buffer(flight.operatorImage.data, 'base64').toString();
+        let img = "data:"+flight.operatorImage.contentType+";base64," + imgSrc;
         return (
             <div className={styles['item']}>
             <div className="row">
@@ -49,7 +38,7 @@ export default class Flight extends Component {
                       <div className="col-md-4">
                         <div className="row">
                             <div className="col-md-12">
-                                <img src={imgTag} />
+                                <img src={img} className={styles['imgWidth']} />
                             </div>
                         </div>
                         <div className="row">
@@ -61,7 +50,7 @@ export default class Flight extends Component {
                       <div className="col-md-2">
                         <div className="row">
                             <div className="col-md-12">
-                                <strong>{flight.departureTime}</strong>
+                                <strong>{f}</strong>
                             </div>
                         </div>
                         <div className="row">
@@ -85,7 +74,7 @@ export default class Flight extends Component {
                       <div className="col-md-2">
                         <div className="row">
                             <div className="col-md-12">
-                                <strong>{flight.arrivalTime}</strong>
+                                <strong>{a}</strong>
                             </div>
                         </div>
                         <div className="row">
@@ -95,7 +84,7 @@ export default class Flight extends Component {
                         </div>                            
                       </div>
                       <div className="col-md-2">
-                        {duration}
+                        {flight.duration}
                       </div>                                                                              
                     </div> 
                 </div>
