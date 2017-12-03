@@ -15,7 +15,6 @@ function handle_request(req, callback) {
       state: req.body.state,
       zipCode: req.body.zipCode,
       hotelImage: req.body.hotelImage,
-      star: req.body.star,
       avgRating: req.body.avgRating,
       noReviews: req.body.noReviews,
     });
@@ -125,7 +124,7 @@ function handle_request(req, callback) {
     let conditions = [];
 
     if (req.query.star !== undefined) {
-      conditions.push({star: req.query.star});
+      conditions.push({star: {$gte: req.query.star}});
     }
     if (req.query.city !== undefined) {
       conditions.push({city: req.query.city});

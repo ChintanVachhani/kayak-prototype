@@ -8,6 +8,7 @@ const bookingSchema = new Schema({
   serviceType: {type: 'String', required: true},
   bookingDetail: {
     serviceId: {type: 'String', required: true},
+    city: {type: 'String', required: true},
     price: {type: 'Number', required: true},
     dateFrom: {type: 'Date', required: true},
     dateTo: {type: 'Date'},
@@ -15,6 +16,8 @@ const bookingSchema = new Schema({
   dateAdded: {type: 'Date', default: Date.now},
   yearAdded: {type: 'Number'},
   monthAdded: {type: 'Number'},
+  cardNumber: {type: 'String'},
+  billingZipcode: {type: 'String'},
 });
 
 bookingSchema.plugin(mongooseUniqueValidator);
