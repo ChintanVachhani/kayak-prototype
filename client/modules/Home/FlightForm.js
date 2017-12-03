@@ -59,7 +59,7 @@ showReturn()
                                 className="form-control"
                                 id = {styles['formcontrol3']}
                                 style={{'padding':'1px'}}
-                               	type="text"
+                               	list="cities"
                                 label="source"
                                 placeholder="From Where?"
                                 onChange={(event) => {
@@ -68,6 +68,13 @@ showReturn()
                                     });
                                  }}
                             	required />
+                                <datalist id="cities">
+                                {
+                                  this.props.cities.map((city)=>{
+                                    return (<div><option value={city}></option></div>)
+                                  })
+                                }
+                                </datalist>                                 
                          	</div>
                     
                         
@@ -76,7 +83,7 @@ showReturn()
                                 className="form-control"
                                 id = {styles['formcontrol3']}
                                 style={{'padding':'1px'}}
-                                type="text"
+                                list="cities"
                                 label="destination"
                                 placeholder="To where?"
                                 onChange={(event) => {
@@ -85,6 +92,13 @@ showReturn()
                                     });
                                  }}
                             	/>
+                                <datalist id="cities">
+                                {
+                                  this.props.cities.map((city)=>{
+                                    return (<div><option value={city}></option></div>)
+                                  })
+                                }
+                                </datalist>                                 
                         	</div>
                         
                         
@@ -176,10 +190,15 @@ showReturn()
     	);
 }
 }
+function mapStateToProps(store) {
+    const {home} = store;
+    const cities = store.home.cities;
+  return {cities};
+}
 function mapDispatchToProps(dispatch) {
    return {
        handleFlight : (flightDetails) => dispatch(handleFlight(flightDetails))
     };
 }
 
-export default connect( null,  mapDispatchToProps)(FlightForm);
+export default connect( mapStateToProps,  mapDispatchToProps)(FlightForm);

@@ -1,8 +1,12 @@
 import React, {Component} from 'react';
-
+import {populateCities} from '../AdminActions';
+import {connect} from 'react-redux';
 class DashboardHome extends Component {
-
+    componentWillMount(){
+        this.props.populateCities();
+    } 
 	render() {
+    
 
 		return( 
              
@@ -17,5 +21,12 @@ class DashboardHome extends Component {
 	}
 
 }
-
-export default DashboardHome;
+const mapDispatchToProps = (dispatch) => {
+   return {
+        populateCities : () => dispatch(populateCities())
+    };
+};
+export default connect(
+  null,
+  mapDispatchToProps
+)(DashboardHome);

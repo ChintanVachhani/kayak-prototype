@@ -17,7 +17,7 @@ class CarForm extends Component {
 
     render() {
 
-    	
+    	console.log('city value',this.props.cities);
 
     return (
 
@@ -30,9 +30,9 @@ class CarForm extends Component {
 							<div className="form-inline" style={{'padding':'1px' }}>
                             	<input
                                 id = {styles['formcontrol3']}
+                                list="cities"
                                 className="form-control"
                                 style={{'padding':'1px', 'font-size': '14px'}}
-                               	type="text"
                                 label="source"
                                 placeholder="Where?"
                                onChange={(event) => {
@@ -42,6 +42,13 @@ class CarForm extends Component {
                                  }} 
                                 
                             	required />
+                                <datalist id="cities">
+                                {
+                                  this.props.cities.map((city)=>{
+                                    return (<div><option value={city}></option></div>)
+                                  })
+                                }
+                                </datalist>                                
                          	</div>
                         
                         
@@ -106,11 +113,12 @@ function mapStateToProps(store) {
     const {home} = store;
     console.log("this is checkig reduer");
     console.log(home);
-  return {};
+    const cities = store.home.cities;
+  return {cities};
 }
 function mapDispatchToProps(dispatch) {
    return {
        handleCar : (carDetails) => dispatch(handleCar(carDetails))
     };
 }
-export default connect( null,  mapDispatchToProps)(CarForm);
+export default connect( mapStateToProps,  mapDispatchToProps)(CarForm);

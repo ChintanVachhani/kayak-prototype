@@ -14,7 +14,7 @@ import BillsHome from './billing/BillingHome';
 import styles from './Admin.css';
 
 
-class Admin extends Component {
+class Admin extends Component { 
   render() {   
     return (
         <div>

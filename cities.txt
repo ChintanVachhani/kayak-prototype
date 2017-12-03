@@ -1,0 +1,129 @@
+﻿Los Angeles,California
+New York, New York
+Chicago,Illinois
+Houston,Texas
+Philadelphia,Pennsylvania
+Phoenix,ArizonaSan Antonio,Texas
+San Diego,California
+Dallas,Texas
+San Jose,California
+Austin,Texas
+Jacksonville,Florida
+Indianapolis,Indiana
+San Francisco,CaliforniaColumbus,Ohio
+Fort Worth,Texas
+Charlotte,North Carolina
+Detroit,MichiganEl Paso,Texas
+Memphis,TennesseeBoston,Massachusetts
+Boston,Washington
+Denver,Colorado
+Washington,District of ColumbiaNashville,Tennessee
+Baltimore,Maryland
+Orange,California
+Fullerton,California
+Pasadena,California
+Hampton,Virginia
+McAllen,Texas
+Killeen,Texas
+Warren,Michigan
+West Valley City,Utah
+Columbia,South Carolina
+New Haven,Connecticut
+Sterling Heights,Michigan
+Olathe,Kansas
+Miramar,Florida
+Thousand Oaks,California
+Frisco,Texas
+Cedar Rapids,Iowa
+Topeka,Kansas
+Visalia,California
+Waco,Texas
+Elizabeth,New Jersey
+Bellevue,Washington
+Gainesville,Florida
+Simi Valley,California
+Charleston,South Carolina
+Carrollton,Texas
+Coral Springs,Florida
+Stamford,Connecticut
+Hartford,Connecticut
+Concord,California
+Roseville,California
+Thornton,Colorado
+Kent,Washington
+Lafayette,Louisiana
+Surprise,Arizona
+Denton,Texas
+Victorville,California
+Evansville,Indiana
+Midland,Texas
+Santa Clara,California
+Athens,Georgia
+Allentown,Pennsylvania
+Abilene,Texas
+Beaumont,Texas
+Vallejo,California
+Independence,Missouri
+Springfield,Illinois
+Ann Arbor,Michigan
+Provo,Utah
+Peoria,Illinois
+Norman,Oklahoma
+Berkeley,California
+El Monte,California
+Murfreesboro,Tennessee
+Lansing,Michigan
+Columbia,Missouri
+Downey,California
+Costa Mesa,California
+Inglewood,California
+Miami Gardens,Florida
+NewHampshire
+Elgin,Illinois
+Wilmington,North Carolina
+Waterbury,Connecticut
+Fargo,North Dakota
+Arvada,Colorado
+Carlsbad,California
+Westminster,Colorado
+Rochester,Minnesota
+Gresham,Oregon
+Clearwater,Florida
+Lowell,Massachusetts
+West Jordan,Utah
+Pueblo,Colorado
+San Buenaventura (Ventura),California
+Fairfield,California
+West Covina,California
+Billings,Montana
+Murrieta,California
+High Point,North Carolina
+Round Rock,Texas
+Richmond,California
+Cambridge,Massachusetts
+Norwalk,California
+Odessa,Texas
+Antioch,California
+Temecula,California
+Green Bay,Wisconsin
+Everett,Washington
+Wichita Falls,Texas
+Burbank,California
+Palm Bay,Florida
+Centennial,Colorado
+Daly City,California
+Richardson,Texas
+Pompano Beach,Florida
+Broken Arrow,Oklahoma
+North Charleston,South Carolina
+West Palm Beach,Florida
+Boulder,Colorado
+Rialto,California
+Santa Maria,California
+El Cajon,California
+Davenport,Iowa
+Erie,Pennsylvania
+Las Cruces,New Mexico
+South Bend,Indiana
+Flint,Michigan
+Kenosha,Wisconsin

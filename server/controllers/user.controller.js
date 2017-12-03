@@ -1,5 +1,6 @@
 // Please put 'kafka' directory containing 'client.js', 'Connection.js' & 'kafkarpc.js', in the routes folder
 let kafka = require('../routes/kafka/client');
+import cacheClient from '../redis';
 
 export function signup(req, res) {
   kafka.make_request('userTopic', {
@@ -7,7 +8,7 @@ export function signup(req, res) {
     headers: req.headers,
     params: req.params,
     query: req.query,
-    body: req.body
+    body: req.body,
   }, function (err, response) {
     console.log('in result--->');
     console.log(response);
@@ -41,7 +42,7 @@ export function signin(req, res) {
     headers: req.headers,
     params: req.params,
     query: req.query,
-    body: req.body
+    body: req.body,
   }, function (err, response) {
     console.log('in result--->');
     console.log(response);
@@ -75,13 +76,14 @@ export function getUser(req, res) {
     headers: req.headers,
     params: req.params,
     query: req.query,
-    body: req.body
+    body: req.body,
   }, function (err, response) {
     console.log('in result--->');
     console.log(response);
 
     switch (response.status) {
       case 200:
+        cacheClient.setex(req.params,60, JSON.stringify(response));
         res.status(200).json(response);
         break;
       case 201:
@@ -109,7 +111,7 @@ export function updateUser(req, res) {
     headers: req.headers,
     params: req.params,
     query: req.query,
-    body: req.body
+    body: req.body,
   }, function (err, response) {
     console.log('in result--->');
     console.log(response);
@@ -143,7 +145,7 @@ export function deleteUser(req, res) {
     headers: req.headers,
     params: req.params,
     query: req.query,
-    body: req.body
+    body: req.body,
   }, function (err, response) {
     console.log('in result--->');
     console.log(response);
@@ -177,7 +179,7 @@ export function getAllUsers(req, res) {
     headers: req.headers,
     params: req.params,
     query: req.query,
-    body: req.body
+    body: req.body,
   }, function (err, response) {
     console.log('in result--->');
     console.log(response);
@@ -211,7 +213,7 @@ export function addCard(req, res) {
     headers: req.headers,
     params: req.params,
     query: req.query,
-    body: req.body
+    body: req.body,
   }, function (err, response) {
     console.log('in result--->');
     console.log(response);
