@@ -113,6 +113,56 @@ function handle_request(req, callback) {
     });
   }
 
+  if (req.name === 'getAllBookingsForUser') {
+    Booking.find({userID: req.params.email}, (error, bookings) => {
+      if (error) {
+        res = {
+          status: 500,
+          title: 'Bookings not retrieved.',
+          error: {message: 'Failed to retrieve bookings.'},
+        };
+        callback(null, res);
+      } else {
+        res = {
+          status: 200,
+          message: 'Successfully retrieved all bookings.',
+          bookings: bookings,
+        };
+        callback(null, res);
+      }
+    });
+  }
+
+  if (req.name === 'searchBookings') {
+    //Naive logic - to be optimized later
+    let conditions = [];
+
+    if (req.query.date !== undefined) {
+      conditions.push({dateAdded: req.query.date});
+    }
+    if (req.query.month !== undefined) {
+      conditions.push({dateAdded: {$month: req.query.month}});
+    }
+
+    Booking.find({$and: conditions}, (error, bookings) => {
+      if (error) {
+        res = {
+          status: 500,
+          title: 'Bookings not retrieved.',
+          error: {message: 'Failed to retrieve bookings.'},
+        };
+        callback(null, res);
+      } else {
+        res = {
+          status: 200,
+          message: 'Successfully retrieved all bookings.',
+          bookings: bookings,
+        };
+        callback(null, res);
+      }
+    });
+  }
+
 }
 
 exports.handle_request = handle_request;

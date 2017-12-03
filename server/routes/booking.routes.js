@@ -6,6 +6,12 @@ const router = new Router();
 // Get All Bookings
 router.route('/').get(BookingController.getAllBookings);
 
+// Get All Bookings for User
+router.route('/all/:email').get(BookingController.getAllBookings);
+
+// Search Bookings
+router.route('/search').get(BookingController.searchBookings);
+
 // Create Booking
 router.route('/').put(BookingController.createBooking);
 

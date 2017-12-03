@@ -31,8 +31,8 @@ function handle_request(req, callback) {
       })
       .then((userObj) => {
         let userDetail = UserDetail({
-          firstName: user.firstName,
-          lastName: user.lastName,
+          firstName: req.body.firstName,
+          lastName: req.body.lastName,
           email: user.email,
         });
         userDetail.save(function (error) {
@@ -110,9 +110,9 @@ function handle_request(req, callback) {
         callback(null, res);
       } else {
         res = {
-          status: 404,
-          title: 'User not found.',
-          error: {message: 'Failed to retrieve user.'},
+          status: 200,
+          message: 'Successfully retrieved user.',
+          user: user,
         };
         callback(null, res);
       }
@@ -153,6 +153,26 @@ function handle_request(req, callback) {
         res = {
           status: 200,
           message: 'Successfully deleted user.',
+        };
+        callback(null, res);
+      }
+    });
+  }
+
+  if (req.name === 'getAllUsers') {
+    User.find({}, (error, users) => {
+      if (error) {
+        res = {
+          status: 500,
+          title: 'Users not retrieved.',
+          error: {message: 'Failed to retrieve users.'},
+        };
+        callback(null, res);
+      } else {
+        res = {
+          status: 200,
+          message: 'Successfully retrieved all users.',
+          users: users,
         };
         callback(null, res);
       }
