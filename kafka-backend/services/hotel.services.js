@@ -125,7 +125,7 @@ function handle_request(req, callback) {
     let conditions = [];
 
     if (req.query.star !== undefined) {
-      conditions.push({star: req.query.star});
+      conditions.push({star: {$gte: req.query.star}});
     }
     if (req.query.city !== undefined) {
       conditions.push({city: req.query.city});

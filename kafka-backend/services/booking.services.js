@@ -19,6 +19,7 @@ function handle_request(req, callback) {
         price: req.body.price,
         dateFrom: req.body.dateFrom,
         dateTo: req.body.dateTo,
+        city: req.body.city,
       },
       dateAdded: date,
       yearAdded: year,
@@ -157,6 +158,74 @@ function handle_request(req, callback) {
     }
 
     Booking.find({$and: conditions}, (error, bookings) => {
+      if (error) {
+        console.error(error);
+        res = {
+          status: 500,
+          title: 'Bookings not retrieved.',
+          error: {message: 'Failed to retrieve bookings.'},
+        };
+        callback(null, res);
+      } else {
+        res = {
+          status: 200,
+          message: 'Successfully retrieved all bookings.',
+          bookings: bookings,
+        };
+        callback(null, res);
+      }
+    });
+  }
+
+  if (req.name === 'topTenBasedOnYearRevenue') {
+    Booking.aggregate([{$group: {_id: '$bookingDetail.serviceId', total: {$sum: '$bookingDetail.price'}}}, {$sort: {total: 1}}, {$limit: 10}], (error, bookings) => {
+      if (error) {
+        console.error(error);
+        res = {
+          status: 500,
+          title: 'Bookings not retrieved.',
+          error: {message: 'Failed to retrieve bookings.'},
+        };
+        callback(null, res);
+      } else {
+        res = {
+          status: 200,
+          message: 'Successfully retrieved all bookings.',
+          bookings: bookings,
+        };
+        callback(null, res);
+      }
+    });
+  }
+
+  if (req.name === 'cityBasedRevenue') {
+    Booking.aggregate([{$group: {_id: '$bookingDetail.city', total: {$sum: '$bookingDetail.price'}}}, {$sort: {total: 1}}], (error, bookings) => {
+      if (error) {
+        console.error(error);
+        res = {
+          status: 500,
+          title: 'Bookings not retrieved.',
+          error: {message: 'Failed to retrieve bookings.'},
+        };
+        callback(null, res);
+      } else {
+        res = {
+          status: 200,
+          message: 'Successfully retrieved all bookings.',
+          bookings: bookings,
+        };
+        callback(null, res);
+      }
+    });
+  }
+
+  if (req.name === 'topTenBasedOnMonthRevenue') {
+    Booking.aggregate([{$match: {month: req.query.month, year: req.query.year}}, {
+      $group: {
+        _id: '$bookingDetail.serviceId',
+        total: {$sum: '$bookingDetail.price'},
+      },
+    }, {$sort: {total: 1}}, {$limit: 10}], (error, bookings) => {
       if (error) {
         console.error(error);
         res = {

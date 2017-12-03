@@ -179,6 +179,45 @@ function handle_request(req, callback) {
     });
   }
 
+  if (req.name === 'addCard') {
+    let card = Card({
+      cardNumber: req.body.cardNumber,
+      cardName: req.body.cardName,
+      expMonth: req.body.expMonth,
+      expYear: req.body.expYear,
+      secureCode: req.body.secureCode,
+    });
+    UserDetail.findOne({email: req.body.email}, (error, user) => {
+      if (error || !user) {
+        res = {
+          status: 404,
+          title: 'User not found.',
+          error: {message: 'Failed to update user.'},
+        };
+        callback(null, res);
+      } else {
+        card.save(function (error, card) {
+          console.log(error);
+          if(error || !card){
+            res = {
+              status: 500,
+              title: 'Card not added.',
+              error: {message: 'Failed to add card to user account.'},
+            };
+            callback(null, res);
+          } else{
+            user.cards.push(card);
+            res = {
+              status: 201,
+              message: 'Successfully added card.',
+            };
+            callback(null, res);
+          }
+        });
+      }
+    });
+  }
+
 }
 
 exports.handle_request = handle_request;
