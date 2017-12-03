@@ -2,7 +2,7 @@ import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
-import {signInvalidation, signUpvalidation, changeType } from './HeaderActions';
+import {signInvalidation, signUpvalidation, changeType, accountPage } from './HeaderActions';
 //import {Link } from 'react-router';
 
 // Import Style
@@ -11,12 +11,10 @@ import styles from './Header.css';
 class Header extends Component {
 
     popSignupWindow= (event) => {
-      console.log("creating folder, create an input field to display");
       this.refs.signupPopup.style="display: inline-block";
     }
 
     popSigninWindow= (event) => {
-      console.log("creating folder, create an input field to display");
       this.refs.signinPopup.style="display: inline-block";
     }
 
@@ -57,7 +55,6 @@ class Header extends Component {
       this.refs.signinForm.reset();
       this.refs.signupForm.reset();
     }
-
     
     render() {
         return (
@@ -91,7 +88,7 @@ class Header extends Component {
                                 <a className="dropdown-item py-1"  onClick={this.popSigninWindow}>
                                     <div className="btn" id={styles['signin-btn']}>Sign in</div>
                                 </a>
-                                <a className="dropdown-item py-1"  ><i className="fa fa-cog" aria-hidden="true" onClick={this.props.accountPage}></i>&nbsp;&nbsp;&nbsp;&nbsp;Account Preferences</a>
+                                <button className="dropdown-item py-1"  onClick={this.props.accountPage}><i className="fa fa-cog" aria-hidden="true"></i>&nbsp;&nbsp;&nbsp;&nbsp;Account Preferences</button>
                                 <a className="dropdown-item py-1" ><i className="fa fa-briefcase" aria-hidden="true"></i>&nbsp;&nbsp;&nbsp;&nbsp;Bookings</a>
                                 <a className="dropdown-item py-1" >
                                     <div className="btn btn-secondary" id={styles['signout-btn']}>Sign out</div>
@@ -194,7 +191,8 @@ function mapDispatchToProps(dispatch) {
    return {
        signInvalidation : (signInData) => dispatch(signInvalidation(signInData)),
        signUpvalidation : (signUpData) => dispatch(signUpvalidation(signUpData)),
-       changeType : (formType) => dispatch(changeType(formType))
+       changeType : (formType) => dispatch(changeType(formType)),
+       accountPage : () => dispatch(accountPage())
     };
 }
 

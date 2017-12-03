@@ -2,7 +2,19 @@
 import {  } from './HeaderActions';
 
 // Initial State
-const initialState = {};
+
+const initialState = {
+	userdetails: {
+        firstName: '',
+        lastName : '',
+        email: '',
+        phone: '',
+        address : '',
+        hobbies : '',
+        creditCard: '',
+        picture: ''
+    }
+};
 
 const HeaderReducer = (state = initialState, action) => {
   switch (action.type) {

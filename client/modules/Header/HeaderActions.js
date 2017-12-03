@@ -1,6 +1,7 @@
 // Export Constants
 export const UPDATE_FORMTYPEHEADER = 'UPDATE_FORMTYPEHEADER';
 import callApi from '../../util/apiCaller';
+import {Router, browserHistory, Route} from 'react-router';
 // Export Actions
 export function changeFormDisplay(displayForm) {
   console.log("this is changeform display" );    
@@ -18,6 +19,30 @@ export function changeType(name) {
   
    }
 }
+
+
+
+
+export function accountPage() {
+  browserHistory.push('/account');
+}
+
+export function deleteAccount() {
+  
+ browserHistory.push('/');
+}
+
+export function handleEditProfile(userDetails) {
+  console.log("in handleEditprofile actions");
+ 
+}
+
+export function handleCard(cardDetails) {
+
+  console.log("in actions handle card");
+ 
+}
+
 
 export function signUpvalidation(signUpData) {
 

@@ -15,11 +15,6 @@ class CarForm extends Component {
      };
 
 
-componentDidMount() {
-    console.log(" Refreshing Home page");
-        
-    }
-
     render() {
 
     	

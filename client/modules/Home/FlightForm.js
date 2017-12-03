@@ -29,10 +29,6 @@ showReturn()
         
     }
 
-componentDidMount() {
-    console.log(" Refreshing Home page");
-        
-    }
 
     render() {
 
