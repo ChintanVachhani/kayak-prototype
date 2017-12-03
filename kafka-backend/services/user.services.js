@@ -3,6 +3,7 @@ let UserDetail = require('../models/userDetail');
 let bcrypt = require('bcryptjs');
 let sanitizeHtml = require('sanitize-html');
 let jwt = require('jsonwebtoken');
+const logger = require('../logger');
 
 function handle_request(req, callback) {
   console.log("In handle request:" + JSON.stringify(req));
@@ -100,6 +101,9 @@ function handle_request(req, callback) {
   }
 
   if (req.name === 'getUser') {
+
+    logger.info('User Information');
+
     UserDetail.findOne({email: req.params.email}, (error, user) => {
       if (error || !user) {
         res = {
@@ -120,6 +124,9 @@ function handle_request(req, callback) {
   }
 
   if (req.name === 'updateUser') {
+
+    logger.info('User Information');
+
     UserDetail.findOneAndUpdate({email: req.params.email}, req.body, (error, user) => {
       if (error || !user) {
         res = {
@@ -140,6 +147,9 @@ function handle_request(req, callback) {
   }
 
   if (req.name === 'deleteUser') {
+
+    logger.info('User Information');
+
     UserDetail.findOneAndRemove({email: req.params.email}, (error, user) => {
       if (error || !user) {
         res = {
@@ -180,6 +190,9 @@ function handle_request(req, callback) {
   }
 
   if (req.name === 'addCard') {
+
+    logger.info('User Information');
+
     let card = Card({
       cardNumber: req.body.cardNumber,
       cardName: req.body.cardName,
