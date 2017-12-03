@@ -1,4 +1,4 @@
-import { Router } from 'express';
+import {Router} from 'express';
 import * as UserController from '../controllers/user.controller';
 
 const router = new Router();
@@ -8,6 +8,12 @@ router.route('/signup').post(UserController.signup);
 
 // User Sign in
 router.route('/signin').post(UserController.signin);
+
+// Add card to User Detail
+router.route('/addCard').post(UserController.addCard);
+
+// Get All Users
+router.route('/').get(UserController.getAllUsers);
 
 // Get User
 router.route('/:email').get(UserController.getUser);

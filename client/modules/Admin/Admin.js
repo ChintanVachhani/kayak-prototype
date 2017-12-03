@@ -8,6 +8,7 @@ import DashboardHome from './dashboard/DashboardHome';
 import CarsHome from './cars/CarsHome';
 import HotelsHome from './hotels/HotelsHome';
 import FlightsHome from './flights/FlightsHome';
+import BillsHome from './billing/BillingHome';
 
 // Import Style
 import styles from './Admin.css';
@@ -28,6 +29,7 @@ class Admin extends Component {
                   {this.props.params.service === 'flights' ? <FlightsHome /> : ''}
                   {this.props.params.service === 'hotels' ? <HotelsHome /> : ''}
                   {this.props.params.service === 'cars' ? <CarsHome /> : ''}
+                  {this.props.params.service === 'bills' ? <BillsHome /> : ''}
                 </div>
               </div>
             : ''}

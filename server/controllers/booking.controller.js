@@ -170,3 +170,173 @@ export function getAllBookings(req, res) {
     }
   });
 }
+
+export function getAllBookingsForUser(req, res) {
+  kafka.make_request('bookingTopic', {
+    name: 'getAllBookingsForUser',
+    headers: req.headers,
+    params: req.params,
+    query: req.query,
+    body: req.body
+  }, function (err, response) {
+    console.log('in result--->');
+    console.log(response);
+
+    switch (response.status) {
+      case 200:
+        res.status(200).json(response);
+        break;
+      case 201:
+        res.status(201).json(response);
+        break;
+      case 400:
+        res.status(400).json(response);
+        break;
+      case 401:
+        res.status(401).json(response);
+        break;
+      case 404:
+        res.status(404).json(response);
+        break;
+      case 500:
+        res.status(500).json(response);
+        break;
+    }
+  });
+}
+
+export function searchBookings(req, res) {
+  kafka.make_request('bookingTopic', {
+    name: 'searchBookings',
+    headers: req.headers,
+    params: req.params,
+    query: req.query,
+    body: req.body
+  }, function (err, response) {
+    console.log('in result--->');
+    console.log(response);
+
+    switch (response.status) {
+      case 200:
+        res.status(200).json(response);
+        break;
+      case 201:
+        res.status(201).json(response);
+        break;
+      case 400:
+        res.status(400).json(response);
+        break;
+      case 401:
+        res.status(401).json(response);
+        break;
+      case 404:
+        res.status(404).json(response);
+        break;
+      case 500:
+        res.status(500).json(response);
+        break;
+    }
+  });
+}
+
+export function topTenBasedOnYearRevenue(req, res) {
+  kafka.make_request('bookingTopic', {
+    name: 'topTenBasedOnYearRevenue',
+    headers: req.headers,
+    params: req.params,
+    query: req.query,
+    body: req.body
+  }, function (err, response) {
+    console.log('in result--->');
+    console.log(response);
+
+    switch (response.status) {
+      case 200:
+        res.status(200).json(response);
+        break;
+      case 201:
+        res.status(201).json(response);
+        break;
+      case 400:
+        res.status(400).json(response);
+        break;
+      case 401:
+        res.status(401).json(response);
+        break;
+      case 404:
+        res.status(404).json(response);
+        break;
+      case 500:
+        res.status(500).json(response);
+        break;
+    }
+  });
+}
+
+export function cityBasedRevenue(req, res) {
+  kafka.make_request('bookingTopic', {
+    name: 'cityBasedRevenue',
+    headers: req.headers,
+    params: req.params,
+    query: req.query,
+    body: req.body
+  }, function (err, response) {
+    console.log('in result--->');
+    console.log(response);
+
+    switch (response.status) {
+      case 200:
+        res.status(200).json(response);
+        break;
+      case 201:
+        res.status(201).json(response);
+        break;
+      case 400:
+        res.status(400).json(response);
+        break;
+      case 401:
+        res.status(401).json(response);
+        break;
+      case 404:
+        res.status(404).json(response);
+        break;
+      case 500:
+        res.status(500).json(response);
+        break;
+    }
+  });
+}
+
+export function topTenBasedOnMonthRevenue(req, res) {
+  kafka.make_request('bookingTopic', {
+    name: 'topTenBasedOnMonthRevenue',
+    headers: req.headers,
+    params: req.params,
+    query: req.query,
+    body: req.body
+  }, function (err, response) {
+    console.log('in result--->');
+    console.log(response);
+
+    switch (response.status) {
+      case 200:
+        res.status(200).json(response);
+        break;
+      case 201:
+        res.status(201).json(response);
+        break;
+      case 400:
+        res.status(400).json(response);
+        break;
+      case 401:
+        res.status(401).json(response);
+        break;
+      case 404:
+        res.status(404).json(response);
+        break;
+      case 500:
+        res.status(500).json(response);
+        break;
+    }
+  });
+}

@@ -6,7 +6,7 @@ function handle_request(req, callback) {
   let res;
 
   if (req.name === 'createFlight') {
-       let flight = Flight({
+    let flight = Flight({
       flightID: req.body.flightID,
       price: {
         economy: req.body.economy,
@@ -22,25 +22,22 @@ function handle_request(req, callback) {
       operatorImage: req.body.operatorImage,
     });
     flight.save(function (error) {
-      if(error) {
-        console.log("ss : ", error)
-
-      res = {
-        status: 400,
-        title: 'Invalid data.',
-        error: {message: 'Failed to create flight.'},
-      };
-      callback(null, res);
-    }
-    else {
-       res = {
-      status: 201,
-      message: 'Successfully created flight.',
-      flight: flight,
-    };
-
-    callback(null, res);
-    }
+      if (error) {
+        res = {
+          status: 400,
+          title: 'Invalid data.',
+          error: {message: 'Failed to create flight.'},
+        };
+        callback(null, res);
+      }
+      else {
+        res = {
+          status: 201,
+          message: 'Successfully created flight.',
+          flight: flight,
+        };
+        callback(null, res);
+      }
     });
 
 

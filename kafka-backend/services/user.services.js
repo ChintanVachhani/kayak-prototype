@@ -31,8 +31,8 @@ function handle_request(req, callback) {
       })
       .then((userObj) => {
         let userDetail = UserDetail({
-          firstName: user.firstName,
-          lastName: user.lastName,
+          firstName: req.body.firstName,
+          lastName: req.body.lastName,
           email: user.email,
         });
         userDetail.save(function (error) {
@@ -110,9 +110,9 @@ function handle_request(req, callback) {
         callback(null, res);
       } else {
         res = {
-          status: 404,
-          title: 'User not found.',
-          error: {message: 'Failed to retrieve user.'},
+          status: 200,
+          message: 'Successfully retrieved user.',
+          user: user,
         };
         callback(null, res);
       }
@@ -155,6 +155,72 @@ function handle_request(req, callback) {
           message: 'Successfully deleted user.',
         };
         callback(null, res);
+      }
+    });
+  }
+
+  if (req.name === 'getAllUsers') {
+    User.find({}, (error, users) => {
+      if (error) {
+        res = {
+          status: 500,
+          title: 'Users not retrieved.',
+          error: {message: 'Failed to retrieve users.'},
+        };
+        callback(null, res);
+      } else {
+        res = {
+          status: 200,
+          message: 'Successfully retrieved all users.',
+          users: users,
+        };
+        callback(null, res);
+      }
+    });
+  }
+
+  if (req.name === 'addCard') {
+    let card = Card({
+      cardNumber: req.body.cardNumber,
+      cardName: req.body.cardName,
+      expMonth: req.body.expMonth,
+      expYear: req.body.expYear,
+      secureCode: req.body.secureCode,
+      billingDetail: {
+        address: req.body.billingAddress,
+        zipcode: req.body.billingZipcode,
+        city: req.body.billingCity,
+        state: req.body.billingState,
+        country: req.body.billingCountry,
+      },
+    });
+    UserDetail.findOne({email: req.body.email}, (error, user) => {
+      if (error || !user) {
+        res = {
+          status: 404,
+          title: 'User not found.',
+          error: {message: 'Failed to update user.'},
+        };
+        callback(null, res);
+      } else {
+        card.save(function (error, card) {
+          console.log(error);
+          if (error || !card) {
+            res = {
+              status: 500,
+              title: 'Card not added.',
+              error: {message: 'Failed to add card to user account.'},
+            };
+            callback(null, res);
+          } else {
+            user.cards.push(card);
+            res = {
+              status: 201,
+              message: 'Successfully added card.',
+            };
+            callback(null, res);
+          }
+        });
       }
     });
   }

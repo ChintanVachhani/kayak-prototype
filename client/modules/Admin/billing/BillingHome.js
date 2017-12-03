@@ -1,18 +1,17 @@
 import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import CreateHotel from './CreateHotel';
-import SearchHotel from './SearchHotel';
 import { Alert } from 'reactstrap';
-import HotelItem from './HotelItem';
-import HotelList from './HotelList';
-import {getAllHotels} from './../AdminActions';
+import {getAllBills} from './../AdminActions';
+import SearchBills from './SearchBills';
+import BillList from './BillList';
+import Bill from './Bill';
 
-class HotelsHome extends Component {
+class BillingHome extends Component {
 
   componentDidMount() {
 
-    this.props.getAllHotels();
+    this.props.getAllBills();
   }
 
   render() {
@@ -21,13 +20,10 @@ class HotelsHome extends Component {
     	<div className="col-sm-9 col-md-10 pt-5">			
         <div className="row">
 			<div className="col-9">     
-        		<p className="text-left"><h4>Hotels</h4></p>        		
+        		<p className="text-left"><h4>Bills</h4></p>        		
         	</div>
-        	<div className="col-1">
-        		<SearchHotel  buttonLabel="Search Hotels" />
-        	</div>        	
-        	<div className="col-1">
-        		<CreateHotel  buttonLabel="Create Hotel" />
+        	<div className="col-2">
+        		<SearchBills  buttonLabel="Search Bills" />
         	</div>
         	<div className="col-1">
         		&nbsp;
@@ -42,8 +38,16 @@ class HotelsHome extends Component {
 			</div>
         	: ''}    
         <div className="row">
-		<div className="col-12">
-			<HotelList hotelList={this.props.hotels} isAdmin="true"/>
+		  <div className="col-12">
+			                    {
+                    this.props.bills.map((bill,index) => {
+                        return(
+                            <Bill
+                                bill={bill} isAdmin="true"
+                            />
+                        );
+                    })
+                    }
         </div>
            </div>
 
@@ -54,23 +58,24 @@ class HotelsHome extends Component {
 }
 
 const mapStateToProps = (state) => {
-	let hotels = state.admin.hotelList;
+	let bills = state.admin.billList;
+  console.log("ss : ", bills)
 	let msg = state.admin.msg;
 	state.admin.msg = undefined;
-  	return {hotels, msg};
+  	return {bills, msg};
   
 };
 
 const mapDispatchToProps = (dispatch) => {
   return {
-        getAllHotels : () => dispatch(getAllHotels())
+        getAllBills : () => dispatch(getAllBills())
     };
 };
 
-HotelsHome.propTypes = {
+BillingHome.propTypes = {
 };
 
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(HotelsHome);
+)(BillingHome);
