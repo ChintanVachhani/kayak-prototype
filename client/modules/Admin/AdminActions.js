@@ -11,6 +11,7 @@ export const FLIGHT_LIST = 'FLIGHT_LIST';
 export const HOTEL_LIST = 'HOTEL_LIST';
 export const CAR_LIST = 'CAR_LIST';
 export const BILL_LIST = 'BILL_LIST';
+export const LOCATION_DETAILS = 'LOCATION_DETAILS';
 
 
 // Export Actions
@@ -81,6 +82,20 @@ function updateHotelList(data) {
     msg: "New Hotel Created",
     hotels: data.hotels
   }
+}
+
+export function locationUpdate(data) {
+    return {
+     type : LOCATION_DETAILS,
+     cities:data.cities,
+     states:data.states                                // this is same as newItem : newItem in ES6
+    }                               
+}
+
+export function populateCities(){
+return (dispatch) => {
+return callApi('util/location', 'get').then(res => dispatch(locationUpdate(res)));
+  };
 }
 
 export function createCar(data) {
@@ -159,6 +174,7 @@ function billList(data) {
     bills: data.bookings
   }
 }
+
 
 export function searchBillsByDate(query) {
   

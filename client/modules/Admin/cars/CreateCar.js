@@ -167,7 +167,7 @@ class CreateCar extends React.Component {
 }
 
 function mapStateToProps(store) {
-    const cities = store.home.cities;
+    const cities = store.admin.cities;
   return {cities};
 }
 

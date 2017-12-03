@@ -1,11 +1,13 @@
 // Import Actions
-import { CREATE_FLIGHT, ADMIN_SIGNIN, ADMIN_SIGNOUT, CREATE_HOTEL, CREATE_CAR, FLIGHT_LIST, HOTEL_LIST, CAR_LIST, BILL_LIST } from './AdminActions';
+import { CREATE_FLIGHT, ADMIN_SIGNIN, ADMIN_SIGNOUT, CREATE_HOTEL, CREATE_CAR, FLIGHT_LIST, HOTEL_LIST, CAR_LIST, BILL_LIST,LOCATION_DETAILS } from './AdminActions';
 
 const initialState = {
   carList: [],
   flightList: [],
   hotelList: [],
-  billList:[]
+  billList:[],
+  cities:[],
+  states:[]
 };
 
 const AdminReducer = (state = initialState, action) => {
@@ -87,6 +89,13 @@ const AdminReducer = (state = initialState, action) => {
         ...state,
         "isLoggedIn": false
       };
+
+    case LOCATION_DETAILS:
+      return {
+        ...state,
+        "cities":action.cities,
+        "states":action.states
+      };      
 
 
     default:

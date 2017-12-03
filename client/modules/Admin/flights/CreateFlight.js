@@ -79,17 +79,31 @@ class CreateFlight extends React.Component {
               <div className="form-row">
                 <div className="form-group col-md-6">
                   <label for="inputEmail4">From</label>
-                  <input type="text" className="form-control" id="inputEmail4" placeholder="From Where?" required onChange={(event) => {
+                  <input list="cities" className="form-control" id="inputEmail4" placeholder="From Where?" required onChange={(event) => {
                                     this.setState({
                                         origin: event.target.value
                                     }); }} />
+                                <datalist id="cities">
+                                {
+                                  this.props.cities.map((city)=>{
+                                    return (<div><option value={city}></option></div>)
+                                  })
+                                }
+                                </datalist>                                    
                 </div>
                 <div className="form-group col-md-6">
                   <label for="inputPassword4">To</label>
-                  <input type="text" className="form-control" id="inputPassword4" placeholder="To Where?" onChange={(event) => {
+                  <input list="cities" className="form-control" id="inputPassword4" placeholder="To Where?" onChange={(event) => {
                                     this.setState({
                                         destination: event.target.value
                                     }); }} />
+                                <datalist id="cities">
+                                {
+                                  this.props.cities.map((city)=>{
+                                    return (<div><option value={city}></option></div>)
+                                  })
+                                }
+                                </datalist>                                    
                 </div>
               </div>
               <div className="form-row">
@@ -178,9 +192,10 @@ class CreateFlight extends React.Component {
   }
 }
 
-const mapStateToProps = (state) => {
-  return {};  
-};
+function mapStateToProps(store) {
+    const cities = store.admin.cities;
+  return {cities};
+}
 
 const mapDispatchToProps = (dispatch) => {
   return {
