@@ -31,7 +31,7 @@ class HotelForm extends Component {
                             	<input
                                 className="form-control"
                                 id = {styles['formcontrol3']}
-                               	type="text"
+                               	list="cities"
                                 label="source"
                                 placeholder="Where?"
                                
@@ -41,6 +41,13 @@ class HotelForm extends Component {
                                     });
                                  }}
                             	required />
+                                <datalist id="cities">
+                                {
+                                  this.props.cities.map((city)=>{
+                                    return (<div><option value={city}></option></div>)
+                                  })
+                                }
+                                </datalist>                                  
                          	</div>
                         </div>
                         <div className = "col-md-2" style={{'padding':'1px'}}>
@@ -120,9 +127,14 @@ class HotelForm extends Component {
 }
 }
 
+function mapStateToProps(store) {
+    const {home} = store;
+    const cities = store.home.cities;
+  return {cities};
+}
 function mapDispatchToProps(dispatch) {
    return {
        handleHotel : (hotelDetails) => dispatch(handleHotel(hotelDetails))
     };
 }
-export default connect( null,  mapDispatchToProps)(HotelForm);
+export default connect( mapStateToProps,  mapDispatchToProps)(HotelForm);

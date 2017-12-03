@@ -128,11 +128,19 @@ class CreateCar extends React.Component {
               <div className="form-row">
                 <div className="form-group col-md-12">
                   <label for="inputEmail4">Location</label>
-                  <input type="text" className="form-control" id="inputEmail4" placeholder="Location"
+                  <input list="cities" className="form-control" id="inputEmail4" placeholder="Location"
                   onChange={(event) => {
                                     this.setState({
                                         location: event.target.value
                                     }); }} />
+                                <datalist id="cities">
+                                {
+                                  this.props.cities.map((city)=>{
+                                    return (<div><option value={city}></option></div>)
+                                  })
+                                }
+                                </datalist>                                    
+
                 </div>
               </div>
 
@@ -158,9 +166,10 @@ class CreateCar extends React.Component {
   }
 }
 
-const mapStateToProps = (state) => {
-  return {};  
-};
+function mapStateToProps(store) {
+    const cities = store.admin.cities;
+  return {cities};
+}
 
 const mapDispatchToProps = (dispatch) => {
   return {

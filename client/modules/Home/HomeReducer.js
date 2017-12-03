@@ -1,5 +1,5 @@
 // Import Actions
-import { UPDATE_CARFORM, UPDATE_FLIGHTFORM, UPDATE_HOTELFORM, UPDATE_FORMTYPE } from './HomeActions';
+import { UPDATE_CARFORM, UPDATE_FLIGHTFORM, UPDATE_HOTELFORM, UPDATE_FORMTYPE,UPDATE_CITIES } from './HomeActions';
 import {UPDATE_FORMTYPEHEADER} from '../Header/HeaderActions';
 
 // Initial State
@@ -7,7 +7,9 @@ const initialState = {
 	carFormData : { place: '', toDate: '', fromDate: ''},
 	flightFormData : { fromPlace: '', toPlace: '', departDate:'', returnDate: '', passengers: '', cabinClass: ''},
 	hotelFormData : {place: '', checkin: '', checkout: '', rooms: ''},
-  formType: ''
+  formType: '',
+  cities:[],
+  states:[]
 };
 
 const HomeReducer = (state = initialState, action) => {
@@ -65,6 +67,13 @@ const HomeReducer = (state = initialState, action) => {
                ...state,
                formType : action.displayForm
            };
+    case UPDATE_CITIES :
+           
+          return {
+               ...state,
+               cities : action.cities,
+               states:action.states
+           };           
 
     default:
       return state;
