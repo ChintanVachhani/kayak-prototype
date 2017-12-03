@@ -1,5 +1,8 @@
 // Export Constants
 export const UPDATE_FORMTYPEHEADER = 'UPDATE_FORMTYPEHEADER';
+export const SIGNUP_SUCCESS = 'SIGNUP_SUCCESS';
+export const SIGNIN_SUCCESS = 'SIGNIN_SUCCESS';
+
 import callApi from '../../util/apiCaller';
 import {Router, browserHistory, Route} from 'react-router';
 
@@ -26,9 +29,6 @@ export function changeType(name) {
    }
 }
 
-
-
-
 export function accountPage() {
   browserHistory.push('/account');
 }
@@ -49,29 +49,52 @@ export function handleCard(cardDetails) {
  
 }
 
-export function signInSuccess(data) {
+export function signinSuccess(data) {
+  console.log("this is in signinsuccess");
+  localStorage.setItem('token', data.token);
+  let email1 = data.id;
+  console.log("this is emain in signin success" + emai11);
+  return {
+  type : SIGNIN_SUCCESS,
+  email1
+  }
+}
 
-  console.log("in actions handle card");
- 
+export function signupSuccess(data) {
+  console.log("this is in signupSuccess");
+  console.log(data);
+  console.log(data.token);
+  localStorage.setItem('token', data.token);
+
+  let email = data.id;
+  return {
+  type : SIGNUP_SUCCESS,
+  email
+  }
 }
 
 
-export function signUpvalidation(signUpData) {
 
-  return dispatch => {
-    
-    return callApi('header', 'post', {
-        post: {
-        data: signUpData
-      	},
-    })
-    .then(response => {
-      if (response.status === 201) { 
-         //localStorage.setItem('token', response.token);
-         console.log("success signup");
-       }
-    })
-  }
+export function signUpvalidation(data) {
+  let req = {};
+  console.log("this is in action signup"+ data.email);
+  req.email = data.email;
+  req.password = data.password;
+  req.firstName = data.firstName;
+  req.lastName = data.lastName;
+  return (dispatch) => {
+    return callApi('user/signup', 'post', req).then(res => dispatch(signupSuccess(res)));
+  };
+}
+
+export function signInvalidation(data) {
+  let req = {};
+  console.log("this is in action signin"+ data.email);
+  req.email = data.email;
+  req.password = data.password;
+  return (dispatch) => {
+    return callApi('user/signin', 'post', req).then(res => dispatch(signinSuccess(res)));
+  };
 }
 /*
 *   {
@@ -79,24 +102,6 @@ export function signUpvalidation(signUpData) {
 *    "password" : password
 *   }
 */
-export const signInvalidation = (payload) =>
-  fetch(`${api}/user/signin`, {
-    method: 'POST',
-    headers: {
-      ...headers,
-      'Content-Type': 'application/json'
-    },
-    credentials: 'include',
-    body: JSON.stringify(payload)
-  }).then((response) => response.json())
 
-  .then((responseJson) => {
-
-    dispatch(signInSuccess(responseJson));
-  })
-  .catch(error => {
-    console.log("Create Flight Falied with error : " + error);
-    return error;
-  });
 
 

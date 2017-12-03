@@ -22,8 +22,8 @@ class Header extends Component {
 
     signinSubmit = (event) => {
       console.log("in signinsubmit");
-      const email = this.refs.lemail.value;
-      const password = this.refs.lpassword.value;
+      let email = this.refs.lemail.value;
+      let password = this.refs.lpassword.value;
       this.refs.signinPopup.style="display: none";
       this.refs.signinForm.reset();
       this.props.signInvalidation({
@@ -34,10 +34,12 @@ class Header extends Component {
 
     signupSubmit = (event) => {
       console.log("in signupsubmit");
-      const email = this.refs.semail.value;
-      const password = this.refs.spassword.value;
-      const firstName = this.refs.sfirstName.value;
-      const lastName = this.refs.slastName.value;
+      console.log(this.refs.semail.value);
+
+      let email = this.refs.semail.value;
+      let password = this.refs.spassword.value;
+      let firstName = this.refs.sfirstName.value;
+      let lastName = this.refs.slastName.value;
       this.refs.signupPopup.style="display: none";
       this.refs.signupForm.reset();
       this.props.signUpvalidation({
@@ -144,7 +146,7 @@ class Header extends Component {
                           </div>
                           <br />
                           <div  className="form-group" >
-                            <input type="button" value="Create Account" style={{'width':'100%', 'font-size': '14px'}} onClick={this.signupSubmit}/>
+                            <input type="button" className="btn btn-primary btn-block"  value="Create Account" style={{'width':'100%', 'font-size': '14px'}} onClick={this.signupSubmit}/>
                           </div>
                         </form>
                       </div>
