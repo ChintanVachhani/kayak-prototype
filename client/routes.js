@@ -5,6 +5,8 @@ import App from './modules/App/App';
 import Admin from "./modules/Admin/Admin";
 import Home from "./modules/Home/Home";
 import List from "./modules/List/List";
+import AccountPage from "./modules/Header/AccountPage";
+import Billing from "./modules/Billing/Billing";
 
 
 // require.ensure polyfill for node
@@ -45,7 +47,9 @@ export default (
     />*/}
     <IndexRoute component={Home}/>
     <Route path="admin" component={Admin}/>
+    <Route path="/account" component={AccountPage}/>
+    <Route path="/billing" component={Billing}/>
     <Route path="/:service" component={List}/>
-    <Route path="admin/:service" component={Admin}/>
+     <Route path="admin/:service" component={Admin}/>
   </Route>
 );

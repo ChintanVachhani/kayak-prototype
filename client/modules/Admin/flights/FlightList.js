@@ -1,10 +1,10 @@
 import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import Flight from './Flight';
+import Flight from './../../List/components/Flight/Flight';
 
 // Import Style
-import styles from './Flight.css';
+import styles from './../../List/components/Flight/Flight.css';
 
 class FlightList extends Component {
   render() {
@@ -33,8 +33,8 @@ class FlightList extends Component {
 }
 
 const mapStateToProps = (state) => {
-   const flightList = state.list.flightList;
-    return {flightList};
+   
+    return {};
 };
 
 // const mapDispatchToProps = (dispatch) => {

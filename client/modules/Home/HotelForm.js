@@ -13,12 +13,6 @@ class HotelForm extends Component {
         rooms: ''
     }
 
-
-componentDidMount() {
-    console.log(" Refreshing Home page");
-        
-    }
-
     render() {
 
     	

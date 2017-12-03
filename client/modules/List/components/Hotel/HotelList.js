@@ -10,26 +10,24 @@ class HotelList extends Component {
   render() {
     const {hotelList} = this.props;
     return (
-            <div className="container-fluid">
-                <div className={styles['listBackground']}>
-                    <div className="row">
-                        {
-                        <div className="col-md-12">
-                            {
-                            hotelList.map((hotel,index) => {
-                                return(
-                                    <Hotel
-                                        key={index}
-                                        hotel={hotel} isAdmin={this.props.isAdmin}
-                                    />
-                                );
-                            })
-                            }
-                        </div>
-                        }
-                    </div>
-                </div>      
-            </div>    	
+        <div className={styles['listBackground']}>
+            <div className="row">
+                {
+                <div className="col-md-12">
+                    {
+                    hotelList.map((hotel,index) => {
+                        return(
+                            <Hotel
+                                key={index}
+                                hotel={hotel} isAdmin={this.props.isAdmin}
+                            />
+                        );
+                    })
+                    }
+                </div>
+                }
+            </div>
+        </div>  	
     );
   }
 }

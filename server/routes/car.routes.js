@@ -3,19 +3,22 @@ import * as CarController from '../controllers/car.controller';
 
 const router = new Router();
 
+// Get All Cars
+router.route('/').get(CarController.getAllCars);
+
+// Search Cars
+router.route('/search').get(CarController.searchCars);
+
 // Create Car
 router.route('/').put(CarController.createCar);
 
 // Get Car
-router.route('/:cuid').get(CarController.getCar);
+router.route('/:_id').get(CarController.getCar);
 
 // Delete Car
-router.route('/:cuid').delete(CarController.deleteCar);
+router.route('/:_id').delete(CarController.deleteCar);
 
 // Update Car
-router.route('/:cuid').patch(CarController.updateCar);
-
-// Get All Car
-router.route('/').get(CarController.getAllCars);
+router.route('/:_id').patch(CarController.updateCar);
 
 export default router;

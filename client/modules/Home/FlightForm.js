@@ -29,10 +29,6 @@ showReturn()
         
     }
 
-componentDidMount() {
-    console.log(" Refreshing Home page");
-        
-    }
 
     render() {
 
@@ -182,7 +178,7 @@ componentDidMount() {
 }
 function mapDispatchToProps(dispatch) {
    return {
-       handleFlight : (flightDetails) => dispatch(handleCar(flightDetails))
+       handleFlight : (flightDetails) => dispatch(handleFlight(flightDetails))
     };
 }
 

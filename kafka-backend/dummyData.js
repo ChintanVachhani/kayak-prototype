@@ -1,24 +1,23 @@
-let User = require('./models/userDetail');
+let UserDetail = require('./models/userDetail');
 let bcrypt = require('bcryptjs');
 
 module.exports = function () {
-  User.count().exec((err, count) => {
+  UserDetail.count().exec((err, count) => {
     if (count > 0) {
       return;
     }
 
-    const testUser = new User({
-      id: 'cikqgkv4q01ck7453ualdn3hd',
+    const testUser = new UserDetail({
       firstName: 'test',
       lastName: 'user',
       email: 'test.user@kayak-prototype.com',
-      password: bcrypt.hashSync('test', 10)
+      password: bcrypt.hashSync('test', 10),
     });
 
-    User.create([testUser], (error) => {
+    UserDetail.create([testUser], (error) => {
       if (!error) {
         // console.log('ready to go....');
       }
     });
   });
-}
+};

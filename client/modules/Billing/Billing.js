@@ -1,6 +1,7 @@
 import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
+import Footer from '../Footer/Footer';
 
 // Import Style
 import styles from './Billing.css';
@@ -657,6 +658,9 @@ componentWillMount() {
 						</div>
 
 					</div>
+          <div>
+              <Footer />
+          </div>
 				</div>
 			
 

@@ -1,25 +1,25 @@
 import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import Flight from './Flight';
+import Car from './../../List/components/Car/Car';
 
 // Import Style
-import styles from './Flight.css';
+import styles from './../../List/components/Car/Car.css';
 
-class FlightList extends Component {
+class CarList extends Component {
   render() {
-    const {flightList} = this.props;
+    const {carList} = this.props;
     return (
         <div className={styles['listBackground']}>
             <div className="row">
                 {
                 <div className="col-md-12">
                     {
-                    flightList.map((flight,index) => {
+                    carList.map((car,index) => {
                         return(
-                            <Flight
+                            <Car
                                 key={index}
-                                flight={flight} isAdmin={this.props.isAdmin}
+                                car={car} isAdmin={this.props.isAdmin}
                             />
                         );
                     })
@@ -27,25 +27,27 @@ class FlightList extends Component {
                 </div>
                 }
             </div>
-        </div>  
+        </div>   	
     );
   }
 }
 
 const mapStateToProps = (state) => {
-   const flightList = state.list.flightList;
-    return {flightList};
+//     // const carList = [{ id: "1", class : "Economy" ,  company: "Enterprise", model: "nissan", cap_persons: "4", cap_bags: '2', doors: '4', location: 'sanjose airport', price: '$25'}
+//     //       ,{ id: "2", class : "Luxury" ,  company: "Enterprise", model: "nissan", cap_persons: "4", cap_bags: '2', doors: '4', location: 'sanjose airport', price: '$25'}];
+
+    return {};
 };
 
 // const mapDispatchToProps = (dispatch) => {
 //   return {};
 // };
 
-FlightList.propTypes = {
-};
+// CarList.propTypes = {
+// };
 
 export default connect(
   mapStateToProps,
   null
   // mapDispatchToProps
-)(FlightList);
+)(CarList);

@@ -3,19 +3,23 @@ import * as FlightController from '../controllers/flight.controller';
 
 const router = new Router();
 
+
+// Get All Flights
+router.route('/').get(FlightController.getAllFlights);
+
+// Search Flights
+router.route('/search').get(FlightController.searchFlights);
+
 // Create Flight
 router.route('/').put(FlightController.createFlight);
 
 // Get Flight
-router.route('/:cuid').get(FlightController.getFlight);
+router.route('/:_id').get(FlightController.getFlight);
 
 // Delete Flight
-router.route('/:cuid').delete(FlightController.deleteFlight);
+router.route('/:_id').delete(FlightController.deleteFlight);
 
 // Update Flight
-router.route('/:cuid').patch(FlightController.updateFlight);
-
-// Get All Flight
-router.route('/').get(FlightController.getAllFlights);
+router.route('/:_id').patch(FlightController.updateFlight);
 
 export default router;

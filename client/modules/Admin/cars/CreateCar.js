@@ -16,7 +16,8 @@ class CreateCar extends React.Component {
       "capPersons":"",
       "capBags":"",
       "doors":"",
-      "location":""
+      "location":"",
+      "data":""
     };
 
     this.toggle = this.toggle.bind(this);
@@ -29,10 +30,27 @@ class CreateCar extends React.Component {
     });
   }
 
+  updateLogo = (event) => {
+    const data = new FormData();
+    data.append('operator', this.state.operator);
+    data.append('class', this.state.class);
+    data.append('price', this.state.price);
+    data.append('model', this.state.model);
+    data.append('capPersons', this.state.capPersons);
+    data.append('capBags', this.state.capBags);
+    data.append('doors', this.state.doors);
+    data.append('location', this.state.location);
+    data.append('file', event.target.files[0]);
+    this.setState({
+      data: data
+    });
+
+  }
+
 
   handleCreateCar() {      
       this.toggle();
-      this.props.createCar(this.state);
+      this.props.createCar(this.state.data);
   }
 
   render() {
@@ -117,9 +135,20 @@ class CreateCar extends React.Component {
                                     }); }} />
                 </div>
               </div>
+
+              <div className="form-row">
+                <div className="form-group col-md-12">
+                  <label for="inputCity">Operator Logo</label>
+                  <input className="form-control-file" type="file" onChange={this.updateLogo} />
+                </div>
+              </div>
+              <div className="form-row">
+                <div className="form-group col-md-12">
               <button type="button" className="btn btn-primary" onClick={() => {this.handleCreateCar()}}>Create Car</button>
               &nbsp;
                <Button color="secondary" onClick={this.toggle}>Cancel</Button>
+               </div>
+               </div>
             </form>
           </ModalBody>
         </Modal>

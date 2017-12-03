@@ -6,22 +6,22 @@ export const CREATE_FLIGHT = 'CREATE_FLIGHT';
 export const CREATE_HOTEL = 'CREATE_HOTEL';
 export const ADMIN_SIGNIN = 'ADMIN_SIGNIN';
 export const ADMIN_SIGNOUT = 'ADMIN_SIGNOUT';
+export const CREATE_CAR = 'CREATE_CAR';
+
 
 // Export Actions
 export function createFlight(data) {
   console.log("ss ", data)
   return (dispatch) => {
-    return callApi('flight', 'put', data).then(res => dispatch(createFlightResponse(res)));
+    return callApi('flight', 'put', data, "upload").then(res => dispatch(createFlightResponse(res)));
   };
 
 }
 
 function createFlightResponse(res) {
-  console.log("ss : ", res)
   return (dispatch) => {
     return callApi('flight').then(res => dispatch(updateFlightList(res)));
   };
-  
 }
 
 function updateFlightList(data) {
@@ -59,7 +59,7 @@ export function adminsignout() {
 
 export function createHotel(data) {
   return (dispatch) => {
-    return callApi('hotel', 'put', data).then(res => dispatch(createHotelResponse(res)));
+    return callApi('hotel', 'put', data, "upload").then(res => dispatch(createHotelResponse(res)));
   };
 
 }
@@ -76,5 +76,26 @@ function updateHotelList(data) {
     type: CREATE_HOTEL,
     msg: "New Hotel Created",
     hotels: data.hotels
+  }
+}
+
+export function createCar(data) {
+  return (dispatch) => {
+    return callApi('car', 'put', data, "upload").then(res => dispatch(createCarResponse(res)));
+  };
+}
+
+function createCarResponse(res) {
+  return (dispatch) => {
+    return callApi('car').then(res => dispatch(updateCarList(res)));
+  };
+  
+}
+
+function updateCarList(data) {
+  return {
+    type: CREATE_CAR,
+    msg: "New Car Created",
+    cars: data.cars
   }
 }

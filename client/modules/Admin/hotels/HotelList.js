@@ -1,25 +1,25 @@
 import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import Flight from './Flight';
+import Hotel from './../../List/components/Hotel/Hotel';
 
 // Import Style
-import styles from './Flight.css';
+import styles from './../../List/components/Hotel/Hotel.css';
 
-class FlightList extends Component {
+class HotelList extends Component {
   render() {
-    const {flightList} = this.props;
+    const {hotelList} = this.props;
     return (
         <div className={styles['listBackground']}>
             <div className="row">
                 {
                 <div className="col-md-12">
                     {
-                    flightList.map((flight,index) => {
+                    hotelList.map((hotel,index) => {
                         return(
-                            <Flight
+                            <Hotel
                                 key={index}
-                                flight={flight} isAdmin={this.props.isAdmin}
+                                hotel={hotel} isAdmin={this.props.isAdmin}
                             />
                         );
                     })
@@ -27,25 +27,25 @@ class FlightList extends Component {
                 </div>
                 }
             </div>
-        </div>  
+        </div>  	
     );
   }
 }
 
 const mapStateToProps = (state) => {
-   const flightList = state.list.flightList;
-    return {flightList};
+   const hotelList = state.admin.hotelList;
+    return {hotelList};
 };
 
 // const mapDispatchToProps = (dispatch) => {
 //   return {};
 // };
 
-FlightList.propTypes = {
+HotelList.propTypes = {
 };
 
 export default connect(
   mapStateToProps,
   null
   // mapDispatchToProps
-)(FlightList);
+)(HotelList);

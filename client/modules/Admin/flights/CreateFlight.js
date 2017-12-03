@@ -20,11 +20,13 @@ class CreateFlight extends React.Component {
       "firstPrice": "",
       "duration": "",
       "logo": "",
-      "price":""
+      "price":"",
+      "data":""
     };
 
     this.toggle = this.toggle.bind(this);
     this.handleCreateFlight = this.handleCreateFlight.bind(this);
+    this.updateLogo = this.updateLogo.bind(this);
   }
 
   toggle() {
@@ -34,17 +36,35 @@ class CreateFlight extends React.Component {
   }
 
 
-  handleCreateFlight() {     
+  updateLogo = (event) => {
+      const data = new FormData();
+      data.append('origin', this.state.origin);
+    data.append('destination', this.state.destination);
+    data.append('flightID', this.state.flightID);
+    data.append('operator', this.state.operator);
+    data.append('departureTime', this.state.departureTime);
+    data.append('arrivalTime', this.state.arrivalTime);
+    data.append('economy', this.state.economyPrice);
+    data.append('business', this.state.businessPrice);
+    data.append('firstClass', this.state.firstPrice);
+    data.append('duration', this.state.duration);
+    console.log("dTA : ", data)
+      data.append('file', event.target.files[0]);
+      this.setState({
+        data: data
+      });
+      console.log("daaaaa :", data)
+  }
 
-    let price = {};
-    price.economy = this.state.economyPrice;
-    price.business = this.state.businessPrice;
-    price.firstClass = this.state.firstPrice;
-    this.state.price = price;
+  handleCreateFlight() {   
+    
+    
     this.toggle();
-    this.props.createFlight(this.state);    
+   
+    this.props.createFlight(this.state.data);    
 
   }
+
 
   render() {
 
@@ -139,10 +159,7 @@ class CreateFlight extends React.Component {
               <div className="form-row">
                 <div className="form-group col-md-12">
                   <label for="inputCity">Operator Logo</label>
-                  <input className="form-control-file" type="file" onChange={(event) => {
-                                    this.setState({
-                                        logo: event.target.value
-                                    }); }} />
+                  <input className="form-control-file" type="file" onChange={this.updateLogo} />
                 </div>
               </div>
               <div className="form-row">

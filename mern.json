@@ -125,7 +125,7 @@
     },
     {
       "name": "module-kafka",
-      "description": "Generates a module including react components, reducer, action, style; express route, controller & kafka service, model",
+      "description": "Generates a module including express route, controller & kafka service, model",
       "usage": "module-kafka [module-name]",
       "files": [
         {

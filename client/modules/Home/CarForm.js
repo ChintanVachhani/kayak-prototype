@@ -15,11 +15,6 @@ class CarForm extends Component {
      };
 
 
-componentDidMount() {
-    console.log(" Refreshing Home page");
-        
-    }
-
     render() {
 
     	
@@ -105,6 +100,13 @@ componentDidMount() {
     	
     	);
 }
+}
+
+function mapStateToProps(store) {
+    const {home} = store;
+    console.log("this is checkig reduer");
+    console.log(home);
+  return {};
 }
 function mapDispatchToProps(dispatch) {
    return {

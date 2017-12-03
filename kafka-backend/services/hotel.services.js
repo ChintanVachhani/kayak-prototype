@@ -1,5 +1,4 @@
 let Hotel = require('../models/hotel');
-let cuid = require('cuid');
 
 function handle_request(req, callback) {
   console.log("In handle request:" + JSON.stringify(req));
@@ -7,8 +6,7 @@ function handle_request(req, callback) {
   let res;
 
   if (req.name === 'createHotel') {
-    let hotel = Hotel({
-      cuid: cuid(),
+        let hotel = Hotel({
       hotelName: req.body.hotelName,
       price: req.body.price,
       star: req.body.star,
@@ -16,9 +14,10 @@ function handle_request(req, callback) {
       city: req.body.city,
       state: req.body.state,
       zipCode: req.body.zipCode,
-      //hotelImage: req.body.hotelImage,
+      hotelImage: req.body.hotelImage,
     });
     hotel.save(function (error) {
+      console.log("error : ", error)
       if(error) {
          res = {
         status: 400,
@@ -39,13 +38,11 @@ function handle_request(req, callback) {
       }
      
     });
-
-   
   }
 
   if (req.name === 'getHotel') {
-    Hotel.findOne({cuid: req.params.cuid}, (error, hotel) => {
-      if (error) {
+    Hotel.findOne({_id: req.params._id}, (error, hotel) => {
+      if (error || !hotel) {
         res = {
           status: 404,
           title: 'Hotel not found.',
@@ -64,8 +61,8 @@ function handle_request(req, callback) {
   }
 
   if (req.name === 'updateHotel') {
-    Hotel.findOneAndUpdate({cuid: req.params.cuid}, req.body, (error, hotel) => {
-      if (error) {
+    Hotel.findOneAndUpdate({_id: req.params._id}, req.body, (error, hotel) => {
+      if (error || !hotel) {
         res = {
           status: 404,
           title: 'Hotel not found.',
@@ -84,8 +81,8 @@ function handle_request(req, callback) {
   }
 
   if (req.name === 'deleteHotel') {
-    Hotel.findOneAndRemove({cuid: req.params.cuid}, (error, hotel) => {
-      if (error) {
+    Hotel.findOneAndRemove({_id: req.params._id}, (error, hotel) => {
+      if (error || !hotel) {
         res = {
           status: 404,
           title: 'Hotel not found.',
@@ -106,7 +103,7 @@ function handle_request(req, callback) {
     Hotel.find({}, (error, hotels) => {
       if (error) {
         res = {
-          status: 404,
+          status: 500,
           title: 'Hotels not retrieved.',
           error: {message: 'Failed to retrieve hotels.'},
         };
@@ -124,33 +121,25 @@ function handle_request(req, callback) {
 
   if (req.name === 'searchHotels') {
     //Naive logic - to be optimized later
-    let conditions = {};
-    if (req.query.city !== null && req.query.star !== null && req.query.minPrice !== null && req.query.maxPrice !== null) {
-      conditions = {
-        city: req.query.city,
-        star: req.query.star,
-        price: {$gte: req.query.minPrice, $lte: req.query.maxPrice},
-      };
-    } else if (req.query.city !== null && req.query.star !== null) {
-      conditions = {
-        city: req.query.city,
-        star: req.query.star,
-      };
-    } else if (req.query.city !== null && req.query.minPrice !== null && req.query.maxPrice !== null) {
-      conditions = {
-        city: req.query.city,
-        price: {$gte: req.query.minPrice, $lte: req.query.maxPrice},
-      };
-    } else if (req.query.city !== null) {
-      conditions = {
-        city: req.query.city,
-      };
+    let conditions = [];
+
+    if (req.query.star !== undefined) {
+      conditions.push({star: req.query.star});
+    }
+    if (req.query.city !== undefined) {
+      conditions.push({city: req.query.city});
+    }
+    if (req.query.minPrice !== undefined) {
+      conditions.push({price: {$gte: req.query.minPrice}});
+    }
+    if (req.query.maxPrice !== undefined) {
+      conditions.push({price: {$lte: req.query.maxPrice}});
     }
 
-    Hotel.find(conditions, (error, hotels) => {
+    Hotel.find({$and: conditions}, (error, hotels) => {
       if (error) {
         res = {
-          status: 404,
+          status: 500,
           title: 'Hotels not retrieved.',
           error: {message: 'Failed to retrieve hotels.'},
         };
