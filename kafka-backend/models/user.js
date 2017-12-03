@@ -2,10 +2,6 @@ let Sequelize = require('sequelize');
 let sequelize = require('../mysql');
 
 let User = sequelize.define('user', {
-  cuid:{
-    type: Sequelize.STRING,
-    allowNull: false,
-  },
   email: {
     type: Sequelize.STRING,
     primaryKey: true,

@@ -17,18 +17,18 @@ export default class Car extends Component {
                         <div className="row">
                           <div className="col-md-8">
                             <span className={styles['carModel']}>Toyota or similar</span><br/>
-                            <People size={30}/>&nbsp;4&nbsp;&nbsp;&nbsp;&nbsp;
-                            <Bag size={30}/>&nbsp;2&nbsp;&nbsp;&nbsp;&nbsp;
-                            <span>doors 4 &nbsp;&nbsp;&nbsp;</span>
+                            <People size={car.capPersons}/>&nbsp;4&nbsp;&nbsp;&nbsp;&nbsp;
+                            <Bag size={car.capBags}/>&nbsp;2&nbsp;&nbsp;&nbsp;&nbsp;
+                            <span>doors {car.doors} &nbsp;&nbsp;&nbsp;</span>
                             <hr/>
                             <div className="row">
                                 <div className="col-md-2">
                                     <span className="{styles['border-right']}">
-                                        <h4 className="{styles['companyName']}">Hertz</h4>
+                                        <h4 className="{styles['companyName']}">car.companyName</h4>
                                     </span>
                                 </div>
                                 <div className="col-md-8">
-                                    <FlightIcon size={20} color='#cccccc'/>&nbsp;<span className={styles['ocation']}>LAS</span>&nbsp; shuttle
+                                    <FlightIcon size={20} color='#cccccc'/>&nbsp;<span className={styles['ocation']}>car.location</span>&nbsp; shuttle
                                 </div>      
                             </div>                 
                           </div>

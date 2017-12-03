@@ -1,9 +1,9 @@
 // Please put 'kafka' directory containing 'client.js', 'Connection.js' & 'kafkarpc.js', in the routes folder
 let kafka = require('../routes/kafka/client');
 
-export function signup(req, res) {
-  kafka.make_request('userTopic', {
-    name: 'signup',
+export function createBooking(req, res) {
+  kafka.make_request('bookingTopic', {
+    name: 'createBooking',
     headers: req.headers,
     params: req.params,
     query: req.query,
@@ -35,9 +35,9 @@ export function signup(req, res) {
   });
 }
 
-export function signin(req, res) {
-  kafka.make_request('userTopic', {
-    name: 'signin',
+export function getBooking(req, res) {
+  kafka.make_request('bookingTopic', {
+    name: 'getBooking',
     headers: req.headers,
     params: req.params,
     query: req.query,
@@ -69,9 +69,9 @@ export function signin(req, res) {
   });
 }
 
-export function getUser(req, res) {
-  kafka.make_request('userTopic', {
-    name: 'getUser',
+export function updateBooking(req, res) {
+  kafka.make_request('bookingTopic', {
+    name: 'updateBooking',
     headers: req.headers,
     params: req.params,
     query: req.query,
@@ -103,9 +103,9 @@ export function getUser(req, res) {
   });
 }
 
-export function updateUser(req, res) {
-  kafka.make_request('userTopic', {
-    name: 'updateUser',
+export function deleteBooking(req, res) {
+  kafka.make_request('bookingTopic', {
+    name: 'deleteBooking',
     headers: req.headers,
     params: req.params,
     query: req.query,
@@ -137,9 +137,9 @@ export function updateUser(req, res) {
   });
 }
 
-export function deleteUser(req, res) {
-  kafka.make_request('userTopic', {
-    name: 'deleteUser',
+export function getAllBookings(req, res) {
+  kafka.make_request('bookingTopic', {
+    name: 'getAllBookings',
     headers: req.headers,
     params: req.params,
     query: req.query,
@@ -170,5 +170,3 @@ export function deleteUser(req, res) {
     }
   });
 }
-
-

@@ -48,5 +48,6 @@ export default (
     <Route path="admin" component={Admin}/>
     <Route path="/account" component={AccountPage}/>
     <Route path="/:service" component={List}/>
+     <Route path="admin/:service" component={Admin}/>
   </Route>
 );

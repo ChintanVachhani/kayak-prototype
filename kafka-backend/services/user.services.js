@@ -1,7 +1,6 @@
 let User = require('../models/user');
 let UserDetail = require('../models/userDetail');
 let bcrypt = require('bcryptjs');
-let cuid = require('cuid');
 let sanitizeHtml = require('sanitize-html');
 let jwt = require('jsonwebtoken');
 
@@ -16,9 +15,6 @@ function handle_request(req, callback) {
       adminFlag = true;
     }
     let user = {
-      cuid: cuid(),
-      firstName: sanitizeHtml(req.body.firstName),
-      lastName: sanitizeHtml(req.body.lastName),
       email: sanitizeHtml(req.body.email),
       password: bcrypt.hashSync(sanitizeHtml(req.body.password), 10),
       isAdmin: adminFlag,
@@ -35,7 +31,6 @@ function handle_request(req, callback) {
       })
       .then((userObj) => {
         let userDetail = UserDetail({
-          cuid: user.cuid,
           firstName: user.firstName,
           lastName: user.lastName,
           email: user.email,
@@ -53,7 +48,7 @@ function handle_request(req, callback) {
           status: 201,
           message: 'Successfully signed up.',
           token: token,
-          userCuid: userObj.cuid,
+          id: userObj.email,
         };
         callback(null, res);
       });
@@ -89,7 +84,7 @@ function handle_request(req, callback) {
               status: 200,
               message: 'Successfully signed in.',
               token: token,
-              userCuid: user.cuid,
+              id: user.email,
             };
             callback(null, res);
           }
@@ -105,40 +100,19 @@ function handle_request(req, callback) {
   }
 
   if (req.name === 'getUser') {
-    UserDetail.findOne({cuid: req.params.cuid})
-      .catch((error) => {
+    UserDetail.findOne({email: req.params.email}, (error, user) => {
+      if (error || !user) {
         res = {
           status: 404,
           title: 'User not found.',
           error: {message: 'Failed to retrieve user.'},
         };
         callback(null, res);
-      })
-      .then((user) => {
-        console.log('USER:', user);
-        res = {
-          status: 200,
-          message: 'Successfully retrieved user.',
-          user: user,
-        };
-        callback(null, res);
-      });
-  }
-
-  if (req.name === 'deleteUser') {
-    UserDetail.findOneAndRemove({cuid: req.params.cuid}, (error, user) => {
-      if (error) {
+      } else {
         res = {
           status: 404,
           title: 'User not found.',
-          error: {message: 'Failed to delete user.'},
-        };
-        callback(null, res);
-      } else {
-        User.destroy({where: {cuid: req.params.cuid}});
-        res = {
-          status: 200,
-          message: 'Successfully deleted user.',
+          error: {message: 'Failed to retrieve user.'},
         };
         callback(null, res);
       }
@@ -146,8 +120,8 @@ function handle_request(req, callback) {
   }
 
   if (req.name === 'updateUser') {
-    UserDetail.findOneAndUpdate({cuid: req.params.cuid}, req.body, (error, user) => {
-      if (error) {
+    UserDetail.findOneAndUpdate({email: req.params.email}, req.body, (error, user) => {
+      if (error || !user) {
         res = {
           status: 404,
           title: 'User not found.',
@@ -164,6 +138,27 @@ function handle_request(req, callback) {
       }
     });
   }
+
+  if (req.name === 'deleteUser') {
+    UserDetail.findOneAndRemove({email: req.params.email}, (error, user) => {
+      if (error || !user) {
+        res = {
+          status: 404,
+          title: 'User not found.',
+          error: {message: 'Failed to delete user.'},
+        };
+        callback(null, res);
+      } else {
+        User.destroy({where: {email: req.params.email}});
+        res = {
+          status: 200,
+          message: 'Successfully deleted user.',
+        };
+        callback(null, res);
+      }
+    });
+  }
+
 }
 
 exports.handle_request = handle_request;
