@@ -6,7 +6,7 @@ function handle_request(req, callback) {
   let res;
 
   if (req.name === 'createHotel') {
-        let hotel = Hotel({
+    let hotel = Hotel({
       hotelName: req.body.hotelName,
       price: req.body.price,
       star: req.body.star,
@@ -15,31 +15,28 @@ function handle_request(req, callback) {
       state: req.body.state,
       zipCode: req.body.zipCode,
       hotelImage: req.body.hotelImage,
-      star: req.body.star,
       avgRating: req.body.avgRating,
       noReviews: req.body.noReviews,
     });
     hotel.save(function (error) {
-      console.log("error : ", error)
-      if(error) {
-         res = {
-        status: 400,
-        title: 'Invalid data.',
-        error: {message: 'Failed to create hotel.'},
-      };
-      callback(null, res);
+      if (error) {
+        res = {
+          status: 400,
+          title: 'Invalid data.',
+          error: {message: 'Failed to create hotel.'},
+        };
+        callback(null, res);
 
       }
       else {
-         res = {
-      status: 201,
-      message: 'Successfully created hotel.',
-      hotel: hotel,
-    };
+        res = {
+          status: 201,
+          message: 'Successfully created hotel.',
+          hotel: hotel,
+        };
 
-    callback(null, res);
+        callback(null, res);
       }
-     
     });
   }
 
@@ -127,7 +124,7 @@ function handle_request(req, callback) {
     let conditions = [];
 
     if (req.query.star !== undefined) {
-      conditions.push({star: req.query.star});
+      conditions.push({star: {$gte: req.query.star}});
     }
     if (req.query.city !== undefined) {
       conditions.push({city: req.query.city});
