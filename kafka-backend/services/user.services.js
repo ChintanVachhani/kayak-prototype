@@ -1,7 +1,6 @@
 let User = require('../models/user');
 let UserDetail = require('../models/userDetail');
 let bcrypt = require('bcryptjs');
-let sanitizeHtml = require('sanitize-html');
 let jwt = require('jsonwebtoken');
 const logger = require('../logger');
 
@@ -16,8 +15,8 @@ function handle_request(req, callback) {
       adminFlag = true;
     }
     let user = {
-      email: sanitizeHtml(req.body.email),
-      password: bcrypt.hashSync(sanitizeHtml(req.body.password), 10),
+      email: req.body.email,
+      password: bcrypt.hashSync(req.body.password, 10),
       isAdmin: adminFlag,
     };
 
@@ -56,7 +55,7 @@ function handle_request(req, callback) {
   }
 
   if (req.name === 'signin') {
-    User.find({email: sanitizeHtml(req.body.email)})
+    User.find({email: req.body.email})
       .catch((error) => {
         res = {
           status: 401,
@@ -67,7 +66,7 @@ function handle_request(req, callback) {
       })
       .then((user) => {
         if (user) {
-          if (!bcrypt.compareSync(sanitizeHtml(req.body.password), user.password)) {
+          if (!bcrypt.compareSync(req.body.password, user.password)) {
             res = {
               status: 401,
               title: 'Signing in failed.',

@@ -1,7 +1,6 @@
 // Please put 'kafka' directory containing 'client.js', 'Connection.js' & 'kafkarpc.js', in the routes folder
 let kafka = require('../routes/kafka/client');
 import cacheClient from '../redis';
-import hash from 'object-hash';
 
 export function signup(req, res) {
   kafka.make_request('userTopic', {
