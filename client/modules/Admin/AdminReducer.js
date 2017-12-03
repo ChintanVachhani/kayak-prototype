@@ -1,10 +1,11 @@
 // Import Actions
-import { CREATE_FLIGHT, ADMIN_SIGNIN, ADMIN_SIGNOUT, CREATE_HOTEL, CREATE_CAR, FLIGHT_LIST, HOTEL_LIST, CAR_LIST } from './AdminActions';
+import { CREATE_FLIGHT, ADMIN_SIGNIN, ADMIN_SIGNOUT, CREATE_HOTEL, CREATE_CAR, FLIGHT_LIST, HOTEL_LIST, CAR_LIST, BILL_LIST } from './AdminActions';
 
 const initialState = {
   carList: [],
   flightList: [],
-  hotelList: []
+  hotelList: [],
+  billList:[]
 };
 
 const AdminReducer = (state = initialState, action) => {
@@ -36,6 +37,13 @@ const AdminReducer = (state = initialState, action) => {
         ...state,
         carList: action.cars
       };
+
+    case BILL_LIST:
+      return {
+        ...state,
+        billList: action.bills
+      };
+
 
     case CREATE_CAR:
       return {

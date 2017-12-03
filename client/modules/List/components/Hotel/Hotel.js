@@ -1,7 +1,10 @@
 import React, {Component} from 'react';
 import Star from 'react-icons/lib/fa/star';
 import styles from './Hotel.css';
-export default class Hotel extends Component {
+import { connect } from 'react-redux';
+import {deleteHotel} from './../../../Admin/AdminActions';
+
+class Hotel extends Component {
 
     render() {
         const {hotel,isAdmin} = this.props;
@@ -42,7 +45,7 @@ export default class Hotel extends Component {
 	 				<div className="col-md-2" id= {styles['itemActionBlock']}>
 	 				<strong><span className={styles['priceValue']}>{hotel.price}</span></strong><br/><br/>  
 	                    <button className="btn btn-warning" onClick="">Edit</button><br/><br/>    
-	                    <button className="btn btn-warning" onClick="">Delete</button>            
+	                    <button className="btn btn-warning"  onClick={() => { if(confirm("Are you Sure? You want to delete this Hotel?")) this.props.deleteHotel(hotel._id)}}>Delete</button>            
 	                </div> 
                 :
                 	<div className="col-md-2" id= {styles['itemActionBlock']}>
@@ -57,3 +60,21 @@ export default class Hotel extends Component {
         );
     }
 }
+
+const mapStateToProps = (state) => {
+  return {};  
+};
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+        deleteHotel : (data) => dispatch(deleteHotel(data))
+    };
+};
+
+Hotel.propTypes = {
+};
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(Hotel);

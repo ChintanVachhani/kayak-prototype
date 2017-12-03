@@ -2,7 +2,7 @@ import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
-import StarRatings from 'react-star-ratings';
+//import StarRatings from 'react-star-ratings';
 
 //import 'rc-slider/assets/index.css';
 import Slider from 'rc-slider';
