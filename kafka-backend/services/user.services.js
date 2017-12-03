@@ -55,13 +55,7 @@ function handle_request(req, callback) {
   }
 
   if (req.name === 'signin') {
-<<<<<<< HEAD
-
     User.find({where: {email: req.body.email}})
-
-=======
-    User.find({where: {email: req.body.email}})
->>>>>>> 9aac3a0ae9b5e7b665f20ba01548baf4bc4944bb
       .catch((error) => {
         console.log(error)
         console.error('500');
@@ -74,13 +68,7 @@ function handle_request(req, callback) {
       })
       .then((user) => {
         if (user) {
-<<<<<<< HEAD
-
           if (!bcrypt.compareSync(req.body.password, user.password)) {
-
-=======
-          if (!bcrypt.compareSync(req.body.password, user.password)) {
->>>>>>> 9aac3a0ae9b5e7b665f20ba01548baf4bc4944bb
             res = {
               status: 401,
               title: 'Signing in failed.',
