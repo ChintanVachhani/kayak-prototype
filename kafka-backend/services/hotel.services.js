@@ -15,6 +15,9 @@ function handle_request(req, callback) {
       state: req.body.state,
       zipCode: req.body.zipCode,
       hotelImage: req.body.hotelImage,
+      star: req.body.star,
+      avgRating: req.body.avgRating,
+      noReviews: req.body.noReviews,
     });
     hotel.save(function (error) {
       console.log("error : ", error)

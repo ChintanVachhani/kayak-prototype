@@ -6,8 +6,15 @@ import SearchHotel from './SearchHotel';
 import { Alert } from 'reactstrap';
 import HotelItem from './HotelItem';
 import HotelList from './HotelList';
+import {getAllHotels} from './../AdminActions';
 
 class HotelsHome extends Component {
+
+  componentDidMount() {
+
+    this.props.getAllHotels();
+  }
+
   render() {
     return (
 
@@ -55,7 +62,9 @@ const mapStateToProps = (state) => {
 };
 
 const mapDispatchToProps = (dispatch) => {
-  return {};
+  return {
+        getAllHotels : () => dispatch(getAllHotels())
+    };
 };
 
 HotelsHome.propTypes = {

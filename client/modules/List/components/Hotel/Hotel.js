@@ -9,16 +9,18 @@ export default class Hotel extends Component {
         let stars= function(){
 
         }
+        var imgSrc = new Buffer(hotel.hotelImage.data, 'base64').toString();
+        let img = "data:"+hotel.hotelImage.contentType+";base64," + imgSrc;
         return (
             <div className={styles['item']}>
             <div className="row">
                 <div className="col-md-10" id= {styles['itemDetailBlock']}>
 	                <div className="row">
 	                  <div className="col-md-5">  
-	                  	image              
+	                  	<img src={img} className={styles['imgWidth']} />          
 	                  </div>
 	                  <div className="col-md-7">
-						<h4>{hotel.name}</h4>
+						<h4>{hotel.hotelName}</h4>
 						<span>
 						  {
 						  	Array(5).fill(1).map((el, starPrinted) =>
@@ -38,12 +40,13 @@ export default class Hotel extends Component {
                 </div>
                 {isAdmin === 'true' ?
 	 				<div className="col-md-2" id= {styles['itemActionBlock']}>
+	 				<strong><span className={styles['priceValue']}>{hotel.price}</span></strong><br/><br/>  
 	                    <button className="btn btn-warning" onClick="">Edit</button><br/><br/>    
 	                    <button className="btn btn-warning" onClick="">Delete</button>            
 	                </div> 
                 :
                 	<div className="col-md-2" id= {styles['itemActionBlock']}>
-	                    <strong><span className={styles['priceValue']}>{hotel.price.standard}</span></strong><br/><br/>    
+	                    <strong><span className={styles['priceValue']}>{hotel.price}</span></strong><br/><br/>    
 	                    <button className="btn btn-warning" onClick="">Book Hotel</button>            
 	                </div>
 

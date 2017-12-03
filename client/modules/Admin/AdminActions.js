@@ -7,6 +7,9 @@ export const CREATE_HOTEL = 'CREATE_HOTEL';
 export const ADMIN_SIGNIN = 'ADMIN_SIGNIN';
 export const ADMIN_SIGNOUT = 'ADMIN_SIGNOUT';
 export const CREATE_CAR = 'CREATE_CAR';
+export const FLIGHT_LIST = 'FLIGHT_LIST';
+export const HOTEL_LIST = 'HOTEL_LIST';
+export const CAR_LIST = 'CAR_LIST';
 
 
 // Export Actions
@@ -96,6 +99,48 @@ function updateCarList(data) {
   return {
     type: CREATE_CAR,
     msg: "New Car Created",
+    cars: data.cars
+  }
+}
+
+export function getAllFlights() {
+  return (dispatch) => {
+    return callApi('flight').then(res => dispatch(flightList(res)));
+  };
+
+}
+
+function flightList(data) {
+  return {
+    type: FLIGHT_LIST,
+    flights: data.flights
+  }
+}
+
+export function getAllHotels() {
+  return (dispatch) => {
+    return callApi('hotel').then(res => dispatch(hotelList(res)));
+  };
+
+}
+
+function hotelList(data) {
+  return {
+    type: HOTEL_LIST,
+    hotels: data.hotels
+  }
+}
+
+export function getAllCars() {
+  return (dispatch) => {
+    return callApi('car').then(res => dispatch(carList(res)));
+  };
+
+}
+
+function carList(data) {
+  return {
+    type: CAR_LIST,
     cars: data.cars
   }
 }

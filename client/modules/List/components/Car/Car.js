@@ -7,6 +7,8 @@ export default class Car extends Component {
 
     render() {
         const {car} = this.props;
+         var imgSrc = new Buffer(car.carImage.data, 'base64').toString();
+        let img = "data:"+car.carImage.contentType+";base64," + imgSrc;
         return (
             <div className={styles['item']}>
             <div className="row">
@@ -16,7 +18,7 @@ export default class Car extends Component {
                         </h3>
                         <div className="row">
                           <div className="col-md-8">
-                            <span className={styles['carModel']}>Toyota or similar</span><br/>
+                            <span className={styles['carModel']}>{car.model}</span><br/>
                             <People size={car.capPersons}/>&nbsp;4&nbsp;&nbsp;&nbsp;&nbsp;
                             <Bag size={car.capBags}/>&nbsp;2&nbsp;&nbsp;&nbsp;&nbsp;
                             <span>doors {car.doors} &nbsp;&nbsp;&nbsp;</span>
@@ -24,16 +26,16 @@ export default class Car extends Component {
                             <div className="row">
                                 <div className="col-md-2">
                                     <span className="{styles['border-right']}">
-                                        <h4 className="{styles['companyName']}">car.companyName</h4>
+                                        <h4 className="{styles['companyName']}">{car.operator}</h4>
                                     </span>
                                 </div>
                                 <div className="col-md-8">
-                                    <FlightIcon size={20} color='#cccccc'/>&nbsp;<span className={styles['ocation']}>car.location</span>&nbsp; shuttle
+                                    <FlightIcon size={20} color='#cccccc'/>&nbsp;<span className={styles['ocation']}>{car.location}</span>&nbsp; shuttle
                                 </div>      
                             </div>                 
                           </div>
                           <div className="col-md-4">
-                            <p>Image</p>
+                            <p> <img src={img} className={styles['imgWidth']} /></p>
                           </div>
                         </div> 
                 </div>
