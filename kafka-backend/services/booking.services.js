@@ -24,6 +24,8 @@ function handle_request(req, callback) {
       dateAdded: date,
       yearAdded: year,
       monthAdded: month,
+      cardNumber: req.body.cardNumber,
+      billingZipcode: req.body.billingZipcode,
     });
     booking.save(function (error) {
       if (error) {

@@ -17,6 +17,7 @@ const bookingSchema = new Schema({
   yearAdded: {type: 'Number'},
   monthAdded: {type: 'Number'},
   cardNumber: {type: 'String'},
+  billingZipcode: {type: 'String'},
 });
 
 bookingSchema.plugin(mongooseUniqueValidator);

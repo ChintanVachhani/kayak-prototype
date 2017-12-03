@@ -9,6 +9,13 @@ const cardSchema = new Schema({
   expMonth: {type: 'Number'},
   expYear: {type: 'Number'},
   secureCode: {type: 'Number'},
+  billingDetail: {
+    address: {type: 'String'},
+    zipcode: {type: 'String'},
+    city: {type: 'String'},
+    state: {type: 'String'},
+    country: {type: 'String'},
+  },
 });
 
 cardSchema.plugin(mongooseUniqueValidator);

@@ -186,6 +186,13 @@ function handle_request(req, callback) {
       expMonth: req.body.expMonth,
       expYear: req.body.expYear,
       secureCode: req.body.secureCode,
+      billingDetail: {
+        address: req.body.billingAddress,
+        zipcode: req.body.billingZipcode,
+        city: req.body.billingCity,
+        state: req.body.billingState,
+        country: req.body.billingCountry,
+      },
     });
     UserDetail.findOne({email: req.body.email}, (error, user) => {
       if (error || !user) {
@@ -198,14 +205,14 @@ function handle_request(req, callback) {
       } else {
         card.save(function (error, card) {
           console.log(error);
-          if(error || !card){
+          if (error || !card) {
             res = {
               status: 500,
               title: 'Card not added.',
               error: {message: 'Failed to add card to user account.'},
             };
             callback(null, res);
-          } else{
+          } else {
             user.cards.push(card);
             res = {
               status: 201,
