@@ -6,6 +6,11 @@ function handle_request(req, callback) {
   let res;
 
   if (req.name === 'createBooking') {
+    let now = Date.now();
+    let d = new Date(now);
+    let date = d.toLocaleDateString();
+    let year = d.getFullYear();
+    let month = d.getMonth() + 1;
     let booking = Booking({
       userID: req.body.userID,
       serviceType: req.body.serviceType,
@@ -15,23 +20,28 @@ function handle_request(req, callback) {
         dateFrom: req.body.dateFrom,
         dateTo: req.body.dateTo,
       },
+      dateAdded: date,
+      yearAdded: year,
+      monthAdded: month,
     });
     booking.save(function (error) {
-      res = {
-        status: 400,
-        title: 'Invalid data.',
-        error: {message: 'Failed to create booking.'},
-      };
-      callback(null, res);
+      console.log(error)
+      if (error) {
+        res = {
+          status: 400,
+          title: 'Invalid data.',
+          error: {message: 'Failed to create booking.'},
+        };
+        callback(null, res);
+      } else {
+        res = {
+          status: 201,
+          message: 'Successfully created booking.',
+          booking: booking,
+        };
+        callback(null, res);
+      }
     });
-
-    res = {
-      status: 201,
-      message: 'Successfully created booking.',
-      booking: booking,
-    };
-
-    callback(null, res);
   }
 
   if (req.name === 'getBooking') {
@@ -141,11 +151,15 @@ function handle_request(req, callback) {
       conditions.push({dateAdded: req.query.date});
     }
     if (req.query.month !== undefined) {
-      conditions.push({dateAdded: {$month: req.query.month}});
+      conditions.push({monthAdded: req.query.month});
+    }
+    if (req.query.year !== undefined) {
+      conditions.push({yearAdded: req.query.year});
     }
 
     Booking.find({$and: conditions}, (error, bookings) => {
       if (error) {
+        console.error(error);
         res = {
           status: 500,
           title: 'Bookings not retrieved.',
