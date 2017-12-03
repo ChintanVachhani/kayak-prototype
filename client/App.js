@@ -9,6 +9,7 @@ import {Router, browserHistory, Route} from 'react-router';
 import routes from './routes';
 
 // Base stylesheet
+import 'rc-slider/assets/index.css';
 require('./main.css');
 
 export default function App(props) {

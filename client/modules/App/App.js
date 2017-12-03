@@ -2,7 +2,6 @@ import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
 
 // Import Style
-import 'rc-slider/assets/index.css';
 
 // Import Components
 import Helmet from 'react-helmet';
