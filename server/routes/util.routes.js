@@ -4,8 +4,9 @@ let jwt = require('jsonwebtoken');
 
 const router = new Router();
 
-/*router.use('/', function (req, res, next) {
-  jwt.verify(req.query.token, 'admin', function (error, decoded) {
+// Session Authentication
+router.use('/', function (req, res, next) {
+  jwt.verify(req.header.token, 'admin', function (error, decoded) {
     if (error) {
       return res.status(401).json({
         title: 'Not Authenticated.',
@@ -14,7 +15,7 @@ const router = new Router();
     }
     next();
   });
-});*/
+});
 
 // Get clicks per page count
 router.route('/clicksPerPage').get(UtilController.clicksPerPage);

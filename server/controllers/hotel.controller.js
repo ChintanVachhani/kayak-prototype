@@ -1,41 +1,43 @@
+import cacheClient from '../redis';
+
 // Please put 'kafka' directory containing 'client.js', 'Connection.js' & 'kafkarpc.js', in the routes folder
 let kafka = require('../routes/kafka/client');
 var fs = require('fs');
 var multer = require('multer');
 
 var storage = multer.diskStorage({
-    destination: function(req, file, callback) {
-        callback(null, './files');
-    },
-    filename: function(req, file, callback) {
-        callback(null, file.originalname);
-    }
+  destination: function (req, file, callback) {
+    callback(null, './files');
+  },
+  filename: function (req, file, callback) {
+    callback(null, file.originalname);
+  },
 });
 
 var upload = multer({
-    storage: storage
+  storage: storage,
 }).any();
 
 export function createHotel(req, res) {
 
-  upload(req, res, function(err) {
+  upload(req, res, function (err) {
     if (err) {
-      res.send(JSON.stringify({ code: 500, msg: "File Upload Failed" }));
+      res.send(JSON.stringify({code: 500, msg: "File Upload Failed"}));
     } else {
       let name = req.files[0].originalname;
       let type = req.files[0].mimetype;
-      fs.readFile("./files/" + name, "base64", function(err, data) {
-        let imageData = { data: data, contentType: type };
+      fs.readFile("./files/" + name, "base64", function (err, data) {
+        let imageData = {data: data, contentType: type};
         req.body.hotelImage = imageData;
-        fs.unlink("./files/" + name, function(err) {
+        fs.unlink("./files/" + name, function (err) {
 
           kafka.make_request('hotelTopic', {
             name: 'createHotel',
             headers: req.headers,
             params: req.params,
             query: req.query,
-            body: req.body
-          }, function(err, response) {
+            body: req.body,
+          }, function (err, response) {
             console.log('in result--->');
             console.log(response);
 
@@ -65,7 +67,6 @@ export function createHotel(req, res) {
         });
 
 
-
       });
     }
 
@@ -78,13 +79,16 @@ export function getHotel(req, res) {
     headers: req.headers,
     params: req.params,
     query: req.query,
-    body: req.body
-  }, function(err, response) {
+    body: req.body,
+  }, function (err, response) {
     console.log('in result--->');
     console.log(response);
 
     switch (response.status) {
       case 200:
+        // Updating Cache
+        cacheClient.setex('hotel' + req.params, 60, JSON.stringify(response));
+
         res.status(200).json(response);
         break;
       case 201:
@@ -112,13 +116,17 @@ export function updateHotel(req, res) {
     headers: req.headers,
     params: req.params,
     query: req.query,
-    body: req.body
-  }, function(err, response) {
+    body: req.body,
+  }, function (err, response) {
     console.log('in result--->');
     console.log(response);
 
     switch (response.status) {
       case 200:
+        // Updating Cache
+        cacheClient.del('hotels' + req.params);
+        cacheClient.del('allHotels');
+
         res.status(200).json(response);
         break;
       case 201:
@@ -146,13 +154,17 @@ export function deleteHotel(req, res) {
     headers: req.headers,
     params: req.params,
     query: req.query,
-    body: req.body
-  }, function(err, response) {
+    body: req.body,
+  }, function (err, response) {
     console.log('in result--->');
     console.log(response);
 
     switch (response.status) {
       case 200:
+        // Updating Cache
+        cacheClient.del('hotel' + req.params);
+        cacheClient.del('allHotels');
+
         res.status(200).json(response);
         break;
       case 201:
@@ -180,13 +192,16 @@ export function getAllHotels(req, res) {
     headers: req.headers,
     params: req.params,
     query: req.query,
-    body: req.body
-  }, function(err, response) {
+    body: req.body,
+  }, function (err, response) {
     console.log('in result--->');
     console.log(response);
 
     switch (response.status) {
       case 200:
+        // Updating Cache
+        cacheClient.setex('allHotels', 3600, JSON.stringify(response));
+
         res.status(200).json(response);
         break;
       case 201:
@@ -214,7 +229,7 @@ export function searchHotels(req, res) {
     headers: req.headers,
     params: req.params,
     query: req.query,
-    body: req.body
+    body: req.body,
   }, function (err, response) {
     console.log('in result--->');
     console.log(response);
