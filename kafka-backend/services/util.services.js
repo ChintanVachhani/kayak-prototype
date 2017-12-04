@@ -57,6 +57,10 @@ function handle_request(req, callback) {
       }
     });
   }
+
+  if(req.name === 'trackUser'){
+
+  }
 }
 
 exports.handle_request = handle_request;
