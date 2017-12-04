@@ -4,7 +4,7 @@ import { bindActionCreators } from 'redux';
 import CreateCar from './CreateCar';
 import SearchCar from './SearchCar';
 import CarItem from './CarItem';
-import { Alert } from 'reactstrap';
+import { UncontrolledAlert } from 'reactstrap';
 import CarList from './CarList';
 import {getAllCars} from './../AdminActions';
 
@@ -37,7 +37,7 @@ class CarsHome extends Component {
         {this.props.msg !== undefined ? 
         	<div className="row">
 				<div className="col-12">
-				 <Alert color="info">{this.props.msg}</Alert>
+				 <UncontrolledAlert color="info">{this.props.msg}</UncontrolledAlert>
 				</div>
 			</div>
         	: ''}    

@@ -66,7 +66,9 @@ function handle_request(req, callback) {
   }
 
   if (req.name === 'updateFlight') {
+    console.log("id : ", req.params._id)
     Flight.findOneAndUpdate({_id: req.params._id}, req.body, (error, flight) => {
+      console.log("Error : ", error)
       if (error || !flight) {
         res = {
           status: 404,

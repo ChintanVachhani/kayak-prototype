@@ -272,15 +272,16 @@ export function deleteFlight(data) {
 }
 
 export function updateFlight(data, id) {
+  console.log("Data : ", data)
   return (dispatch) => {
-    return callApi("flight/"+id, 'patch', data).then(res => dispatch(updateFlightResponse(res)));
+    return callApi("flight/"+id, 'PATCH', data).then(res => dispatch(updateFlightResponse(res)));
   };
 
 }
 
 function updateFlightResponse(res) {
+  console.log("response ", res)
   return (dispatch) => {
-    return callApi('flight').then(res => dispatch(updateFlightList(res, "FLight Details Updated")));
+    return callApi('flight').then(res => dispatch(updateFlightList(res, "Flight Details Updated")));
   };
 }
-
