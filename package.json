@@ -38,6 +38,7 @@
     "object-hash": "^1.2.0",
     "rc-slider": "^8.4.1",
     "react": "^15.1.0",
+    "react-d3-basic": "^1.6.11",
     "react-dom": "^15.1.0",
     "react-helmet": "^3.1.0",
     "react-icons": "^2.2.7",

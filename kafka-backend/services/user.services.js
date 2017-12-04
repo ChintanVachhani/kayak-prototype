@@ -1,5 +1,6 @@
 let User = require('../models/user');
 let UserDetail = require('../models/userDetail');
+let Card = require('../models/card');
 let bcrypt = require('bcryptjs');
 let jwt = require('jsonwebtoken');
 const logger = require('../logger');
@@ -237,6 +238,25 @@ function handle_request(req, callback) {
             callback(null, res);
           }
         });
+      }
+    });
+  }
+
+  if (req.name === 'deleteCard') {
+    Card.findOneAndRemove({cardNumber: req.body.cardNumber}, (error, card) => {
+      if (error || !card) {
+        res = {
+          status: 404,
+          title: 'Card not found.',
+          error: {message: 'Failed to delete card.'},
+        };
+        callback(null, res);
+      } else {
+        res = {
+          status: 200,
+          message: 'Successfully deleted card.',
+        };
+        callback(null, res);
       }
     });
   }
