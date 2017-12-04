@@ -5,7 +5,7 @@ import styles from './Header.css';
 import Header from './Header';
 import AccountDetails from './AccountDetails';
 import Footer from '../Footer/Footer';
-import {handleCard} from './HeaderActions';
+import {handleEditCard, getUserDetails} from './HeaderActions';
 
 
 class AccountPage extends Component {
@@ -39,6 +39,10 @@ class AccountPage extends Component {
       this.props.handleEditCard(this.state);
     }
 
+    componentWillMount() {
+      console.log("in componentWillMount of account page");
+      this.props.getUserDetails();
+    }
 
     render(){
         return(
@@ -109,7 +113,7 @@ class AccountPage extends Component {
                                                 <div className="form-group" style={{ 'padding' : '10px'}}>
                                                         <input
                                                             className="form-control"
-                                                            type="number"
+                                                            type="text"
                                                             label="nameOnCard"
                                                             placeholder="Name On Card"
                                                             onChange={(event) => {
@@ -224,7 +228,8 @@ function mapStateToProps(store) {
 function mapDispatchToProps(dispatch) {
   
    return {
-      handleEditCard : (cardDetails) => dispatch(handleEditCard(cardDetails))
+      handleEditCard : (cardDetails) => dispatch(handleEditCard(cardDetails)),
+      getUserDetails : () => dispatch(getUserDetails())
     };
 }
 

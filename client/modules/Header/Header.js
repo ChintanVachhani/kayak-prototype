@@ -179,7 +179,7 @@ class Header extends Component {
                                 required />
                             </div>                    
                             <div className="form-group" >
-                              <input type="button" value="Sign In" style={{'width':'100%', 'font-size': '14px'}} onClick={this.signinSubmit} />
+                              <input type="button" className="btn btn-primary btn-block" value="Sign In" style={{'width':'100%', 'font-size': '14px'}} onClick={this.signinSubmit} />
                             </div>
                           </form>
                       </div>
