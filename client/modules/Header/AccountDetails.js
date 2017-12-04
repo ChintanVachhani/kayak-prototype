@@ -1,7 +1,7 @@
 import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import {deleteAccount, handleEditProfile, handleImageEdit, getUserDetails} from './HeaderActions';
+import {deleteAccount, handleEditProfile, handleImageEdit, getUserDetails,redirectUser} from './HeaderActions';
 import styles from './Header.css';
 
 
@@ -45,11 +45,19 @@ class AccountDetails extends Component {
         this.props.handleEditProfile(this.state);
     }
 
-    componentWillMount() {
-      console.log("in componentWillMount of account details");
-      //this.props.getUserDetails();
+    componentWillMount () {
+        this.checkAuth(this.props.isAuthenticated);
     }
 
+    componentWillReceiveProps (nextProps) {
+        this.checkAuth(nextProps.isAuthenticated);
+    }
+
+    checkAuth (isAuthenticated) {
+        if (!isAuthenticated) {
+         this.props.redirectUser();
+        }
+    }
     componentDidMount() {
         console.log("in componentDidUpdate of account details " + JSON.stringify(this.props.user));
         if(this.props.user.firstName != null && this.props.user.firstName != 'undefined')
@@ -335,15 +343,17 @@ class AccountDetails extends Component {
 function mapStateToProps(store) {
     const {header} = store;
     const user = header.userdetails;
+    let isAuthenticated = header.isAuthenticated;
     console.log("this is home mapstateto prop for account details "+ JSON.stringify(user) );
-  return {user};
+  return {user,isAuthenticated};
 }
 function mapDispatchToProps(dispatch) {
    return {
      deleteAccount : () => dispatch(deleteAccount()),
      handleEditProfile: (userDetails) => dispatch(handleEditProfile(userDetails)),
      getUserDetails : () => dispatch(getUserDetails()),
-     handleImageEdit : (formData) => dispatch(handleImageEdit(formData))
+     handleImageEdit : (formData) => dispatch(handleImageEdit(formData)),
+     redirectUser : () => dispatch(redirectUser())
     };
 }
 export default connect( mapStateToProps,  mapDispatchToProps)(AccountDetails);

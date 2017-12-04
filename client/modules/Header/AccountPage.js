@@ -5,7 +5,7 @@ import styles from './Header.css';
 import Header from './Header';
 import AccountDetails from './AccountDetails';
 import Footer from '../Footer/Footer';
-import {handleEditCard, getUserDetails} from './HeaderActions';
+import {handleEditCard, getUserDetails,redirectUser} from './HeaderActions';
 
 
 class AccountPage extends Component {
@@ -17,7 +17,25 @@ class AccountPage extends Component {
         exp_year: '',
         exp_month: ''
     }
+        componentWillMount () {
+            this.checkAuth(this.props.isAuthenticated);
+            console.log("in componentWillMount of account page");
+            let userEmail = localStorage.getItem('email');
+            if(userEmail!==null)
+              this.props.getUserDetails(userEmail); 
+            else
+              this.props.redirectUser();           
+        }
 
+        componentWillReceiveProps (nextProps) {
+            this.checkAuth(nextProps.isAuthenticated);
+        }
+
+        checkAuth (isAuthenticated) {
+            if (!isAuthenticated) {
+             this.props.redirectUser();
+            }
+        } 
     componentDidMount() {
        this.setState({
                 cardNumber : this.props.card.cardNumber,
@@ -37,11 +55,6 @@ class AccountPage extends Component {
       console.log("in closing credit form");
       this.refs.creditForm.style="display: none";
       this.props.handleEditCard(this.state);
-    }
-
-    componentWillMount() {
-      console.log("in componentWillMount of account page");
-      this.props.getUserDetails();
     }
 
     render(){
@@ -223,13 +236,15 @@ function mapStateToProps(store) {
     console.log("this is home mapstateto prop reducer ", store );
     const {header} = store;
     let card = header.card;
-  return {card};
+    let isAuthenticated = header.isAuthenticated;
+  return {card,isAuthenticated};
 }
 function mapDispatchToProps(dispatch) {
   
    return {
       handleEditCard : (cardDetails) => dispatch(handleEditCard(cardDetails)),
-      getUserDetails : () => dispatch(getUserDetails())
+      getUserDetails : (data) => dispatch(getUserDetails(data)),
+      redirectUser : () => dispatch(redirectUser())
     };
 }
 

@@ -91,11 +91,16 @@ class Header extends Component {
                                 <a className="dropdown-item py-1"  onClick={this.popSigninWindow}>
                                     <div className="btn" id={styles['signin-btn']}>Sign in</div>
                                 </a>
-                                <button className="dropdown-item py-1"  onClick={this.props.accountPage}><i className="fa fa-cog" aria-hidden="true"></i>&nbsp;&nbsp;&nbsp;&nbsp;Account Preferences</button>
-                                <a className="dropdown-item py-1" ><i className="fa fa-briefcase" aria-hidden="true"></i>&nbsp;&nbsp;&nbsp;&nbsp;Bookings</a>
-                                <a className="dropdown-item py-1" >
-                                    <div className="btn btn-secondary" onClick={this.props.signOut} id={styles['signout-btn']}>Sign out</div>
-                                </a>
+                                <span>
+                                  {
+                                    this.props.isAuthenticated?
+                                  (<span><button className="dropdown-item py-1"  onClick={this.props.accountPage}><i className="fa fa-cog" aria-hidden="true"></i>&nbsp;&nbsp;&nbsp;&nbsp;Account Preferences</button>
+                                  <a className="dropdown-item py-1" ><i className="fa fa-briefcase" aria-hidden="true"></i>&nbsp;&nbsp;&nbsp;&nbsp;Bookings</a>
+                                  <a className="dropdown-item py-1" >
+                                      <div className="btn btn-secondary" onClick={this.props.signOut} id={styles['signout-btn']}>Sign out</div>
+                                  </a></span>):''
+                                  }
+                                </span>
                             </div>
                         </div>
                     </div>
@@ -188,7 +193,11 @@ class Header extends Component {
             );
     }
 }
-
+function mapStateToProps(store) {
+    const {header} = store;
+    let isAuthenticated = header.isAuthenticated;
+  return {isAuthenticated};
+}
 function mapDispatchToProps(dispatch) {
   console.log("this is in dispatch of header");
    return {

@@ -1,10 +1,11 @@
 // Import Actions
-import { SIGNUP_SUCCESS, SIGNIN_SUCCESS, EDIT_PROFILE_SUCCESS, EDIT_CARD_SUCCESS, GET_USER_DETAILS, UPLOAD_IMAGE_SUCCESS, GET_ACCOUNT_DETAILS } from './HeaderActions';
+import { SIGNUP_SUCCESS, SIGNIN_SUCCESS,SIGNOUT_SUCCESS, EDIT_PROFILE_SUCCESS, EDIT_CARD_SUCCESS, GET_USER_DETAILS, UPLOAD_IMAGE_SUCCESS, GET_ACCOUNT_DETAILS } from './HeaderActions';
 
 // Initial State
 
 const initialState = {
   message : '',
+  isAuthenticated:false,
 	userdetails: {
         firstName: '',
         lastName : '',
@@ -35,7 +36,14 @@ const HeaderReducer = (state = initialState, action) => {
         user.email = action.email;
             return {
                ...state,
-               userdetails : user
+               userdetails : user,
+               isAuthenticated:true
+           };
+
+      case SIGNOUT_SUCCESS :
+            return {
+               ...state,
+               isAuthenticated:false
            };
 
       case SIGNIN_SUCCESS :
@@ -45,7 +53,8 @@ const HeaderReducer = (state = initialState, action) => {
         user.email = action.email;
            return {
                ...state,
-               userdetails : user
+               userdetails : user,
+               isAuthenticated: true
            };
       case UPLOAD_IMAGE_SUCCESS :
        user = state.userdetails;
