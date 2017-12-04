@@ -44,12 +44,13 @@ class Hotel extends Component {
                 </div>
                 {isAdmin === 'true' ?
 	 				<div className="col-md-2" id= {styles['itemActionBlock']}>
-	 				<strong><span className={styles['priceValue']}>{hotel.price}</span></strong><br/><br/>  
+	 				<strong><span className={styles['priceValue']}>${hotel.price}</span></strong><br/><br/>  
 	                    <button className="btn btn-warning" onClick="">Edit</button><br/><br/>    
 	                    <button className="btn btn-warning"  onClick={() => { if(confirm("Are you Sure? You want to delete this Hotel?")) this.props.deleteHotel(hotel._id)}}>Delete</button>            
 	                </div> 
                 :
                 	<div className="col-md-2" id= {styles['itemActionBlock']}>
+<<<<<<< HEAD
 	                    <strong><span className={styles['priceValue']}>{hotel.price}</span></strong><br/><br/>    
 	                    <div>
 	                    {
@@ -57,6 +58,10 @@ class Hotel extends Component {
 	                    <button className="btn btn-warning" onClick={()=>{serviceForBooking(hotel,'Hotel')}}>Book Hotel</button>            
 	                	}
 	                    </div>
+=======
+	                    <strong><span className={styles['priceValue']}>${hotel.price}</span></strong><br/><br/>    
+	                    <button className="btn btn-warning" onClick="">Book Hotel</button>            
+>>>>>>> 2cdeaad5af0d0a6a9817876c90597aef8e60f0d0
 	                </div>
 
             	}

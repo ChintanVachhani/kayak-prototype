@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import CreateHotel from './CreateHotel';
 import SearchHotel from './SearchHotel';
-import { Alert } from 'reactstrap';
+import { UncontrolledAlert } from 'reactstrap';
 import HotelItem from './HotelItem';
 import HotelList from './HotelList';
 import {getAllHotels} from './../AdminActions';
@@ -37,7 +37,8 @@ class HotelsHome extends Component {
         {this.props.msg !== undefined ? 
         	<div className="row">
 				<div className="col-12">
-				 <Alert color="info">{this.props.msg}</Alert>
+         <UncontrolledAlert color="info">
+	         {this.props.msg}</UncontrolledAlert>
 				</div>
 			</div>
         	: ''}    

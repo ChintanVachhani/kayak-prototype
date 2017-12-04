@@ -48,11 +48,13 @@ class Car extends Component {
 
                 {this.props.isAdmin === 'true' ?
                     <div className="col-md-2" id= {styles['itemActionBlock']}>
+                    <strong><span className={styles['priceValue']}>${car.price}</span></strong><br/><br/> 
                         <button className="btn btn-warning" onClick="">Edit</button><br/><br/>    
                         <button className="btn btn-warning" onClick={() => { if(confirm("Are you Sure? You want to delete this Car?")) this.props.deleteCar(car._id)}}>Delete</button>            
                     </div> 
                 :
                     <div className="col-md-2" id= {styles['itemActionBlock']}>
+<<<<<<< HEAD
                         <strong><span className={styles['priceValue']}>{car.price}</span></strong><br/><br/>    
                         <div>
                         {
@@ -60,6 +62,10 @@ class Car extends Component {
                         <button className="btn btn-warning" onClick={()=>{serviceForBooking(car,'Car')}}>Book Car</button>            
                         }
                         </div>                        
+=======
+                        <strong><span className={styles['priceValue']}>${car.price}</span></strong><br/><br/>    
+                        <button className="btn btn-warning" onClick="">Book Car</button>            
+>>>>>>> 2cdeaad5af0d0a6a9817876c90597aef8e60f0d0
                     </div> 
                 }
 

@@ -55,10 +55,10 @@ function handle_request(req, callback) {
   }
 
   if (req.name === 'signin') {
-    User.find({email: req.body.email})
+    User.find({where: {email: req.body.email}})
       .catch((error) => {
         res = {
-          status: 401,
+          status: 500,
           title: 'Signing in failed.',
           error: {message: 'Invalid credentials.'},
         };
@@ -90,7 +90,7 @@ function handle_request(req, callback) {
           }
         } else {
           res = {
-            status: 401,
+            status: 400,
             title: 'Signing in failed.',
             error: {message: 'Invalid credentials.'},
           };
@@ -101,7 +101,7 @@ function handle_request(req, callback) {
 
   if (req.name === 'getUser') {
 
-    logger.info('User Information');
+    logger.info({page: 'UserInformation', user: req.params.email});
 
     UserDetail.findOne({email: req.params.email}, (error, user) => {
       if (error || !user) {
@@ -124,7 +124,7 @@ function handle_request(req, callback) {
 
   if (req.name === 'updateUser') {
 
-    logger.info('User Information');
+    logger.info({page: 'UserInformation', user: req.params.email});
 
     UserDetail.findOneAndUpdate({email: req.params.email}, req.body, (error, user) => {
       if (error || !user) {
@@ -147,7 +147,7 @@ function handle_request(req, callback) {
 
   if (req.name === 'deleteUser') {
 
-    logger.info('User Information');
+    logger.info({page: 'UserInformation', user: req.params.email});
 
     UserDetail.findOneAndRemove({email: req.params.email}, (error, user) => {
       if (error || !user) {
@@ -190,7 +190,7 @@ function handle_request(req, callback) {
 
   if (req.name === 'addCard') {
 
-    logger.info('User Information');
+    logger.info({page: 'UserInformation', user: req.body.email});
 
     let card = Card({
       cardNumber: req.body.cardNumber,

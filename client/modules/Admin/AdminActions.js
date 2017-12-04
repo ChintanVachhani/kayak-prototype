@@ -25,14 +25,14 @@ export function createFlight(data) {
 
 function createFlightResponse(res) {
   return (dispatch) => {
-    return callApi('flight').then(res => dispatch(updateFlightList(res)));
+    return callApi('flight').then(res => dispatch(updateFlightList(res, "New Flight Created")));
   };
 }
 
-function updateFlightList(data) {
+function updateFlightList(data, msg) {
   return {
     type: CREATE_FLIGHT,
-    msg: "New Flight Created",
+    msg: msg,
     flights: data.flights
   }
 }
@@ -268,5 +268,20 @@ export function deleteHotel(data) {
 export function deleteFlight(data) {
    return (dispatch) => {
     return callApi("flight/"+data, "delete").then(res => dispatch(getAllFlights()));
+  };
+}
+
+export function updateFlight(data, id) {
+  console.log("Data : ", data)
+  return (dispatch) => {
+    return callApi("flight/"+id, 'PATCH', data).then(res => dispatch(updateFlightResponse(res)));
+  };
+
+}
+
+function updateFlightResponse(res) {
+  console.log("response ", res)
+  return (dispatch) => {
+    return callApi('flight').then(res => dispatch(updateFlightList(res, "Flight Details Updated")));
   };
 }

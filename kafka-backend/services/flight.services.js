@@ -1,11 +1,13 @@
 let Flight = require('../models/flight');
 
 const logger = require('../logger');
+let jwt = require('jsonwebtoken');
 
 function handle_request(req, callback) {
   console.log("In handle request:" + JSON.stringify(req));
 
   let res;
+  let decoded = jwt.decode(req.query.token);
 
   if (req.name === 'createFlight') {
     let flight = Flight({
@@ -66,7 +68,9 @@ function handle_request(req, callback) {
   }
 
   if (req.name === 'updateFlight') {
+    console.log("id : ", req.params._id)
     Flight.findOneAndUpdate({_id: req.params._id}, req.body, (error, flight) => {
+      console.log("Error : ", error)
       if (error || !flight) {
         res = {
           status: 404,
@@ -105,6 +109,9 @@ function handle_request(req, callback) {
   }
 
   if (req.name === 'getAllFlights') {
+
+    logger.info({page: 'Flight', user: decoded.user.email || ''});
+
     Flight.find({}, (error, flights) => {
       if (error) {
         res = {
@@ -126,7 +133,7 @@ function handle_request(req, callback) {
 
   if (req.name === 'searchFlights') {
 
-    logger.info('Flight');
+    logger.info({page: 'Flight', user: decoded.user.email || ''});
 
     //Naive logic - to be optimized later
     let conditions = [];

@@ -91,12 +91,14 @@ class Flight extends Component {
                     </div> 
                 </div>
                 {isAdmin === 'true' ?
-                    <div className="col-md-2" id={styles['itemActionBlock']}>            
-                        <EditFlight /><br/>   
+                    <div className="col-md-2" id={styles['itemActionBlock']}>  
+                            <span className={styles['priceValue']}>${flight.price.economy}</span><br/><br/>            
+                        <EditFlight flight={flight} /><br/>   
                         <button className="btn btn-warning"  onClick={() => { if(confirm("Are you Sure? You want to delete this Flight?")) this.props.deleteFlight(flight._id)}}>Delete</button>                       
                     </div>
                     :
                     <div className="col-md-2" id={styles['itemActionBlock']}>
+<<<<<<< HEAD
                             <span className={styles['priceValue']}>{flight.price.economy}</span><br/><br/>    
                         <div>
                         {
@@ -104,6 +106,10 @@ class Flight extends Component {
                         <button className="btn btn-warning" onClick={()=>{serviceForBooking(hotel,'Flight')}}>Book Flight</button>            
                         }
                         </div>                            
+=======
+                            <span className={styles['priceValue']}>${flight.price.economy}</span><br/><br/>    
+                            <button className="btn btn-warning" onClick="">Book Flight</button>               
+>>>>>>> 2cdeaad5af0d0a6a9817876c90597aef8e60f0d0
                     </div> 
                 }
                 

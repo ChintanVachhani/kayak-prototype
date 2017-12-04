@@ -19,7 +19,7 @@ export default function callApi(endpoint, method = 'get', body, header) {
     }
   } else {
     reqBody = {
-      headers: { 'content-type': 'application/json' },
+      headers: { 'content-type': 'application/json', 'Access-Control-Allow-Methods' : 'GET, POST, PUT, DELETE, PATCH' },
       method,
       body: JSON.stringify(body),
     }
