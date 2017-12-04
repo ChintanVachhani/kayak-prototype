@@ -1,9 +1,11 @@
-import {Router} from 'express';
+import { Router } from 'express';
 
 const router = new Router();
-const logger = require('../logger');
+let fs = require('fs');
 
-// Get Cities
+const logger = require('../../kafka-backend/logger');
+
+// Get Clicks per page count
 router.get('/clicksPerPage', function (req, res, next) {
   const options = {
     /*from: new Date() - (24 * 60 * 60 * 1000),
@@ -51,6 +53,35 @@ router.get('/clicksPerPage', function (req, res, next) {
       error: {message: 'Successfully retrieved clicks per page count.'},
     })
   });
+});
+
+// Get Cities
+router.get('/location', function (req, res, next) {
+	let cities = [];
+	function readLines(input,callback) {
+	  var remaining = '';
+	  input.on('data', function(data) {
+	    remaining += data;
+	    var index = remaining.indexOf('\n');
+	    while (index > -1) {
+	      var line = remaining.substring(0, index-1);
+	      remaining = remaining.substring(index + 1);
+	      cities = [line,...cities];
+	      index = remaining.indexOf('\n');
+	    }
+	    cities = [remaining,...cities];
+	    callback(cities);
+	  });
+	}
+	let input = fs.createReadStream('cities.txt');
+    readLines(input,function(cities){
+		let inputStates = fs.createReadStream('states.txt');
+		readLines(inputStates,function(states){
+		  res.status(200).json({
+		  	cities:cities,states:states
+	  	});
+	  });
+	});
 });
 
 

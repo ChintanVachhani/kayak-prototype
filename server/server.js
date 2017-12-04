@@ -35,7 +35,7 @@ import car from './routes/car.routes';
 import flight from './routes/flight.routes';
 import hotel from './routes/hotel.routes';
 import booking from './routes/booking.routes';
-import util from './util/populate';
+import util from './util/util';
 import serverConfig from './config';
 
 // Apply body Parser and server public assets and routes
