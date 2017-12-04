@@ -1,17 +1,22 @@
 import React, { Component, PropTypes } from 'react';
 import {connect} from 'react-redux';
 import { Alert, Button, Modal, ModalHeader, ModalBody, ModalFooter, Form, FormGroup, Label, Input, FormText } from 'reactstrap';
+import {searchCar} from "../AdminActions";
 
 class SearchCar extends React.Component {
 
   constructor(props) {
     super(props);
     this.state = {
-      modal: false
+      modal: false,
+      "class":"",
+      "location":"",
+      "minPrice":"",
+      "maxPrice":""
     };
 
     this.toggle = this.toggle.bind(this);
-    this.handleCreateFolder = this.handleCreateFolder.bind(this);
+    this.handleSearchCar = this.handleSearchCar.bind(this);
   }
 
   toggle() {
@@ -21,9 +26,33 @@ class SearchCar extends React.Component {
   }
 
 
-  handleCreateFolder() {
-      
+
+  handleSearchCar() {      
       this.toggle();
+       let query = "?";
+      if(this.state.class !== "") {
+        query = query + "class="+this.state.class+"&";
+      }
+
+      if(this.state.location !== "") {
+        query = query + "location="+this.state.location+"&";
+      }
+
+      if(this.state.minPrice !== "") {
+        query = query + "minPrice="+this.state.minPrice+"&";
+      }
+
+      if(this.state.maxPrice !== "") {
+        query = query + "maxPrice="+this.state.maxPrice;
+      }
+
+      this.state.class = "";
+      this.state.location = "";
+      this.state.minPrice = "";
+      this.state.maxPrice = "";
+
+      console.log(query)
+      this.props.searchCar(query);
 
   }
 
@@ -34,31 +63,45 @@ class SearchCar extends React.Component {
         <button type="button" className="btn btn-primary" onClick={this.toggle}>{this.props.buttonLabel}</button>
         
         <Modal isOpen={this.state.modal} toggle={this.toggle} className={this.props.className}>
-          <ModalHeader>Search Flight</ModalHeader>
+          <ModalHeader>Search Car</ModalHeader>
           <ModalBody>
             <form>
               <div className="form-row">
                 <div className="form-group col-md-6">
-                  <label for="from">From</label>
-                  <input type="text" className="form-control" id="from" placeholder="From Where?" required />
+                  <label for="from">Class</label>
+                  <input type="text" className="form-control" id="from" placeholder="Class" required 
+                  onChange={(event) => {
+                                    this.setState({
+                                        class: event.target.value
+                                    }); }}  />
                 </div>
                 <div className="form-group col-md-6">
-                  <label for="to">To</label>
-                  <input type="text" className="form-control" id="to" placeholder="To Where?" />
+                  <label for="to">Location</label>
+                  <input type="text" className="form-control" id="to" placeholder="Location" onChange={(event) => {
+                                    this.setState({
+                                        location: event.target.value
+                                    }); }}  />
                 </div>
               </div>
               <div className="form-row">
                 <div className="form-group col-md-6">
-                  <label for="dep">Departure Time</label>
-                  <input type="text" className="form-control" id="inputEmail4" placeholder="Departure Time" />
+                  <label for="dep">Min Price</label>
+                  <input type="text" className="form-control" id="inputEmail4" placeholder="Min Price" 
+                   onChange={(event) => {
+                                    this.setState({
+                                        minPrice: event.target.value
+                                    }); }} />
                 </div>
                 <div className="form-group col-md-6">
-                  <label for="inputPassword4">Arrival Time</label>
-                  <input type="text" className="form-control" id="inputPassword4" placeholder="Arrival Time" />
+                  <label for="inputPassword4">Max Price</label>
+                  <input type="text" className="form-control" id="inputPassword4" placeholder="Max Price" 
+                   onChange={(event) => {
+                                    this.setState({
+                                        maxPrice: event.target.value
+                                    }); }}  />
                 </div>
               </div>
-            
-              <button type="submit" className="btn btn-primary" onSubmit={() => {this.handleCreateFolder()}}>Search Car</button>
+              <button type="button" className="btn btn-primary" onClick={() => {this.handleSearchCar()}}>Search Car</button>
               &nbsp;
                <Button color="secondary" onClick={this.toggle}>Cancel</Button>
             </form>
@@ -75,7 +118,9 @@ const mapStateToProps = (state) => {
 };
 
 const mapDispatchToProps = (dispatch) => {
-  return {};
+   return {
+        searchCar : (data) => dispatch(searchCar(data))
+    };
 };
 
 SearchCar.propTypes = {

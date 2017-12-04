@@ -1,5 +1,7 @@
 let Car = require('../models/car');
 
+const logger = require('../logger');
+
 function handle_request(req, callback) {
   console.log("In handle request:" + JSON.stringify(req));
 
@@ -116,6 +118,9 @@ function handle_request(req, callback) {
   }
 
   if (req.name === 'searchCars') {
+
+    logger.info('Car');
+
     //Naive logic - to be optimized later
     let conditions = [];
     let classConditions = [];

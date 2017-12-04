@@ -3,10 +3,17 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import Flight from './Flight';
 
+import {getFlightList} from '../../ListActions';
+
 // Import Style
 import styles from './Flight.css';
 
 class FlightList extends Component {
+
+  componentWillMount(){
+    this.props.getFlightList(this.props.flightFormData);
+  }
+
   render() {
     const {flightList} = this.props;
     return (
@@ -34,18 +41,20 @@ class FlightList extends Component {
 
 const mapStateToProps = (state) => {
    const flightList = state.list.flightList;
-    return {flightList};
+   const flightFormData = state.home.flightFormData;
+    return {flightList, flightFormData};
 };
 
-// const mapDispatchToProps = (dispatch) => {
-//   return {};
-// };
+ const mapDispatchToProps = (dispatch) => {
+   return {
+       getFlightList : (criteria) => dispatch(getFlightList(criteria))
+    };
+ };
 
 FlightList.propTypes = {
 };
 
 export default connect(
   mapStateToProps,
-  null
-  // mapDispatchToProps
+  mapDispatchToProps
 )(FlightList);

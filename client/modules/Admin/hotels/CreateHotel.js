@@ -86,19 +86,34 @@ class CreateHotel extends React.Component {
               <div className="form-row">
                 <div className="form-group col-md-4">
                   <label for="inputAddress">City</label>
-                <input type="text" className="form-control" id="inputAddress" placeholder="City"
+                <input list="cities" className="form-control" id="inputAddress" placeholder="City"
                 onChange={(event) => {
                                     this.setState({
                                         city: event.target.value
                                     }); }} />
+                                <datalist id="cities">
+                                {
+                                  this.props.cities.map((city)=>{
+                                    return (<div><option value={city}></option></div>)
+                                  })
+                                }
+                                </datalist>                                    
+
                 </div>
                 <div className="form-group col-md-4">
                   <label for="inputAddress2">State</label>
-                <input type="text" className="form-control" id="inputAddress2" placeholder="State"
+                <input list="states" className="form-control" id="inputAddress2" placeholder="State"
                 onChange={(event) => {
                                     this.setState({
                                         state: event.target.value
                                     }); }} />
+                                <datalist id="states">
+                                {
+                                  this.props.states.map((state)=>{
+                                    return (<div><option value={state}></option></div>)
+                                  })
+                                }
+                                </datalist>                                    
                 </div>
                  <div className="form-group col-md-4">
                   <label for="inputAddress2">Zip</label>
@@ -172,9 +187,11 @@ class CreateHotel extends React.Component {
   }
 }
 
-const mapStateToProps = (state) => {
-  return {};  
-};
+function mapStateToProps(store) {
+    const cities = store.admin.cities;
+    const states = store.admin.states;
+  return {cities,states};
+}
 
 const mapDispatchToProps = (dispatch) => {
   return {

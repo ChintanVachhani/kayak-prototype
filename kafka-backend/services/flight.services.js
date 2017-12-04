@@ -1,5 +1,7 @@
 let Flight = require('../models/flight');
 
+const logger = require('../logger');
+
 function handle_request(req, callback) {
   console.log("In handle request:" + JSON.stringify(req));
 
@@ -123,6 +125,9 @@ function handle_request(req, callback) {
   }
 
   if (req.name === 'searchFlights') {
+
+    logger.info('Flight');
+
     //Naive logic - to be optimized later
     let conditions = [];
 

@@ -1,15 +1,17 @@
 // Import Actions
-import { UPDATE_CARFORM, UPDATE_FLIGHTFORM, UPDATE_HOTELFORM, UPDATE_FORMTYPE } from './HomeActions';
+import { UPDATE_CARFORM, UPDATE_FLIGHTFORM, UPDATE_HOTELFORM, UPDATE_FORMTYPE, UPDATE_CITIES } from './HomeActions';
 import { BOOKING_SUCCESS } from '../Billing/BillingActions';
 import {UPDATE_FORMTYPEHEADER} from '../Header/HeaderActions';
 
 // Initial State
 const initialState = {
-	carFormData : { place: '', toDate: '', fromDate: '', passengers:'1'},
-	flightFormData : { fromPlace: '', toPlace: '', departDate:'', returnDate: '', passengers: '1', cabinClass: ''},
-	hotelFormData : {place: '', checkin: '', checkout: '', rooms: '', passengers:'1'},
+	carFormData : { place: '', toDate: '', fromDate: ''},
+	flightFormData : { fromPlace: '', toPlace: '', departDate:'', returnDate: '', passengers: '', cabinClass: ''},
+	hotelFormData : {place: '', checkin: '', checkout: '', rooms: ''},
   formType: '',
-  message:''
+  message:'',
+  cities:[],
+  states:[]
 };
 
 const HomeReducer = (state = initialState, action) => {
@@ -64,6 +66,13 @@ const HomeReducer = (state = initialState, action) => {
                ...state,
                formType : action.displayForm
            };
+    case UPDATE_CITIES :
+           
+          return {
+               ...state,
+               cities : action.cities,
+               states:action.states
+           };           
 
     case UPDATE_FORMTYPEHEADER :
         console.log("in update formtype coming from header");

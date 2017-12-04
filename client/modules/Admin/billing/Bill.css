@@ -1,0 +1,49 @@
+/* Car styles */
+        .border-right {
+            border-right: 1px solid #cccccc;
+        }   
+      .priceValue{
+        color:#20bf7c;
+        font-size: 21px;
+      }
+      .listBackground{
+        background-color: #cccccc;
+      }
+      
+      .divider{
+        border: 0;
+        height: 1px;
+        background: #ccc;
+        width: 250px;
+        margin: 32px auto 0;
+      }
+      .item{
+        background-color: #ffffff;
+        min-height: 145px;
+        margin:10px auto;
+        position: relative;
+        font-weight: 500;
+        padding:10px;
+      }
+      #itemDetailBlock{
+        margin: auto;   
+      }      
+      #itemActionBlock{
+        padding: 30px;
+        text-align: center;
+        background-color:#f2f2f2;
+      }      
+      .carModel{
+        color:#cccccc;
+      }   
+      .location{
+        font-family: 'Courier New';
+        border: 1px solid #cccccc;
+      }   
+      .companyName{
+        font-family: 'Pacifico';
+      }   
+      .imgWidth {
+        width: 50%;
+        height: 100%;
+      }

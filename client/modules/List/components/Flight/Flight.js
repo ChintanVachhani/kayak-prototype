@@ -2,8 +2,10 @@ import React, {Component} from 'react';
 import styles from './Flight.css';
 import EditFlight from './../../../Admin/flights/EditFlight';
 import DeleteFlight from './../../../Admin/flights/DeleteFlight';
+import { connect } from 'react-redux';
+import {deleteFlight} from './../../../Admin/AdminActions';
 
-export default class Flight extends Component {
+class Flight extends Component {
 
     render() {
 
@@ -91,7 +93,7 @@ export default class Flight extends Component {
                 {isAdmin === 'true' ?
                     <div className="col-md-2" id={styles['itemActionBlock']}>            
                         <EditFlight /><br/>   
-                        <DeleteFlight />               
+                        <button className="btn btn-warning"  onClick={() => { if(confirm("Are you Sure? You want to delete this Flight?")) this.props.deleteFlight(flight._id)}}>Delete</button>                       
                     </div>
                     :
                     <div className="col-md-2" id={styles['itemActionBlock']}>
@@ -105,3 +107,21 @@ export default class Flight extends Component {
         );
     }
 }
+
+const mapStateToProps = (state) => {
+  return {};  
+};
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+        deleteFlight : (data) => dispatch(deleteFlight(data))
+    };
+};
+
+Flight.propTypes = {
+};
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(Flight);

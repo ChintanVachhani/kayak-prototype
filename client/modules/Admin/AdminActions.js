@@ -10,6 +10,8 @@ export const CREATE_CAR = 'CREATE_CAR';
 export const FLIGHT_LIST = 'FLIGHT_LIST';
 export const HOTEL_LIST = 'HOTEL_LIST';
 export const CAR_LIST = 'CAR_LIST';
+export const BILL_LIST = 'BILL_LIST';
+export const LOCATION_DETAILS = 'LOCATION_DETAILS';
 
 
 // Export Actions
@@ -82,6 +84,20 @@ function updateHotelList(data) {
   }
 }
 
+export function locationUpdate(data) {
+    return {
+     type : LOCATION_DETAILS,
+     cities:data.cities,
+     states:data.states                                // this is same as newItem : newItem in ES6
+    }                               
+}
+
+export function populateCities(){
+return (dispatch) => {
+return callApi('util/location', 'get').then(res => dispatch(locationUpdate(res)));
+  };
+}
+
 export function createCar(data) {
   return (dispatch) => {
     return callApi('car', 'put', data, "upload").then(res => dispatch(createCarResponse(res)));
@@ -143,4 +159,114 @@ function carList(data) {
     type: CAR_LIST,
     cars: data.cars
   }
+}
+
+export function getAllBills() {
+  return (dispatch) => {
+    return callApi('booking').then(res => dispatch(billList(res)));
+  };
+
+}
+
+function billList(data) {
+  return {
+    type: BILL_LIST,
+    bills: data.bookings
+  }
+}
+
+
+export function searchBillsByDate(query) {
+  
+  let date = query.substring(5)+"-"+query.substring(0,4);
+  return (dispatch) => {
+    return callApi("booking/search?date="+date).then(res => dispatch(billListByDate(res)));
+  };
+
+}
+
+
+export function searchBillsByMonth(query) {
+  return (dispatch) => {
+    return callApi("booking/search?month="+query).then(res => dispatch(billListByDate(res)));
+  };
+
+}
+
+function billListByDate(data) {
+  return {
+    type: BILL_LIST,
+    bills: data.bookings
+  }
+}
+
+export function searchFlight(query) {
+  
+  return (dispatch) => {
+    return callApi("flight/search"+query).then(res => dispatch(updateSearchFlightList(res)));
+  };
+
+}
+
+
+function updateSearchFlightList(data) {
+  return {
+    type: CREATE_FLIGHT,
+    msg: "Search Results",
+    flights: data.flights
+  }
+}
+
+
+export function searchHotel(query) {
+  
+  return (dispatch) => {
+    return callApi("hotel/search"+query).then(res => dispatch(updateSearchHotelList(res)));
+  };
+
+}
+
+
+function updateSearchHotelList(data) {
+  return {
+    type: CREATE_HOTEL,
+    msg: "Search Results",
+    hotels: data.hotels
+  }
+}
+
+export function searchCar(query) {
+  
+  return (dispatch) => {
+    return callApi("car/search"+query).then(res => dispatch(updateSearchCarList(res)));
+  };
+
+}
+
+function updateSearchCarList(data) {
+  return {
+    type: CREATE_CAR,
+    msg: "Search Results",
+    cars: data.cars
+  }
+}
+
+export function deleteCar(data) {
+   return (dispatch) => {
+    return callApi("car/"+data, "delete").then(res => dispatch(getAllCars()));
+  };
+}
+
+
+export function deleteHotel(data) {
+   return (dispatch) => {
+    return callApi("hotel/"+data, "delete").then(res => dispatch(getAllHotels()));
+  };
+}
+
+
+export function deleteFlight(data) {
+   return (dispatch) => {
+    return callApi("flight/"+data, "delete").then(res => dispatch(getAllFlights()));
+  };
 }

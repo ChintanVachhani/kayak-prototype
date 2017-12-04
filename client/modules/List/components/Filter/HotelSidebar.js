@@ -10,6 +10,8 @@ import Slider from 'rc-slider';
 import Star from 'react-icons/lib/fa/star-o';
 import FillStar from 'react-icons/lib/fa/star';
 
+import {filterHotels} from '../../ListActions';
+
 const Range = Slider.Range;
 
 
@@ -30,25 +32,28 @@ class HotelSidebar extends Component {
     constructor(props) {
         super(props);
         
-        this.changeRating = this.changeRating.bind(this);
+        //this.changeRating = this.changeRating.bind(this);
         this.changeStarFilter = this.changeStarFilter.bind(this);
         this.log = this.log.bind(this);
         this.state = { 
-          fromPrice:0,
-          toPrice:100,
+          fromPrice:this.props.fromPrice,
+          toPrice:this.props.toPrice,
           stars:6
         };
     }
 
+    /*
     changeRating(rating) {
     	console.log(rating);
         this.setState({
           rating: rating
         })
     }
+    */
 
     changeStarFilter(index){
         this.setState({stars : index});
+        this.props.filterHotels(this.state);
     }
 
     log(value) {
@@ -70,9 +75,9 @@ class HotelSidebar extends Component {
     	<div className="page-wrap">
         <div style={style}>
         	<p><strong>Price</strong></p><hr />
-      		<input className={styles['leftTextFld']} type="text" id="fromPrice" value= {fromPrice}/>
-      		<input className={styles['rightTextFld']} type="text" id="toPrice" value= {toPrice}/>
-			    <Range allowCross={false} defaultValue={[fromPrice, toPrice]} value={[fromPrice, toPrice]} onChange={this.log} />
+      		<input className={styles['leftTextFld']} type="text" id="fromPrice" value= {fromPrice} onBlur = {() => { this.props.filterHotels(this.state); }}/>
+      		<input className={styles['rightTextFld']} type="text" id="toPrice" value= {toPrice} onBlur = {() => { this.props.filterHotels(this.state); }}/>
+			    <Range min={this.props.fromPrice} max={this.props.toPrice} allowCross={false} defaultValue={[fromPrice, toPrice]} value={[fromPrice, toPrice]} onChange={this.log} onAfterChange = {() => { this.props.filterHotels(this.state); }}/>
         </div>
             
         <div>
@@ -91,11 +96,13 @@ class HotelSidebar extends Component {
 }
 
 const mapStateToProps = (state) => {
-  return {};
+  return {fromPrice:50, toPrice:1000};
 };
 
 const mapDispatchToProps = (dispatch) => {
-  return {};
+  return {
+    filterHotels : (filters) => dispatch(filterHotels(filters))
+  };
 };
 
 HotelSidebar.propTypes = {

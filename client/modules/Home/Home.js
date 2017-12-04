@@ -6,12 +6,15 @@ import CarContainer from './CarContainer';
 import FlightForm from './FlightForm';
 import HotelForm from './HotelForm';
 import Footer from '../Footer/Footer';
-import {changeForm} from './HomeActions';
+import {changeForm,populateCities} from './HomeActions';
 // Import Style
 import styles from './Home.css';
 
 class Home extends Component {
 
+    componentWillMount(){
+        this.props.populateCities();
+    }
     render() {
 
     return (
@@ -109,7 +112,8 @@ function mapStateToProps(store) {
 }
 function mapDispatchToProps(dispatch) {
    return {
-       changeForm : (name) => dispatch(changeForm(name))
+       changeForm : (name) => dispatch(changeForm(name)),
+       populateCities : () => dispatch(populateCities())
     };
 }
 

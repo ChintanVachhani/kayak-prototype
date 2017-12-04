@@ -1,9 +1,14 @@
 import React, {Component} from 'react';
 import FlightIcon from 'react-icons/lib/md/flight-takeoff';
 import People from 'react-icons/lib/md/people';
+import { connect } from 'react-redux';
 import Bag from 'react-icons/lib/fa/shopping-bag';
 import styles from './Car.css';
-export default class Car extends Component {
+
+import {deleteCar} from './../../../Admin/AdminActions';
+
+class Car extends Component {
+
 
     render() {
         const {car} = this.props;
@@ -43,7 +48,7 @@ export default class Car extends Component {
                 {this.props.isAdmin === 'true' ?
                     <div className="col-md-2" id= {styles['itemActionBlock']}>
                         <button className="btn btn-warning" onClick="">Edit</button><br/><br/>    
-                        <button className="btn btn-warning" onClick="">Delete</button>            
+                        <button className="btn btn-warning" onClick={() => { if(confirm("Are you Sure? You want to delete this Car?")) this.props.deleteCar(car._id)}}>Delete</button>            
                     </div> 
                 :
                     <div className="col-md-2" id= {styles['itemActionBlock']}>
@@ -57,3 +62,22 @@ export default class Car extends Component {
         );
     }
 }
+
+const mapStateToProps = (state) => {
+  return {};  
+};
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+        deleteCar : (data) => dispatch(deleteCar(data))
+    };
+};
+
+Car.propTypes = {
+};
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(Car);
+
