@@ -49,10 +49,6 @@ class AccountDetails extends Component {
         this.checkAuth(this.props.isAuthenticated);
     }
 
-    componentWillReceiveProps (nextProps) {
-        this.checkAuth(nextProps.isAuthenticated);
-    }
-
     checkAuth (isAuthenticated) {
         if (!isAuthenticated) {
          this.props.redirectUser();

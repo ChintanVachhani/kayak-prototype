@@ -6,18 +6,18 @@ import * as jwt from "jsonwebtoken";
 const router = new Router();
 
 // Get All Cars
-router.route('/').get(cacheAllCars, CarController.getAllCars);
+router.route('/').get(CarController.getAllCars);
 
 // Search Cars
 router.route('/search').get(CarController.searchCars);
 
 // Get Car
 router.route('/:_id').get(cacheCar, CarController.getCar);
-//router.route('/:_id').get(CarController.getCar);
 
 // Create Car
 router.route('/').put(CarController.createCar);
 
+/*
 // Session Authentication
 router.use('/', function (req, res, next) {
   console.error('Token', req.header);
@@ -31,6 +31,7 @@ router.use('/', function (req, res, next) {
     next();
   });
 });
+*/
 
 // Delete Car
 router.route('/:_id').delete(CarController.deleteCar);

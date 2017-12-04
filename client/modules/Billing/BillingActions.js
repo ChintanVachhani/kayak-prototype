@@ -9,7 +9,7 @@ export function handleBook(data) {
   console.log("in actions handle card booking");
   //let userEmail = localStorage.getItem('email');
   let req = {
-    userID: data.email,
+    userID: data.customers.email,
     serviceType: data.serviceType,
     serviceName: data.bookingDetail.serviceName,
     serviceId: data.bookingDetail.serviceId,
@@ -17,7 +17,7 @@ export function handleBook(data) {
       price: data.bookingDetail.price,
       dateFrom: data.bookingDetail.dateFrom,
       dateTo: data.bookingDetail.dateTo,
-    cardNumber: data.card_Number,
+    cardNumber: data.card.card_Number,
     billingZipcode: data.billingDetails.add_PostalCode,
   };
   let userEmail = data.email;
@@ -28,9 +28,9 @@ export function handleBook(data) {
 
 export function bookingSuccess(data) {
   console.log("this is changeform display" );
-  browserHistory.push('/');   
+  browserHistory.push('/');
   return {
    type : BOOKING_SUCCESS,
    data                             // this is same as newItem : newItem in ES6
-  }        
+  }
 }

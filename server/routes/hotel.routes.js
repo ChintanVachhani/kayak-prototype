@@ -6,7 +6,7 @@ import * as jwt from "jsonwebtoken";
 const router = new Router();
 
 // Get All Hotels
-router.route('/').get(cacheAllHotels, HotelController.getAllHotels);
+router.route('/').get(HotelController.getAllHotels);
 
 // Search Hotels
 router.route('/search').get(HotelController.searchHotels);
@@ -17,7 +17,7 @@ router.route('/:_id').get(cacheHotel, HotelController.getHotel);
 // Create Hotel
 router.route('/').put(HotelController.createHotel);
 
-// Session Authentication
+/*// Session Authentication
 router.use('/', function (req, res, next) {
   jwt.verify(req.headers.token, 'admin', function (error, decoded) {
     if (error) {
@@ -28,7 +28,7 @@ router.use('/', function (req, res, next) {
     }
     next();
   });
-});
+});*/
 
 // Delete Hotel
 router.route('/:_id').delete(HotelController.deleteHotel);

@@ -20,7 +20,7 @@ class Car extends Component {
         <div className="row">
           <div className="col-md-10" id={styles['itemDetailBlock']}>
             <h3>
-              Economy
+              {car.class}
             </h3>
             <div className="row">
               <div className="col-md-8">

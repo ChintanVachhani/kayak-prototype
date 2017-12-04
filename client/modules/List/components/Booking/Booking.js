@@ -31,16 +31,16 @@ class Booking extends Component {
                         <div className="col-md-4">
                             <a onClick={(e) => {e.preventDefault();this.setState({
                                                   modal: !this.state.modal
-                                                });this.props.getServiceDetail(booking);}} id={styles['bookingLink']}>{booking._id}</a>
+                                                });this.props.getServiceDetail(booking);}} id={styles['bookingLink']}>{booking.serviceType.substring(0,1)+booking._id.substring(0,10)}</a>
                         </div>
                         <div className="col-md-4">
                             {booking.serviceType }
                         </div>
                         <div className="col-md-4">
                             {booking.dateAdded }
-                        </div>                     
+                        </div>
                     </div>
-                </div> 
+                </div>
                <Modal isOpen={this.state.modal} toggle={this.toggle} className={this.props.className}>
                   <ModalHeader><strong>Booking information for {booking.serviceType}</strong></ModalHeader>
                   <ModalBody>
@@ -54,8 +54,8 @@ class Booking extends Component {
                     </div>
                     <hr/>
                     <div className="row">
-                        <br/><br/>&nbsp;&nbsp;&nbsp;&nbsp;  User information:{booking.userID} <br/><br/>                       
-                    </div>                    
+                        <br/><br/>&nbsp;&nbsp;&nbsp;&nbsp;  User information:{booking.userID} <br/><br/>
+                    </div>
                     <div className="row">
                         <div className="col-md-4">
                             Date To: {booking.bookingDetail.dateFrom}
@@ -65,10 +65,10 @@ class Booking extends Component {
                         </div>
                         <div className="col-md-4">
                             Total Price:{booking.bookingDetail.price}
-                        </div>                         
+                        </div>
                     </div>
                   </ModalBody>
-                </Modal>                               
+                </Modal>
             </div>
         );
     }
@@ -76,7 +76,7 @@ class Booking extends Component {
 
 const mapStateToProps = (state) => {
     const serviceDetail = state.list.serviceClickedDetail;
-  return {serviceDetail};  
+  return {serviceDetail};
 };
 
  const mapDispatchToProps = (dispatch) => {

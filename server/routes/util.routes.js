@@ -4,6 +4,7 @@ let jwt = require('jsonwebtoken');
 
 const router = new Router();
 
+/*
 // Session Authentication
 router.use('/', function (req, res, next) {
   jwt.verify(req.headers.token, 'admin', function (error, decoded) {
@@ -16,6 +17,7 @@ router.use('/', function (req, res, next) {
     next();
   });
 });
+*/
 
 // Get clicks per page count
 router.route('/clicksPerPage').get(UtilController.clicksPerPage);

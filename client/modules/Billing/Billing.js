@@ -39,6 +39,7 @@ class Billing extends Component {
         card_Security_Code : ''
       },
       serviceType:'',
+      serviceName: '',
       bookingDetail: {
         serviceId: '',
         price: '',
@@ -59,6 +60,7 @@ class Billing extends Component {
                       serviceType : this.props.serviceType,
                       bookingDetail: {
                         serviceId: this.props.serviceId,
+                        serviceName : this.props.serviceName,
                         price: this.props.price,
                         dateFrom: this.props.home.carFormData.fromDate,
                         dateTo: this.props.home.carFormData.toDate,
@@ -104,7 +106,7 @@ class Billing extends Component {
 
   componentDidMount() {
     console.log(" Refreshing Home page after componentDidMount");
-    
+
   }
 
     render() {
@@ -133,7 +135,7 @@ class Billing extends Component {
       <div>
         <div>
           <div style={{'background-color':'#f2f2f2', 'margin':'auto', 'height':'auto', 'height':'1800px'}}>
-            <div className="row" style={{'background-color':'#000000'}}>
+            <div className="row" style={{'background-color':'#000000', 'padding-left':'50px','padding-right':'50px'}}>
                 <Header />
             </div>
             <br />
@@ -294,7 +296,7 @@ class Billing extends Component {
                           <hr />
                           <div className="row">
                             <div className="col-md-6">
-                              <p>Secure information required by airline</p>
+                              <p>Secure information required by provider</p>
                             </div>
                           </div>
                           <div>
@@ -401,7 +403,8 @@ class Billing extends Component {
                                     className="form-control"
                                     type="number"
                                     label="zipCode"
-                                    placeholder="Postal Code"
+                                    placeholder="5 Digits zip Code"
+                                    pattern="[0-9]{5}"
                                     value= {this.state.billing_Add_PostalCode}
                                     onChange={(event) => {
                                           this.setState({
@@ -480,7 +483,7 @@ class Billing extends Component {
                                       type="text"
                                       label="nameOnCard"
                                       placeholder="Name On Card"
-                                      value= {this.state.card_Name_On_Card}
+                                      value= {this.state.card.card_Name_On_Card}
                                       onChange={(event) => {
                                             this.setState({
                                                  card: Object.assign(this.state.card, {name_On_Card: event.target.value})
@@ -496,7 +499,7 @@ class Billing extends Component {
                                     type="text"
                                     label="cardNumber"
                                     placeholder="Card Number"
-                                    value= {this.state.card_Number}
+                                    value= {this.state.card.card_Number}
                                     onChange={(event) => {
                                           this.setState({
                                                card: Object.assign(this.state.card, {card_Number: event.target.value})
@@ -516,7 +519,7 @@ class Billing extends Component {
                                          });
 
                                          console.log("this is printing state");
-                                  console.log(this.state.card_Month);
+                                  console.log(this.state.card.card_Month);
                                   }} >
                                   <option value="" title="">Month</option>
                                   <option value="1" title="Jan" >01-Jan</option>
@@ -613,12 +616,8 @@ class Billing extends Component {
 function mapStateToProps(store) {
   const {home} = store;
   const {serviceId, serviceType, price} = store.list;
-  let serviceName = "";
-  if (serviceType == "Car" || serviceType == "Flight")
-      serviceName = "operator";
-  else if(serviceType == "Hotel")
-      serviceName = "hotelName";
-  console.log("this is home mapstateto prop reducer " );
+  const serviceName = store.list.serviceName;
+   console.log("this is home mapstateto prop reducer ", serviceName );
   return {home,serviceType,serviceId,price, serviceName};
 }
 

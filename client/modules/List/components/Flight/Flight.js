@@ -108,12 +108,12 @@ class Flight extends Component {
             </div>
             :
             <div className="col-md-2" id={styles['itemActionBlock']}>
-              <span className={styles['priceValue']}>{flight.price.economy}</span><br/><br/>
+              <span className={styles['priceValue']}>${flight.price.economy}</span><br/><br/>
               <div>
                 {
                   showOnly ? '' :
                     <button className="btn btn-warning" onClick={() => {
-                      serviceForBooking(hotel, 'Flight')
+                      serviceForBooking(flight, 'Flight')
                     }}>Book Flight</button>
                 }
               </div>

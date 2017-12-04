@@ -24,6 +24,7 @@ router.route('/').get(cacheAllUsers, UserController.getAllUsers);
 router.route('/:email').get(cacheUser, UserController.getUser);
 
 
+/*
 // Session Authentication
 router.use('/', function (req, res, next) {
   jwt.verify(req.headers.token, 'admin', function (error, decoded) {
@@ -36,6 +37,7 @@ router.use('/', function (req, res, next) {
     next();
   });
 });
+*/
 
 // Get All Users
 router.route('/').get(cacheAllUsers, UserController.getAllUsers);

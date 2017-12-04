@@ -1,5 +1,5 @@
 // Import Actions
-import { FETCH_CARS, FETCH_FLIGHTS, FETCH_HOTELS,SERVICE_DATA,SET_SERVICE_BOOKING_DATA} from './ListActions';
+import { FETCH_CARS, FETCH_FLIGHTS, FETCH_HOTELS,SERVICE_DATA,SET_SERVICE_BOOKING_DATA,BOOKING_DATA} from './ListActions';
 
 // Initial State
 const initialState = {
@@ -10,6 +10,7 @@ const initialState = {
   serviceId:null,
   serviceType:null,
   serviceName:null,
+  bookingList:[],
   price:null
 };      		
 
@@ -38,7 +39,12 @@ const ListReducer = (state = initialState, action) => {
       return {
         ...state,
         serviceClickedDetail: action.serviceClicked
-    };    
+    };   
+         case BOOKING_DATA:
+      return {
+        ...state,
+        bookingList: action.bookingList
+    }; 
     case SET_SERVICE_BOOKING_DATA:
       return {
         ...state,

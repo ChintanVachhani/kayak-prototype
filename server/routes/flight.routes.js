@@ -6,7 +6,7 @@ import * as jwt from "jsonwebtoken";
 const router = new Router();
 
 // Get All Flights
-router.route('/').get(cacheAllFlights, FlightController.getAllFlights);
+router.route('/').get(FlightController.getAllFlights);
 
 // Search Flights
 router.route('/search').get(FlightController.searchFlights);
@@ -17,7 +17,7 @@ router.route('/:_id').get(cacheFlight, FlightController.getFlight);
 // Create Flight
 router.route('/').put(FlightController.createFlight);
 
-// Session Authentication
+/*// Session Authentication
 router.use('/', function (req, res, next) {
   jwt.verify(req.headers.token, 'admin', function (error, decoded) {
     if (error) {
@@ -28,7 +28,7 @@ router.use('/', function (req, res, next) {
     }
     next();
   });
-});
+});*/
 
 // Delete Flight
 router.route('/:_id').delete(FlightController.deleteFlight);

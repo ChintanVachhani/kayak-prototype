@@ -2,15 +2,16 @@ import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import Booking from './Booking';
-// import {getCarList} from '../../ListActions';
+import {getUserBilling} from '../../ListActions';
 
 
 // Import Style
 import styles from './Booking.css';
 
 class BookingList extends Component {
-
-
+  componentWillMount(){
+    this.props.getUserBilling(this.props.userEmail);
+  }  
   render() {
     const {bookingList} = this.props;
     return (
@@ -37,19 +38,16 @@ class BookingList extends Component {
 }
 
 const mapStateToProps = (state) => {
-  console.log(state);
-//     // const carList = [{ id: "1", class : "Economy" ,  company: "Enterprise", model: "nissan", cap_persons: "4", cap_bags: '2', doors: '4', location: 'sanjose airport', price: '$25'}
-//     //       ,{ id: "2", class : "Luxury" ,  company: "Enterprise", model: "nissan", cap_persons: "4", cap_bags: '2', doors: '4', location: 'sanjose airport', price: '$25'}];
+  const userEmail = state.header.userdetails.email;
   const bookingList = state.list.bookingList;
-  // const carFormdata = state.home.carFormData;
-  return {bookingList};
+  return {userEmail,bookingList};
 };
 
  const mapDispatchToProps = (dispatch) => {
    return {
-       // getCarList : (criteria)  => dispatch(getCarList(criteria))
+       getUserBilling : (email)  => dispatch(getUserBilling(email))
     };
- };
+ }
 
  BookingList.propTypes = {
  };

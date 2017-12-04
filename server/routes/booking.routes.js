@@ -11,7 +11,7 @@ router.route('/all/:email').get(BookingController.getAllBookings);
 // Create Booking
 router.route('/').put(BookingController.createBooking);
 
-// Session Authentication
+/*// Session Authentication
 router.use('/', function (req, res, next) {
   jwt.verify(req.headers.token, 'admin', function (error, decoded) {
     if (error) {
@@ -22,7 +22,7 @@ router.use('/', function (req, res, next) {
     }
     next();
   });
-});
+});*/
 
 // Get All Bookings
 router.route('/').get(cacheAllBookings, BookingController.getAllBookings);

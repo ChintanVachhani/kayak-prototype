@@ -5,6 +5,7 @@ import styles from './Header.css';
 import Header from './Header';
 import AccountDetails from './AccountDetails';
 import Footer from '../Footer/Footer';
+import BookingList from '../List/components/Booking/BookingList';
 import {handleEditCard, getUserDetails,redirectUser} from './HeaderActions';
 
 
@@ -77,6 +78,11 @@ class AccountPage extends Component {
                                         displaycomp: 'payment'
                                     });}}><b>Payment Details</b></a></li>
                         </ul>
+                        <ul className = "nav nav-list">
+                            <li><a onClick={() => {this.setState({
+                                        displaycomp: 'booking'
+                                    });}}><b>Booking Details</b></a></li>
+                        </ul>                        
                         
                     </div>
                     <div className=" col-md-8" style={{'width': '650px'}}>
@@ -218,16 +224,17 @@ class AccountPage extends Component {
                                     </div>
                                 </div>
                               </div>
-                            :
-                            <div>
+                            :(
+                            this.state.displaycomp == 'booking'?
+                              (<div><BookingList/></div>)
+                            :(<div>
                                 <AccountDetails />
-                            </div>
+                            </div>)
+                            )
                         }
                     </div>
                 </div>
               </div>
-             
-
             </div>
         );
     }
