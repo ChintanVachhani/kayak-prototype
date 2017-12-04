@@ -10,4 +10,4 @@ coverage/
 .nyc_output/
 kafka-backend/node_modules/*
 kafka-backend/npm-debug.log
-kafka-backend/log/info.log
+kafka-backend/info.log
