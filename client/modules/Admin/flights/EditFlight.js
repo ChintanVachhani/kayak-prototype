@@ -36,9 +36,9 @@ class EditFlight extends React.Component {
     this.state.operator = this.props.flight.operator;
     this.state.departureTime = this.props.flight.departureTime;
     this.state.arrivalTime = this.props.flight.arrivalTime;
-    this.state.economyPrice = this.props.flight.economyPrice;
-    this.state.businessPrice = this.props.flight.businessPrice;
-    this.state.firstPrice = this.props.flight.firstPrice;
+    this.state.economyPrice = this.props.flight.price.economy;
+    this.state.businessPrice = this.props.flight.price.business;
+    this.state.firstPrice = this.props.flight.price.firstClass;
     this.state.duration = this.props.flight.duration;
 
   }
@@ -53,6 +53,8 @@ class EditFlight extends React.Component {
 
   handleUpdateFlight(id) {      
     this.toggle();
+    let price = {economy:this.state.economyPrice, business:this.state.businessPrice, firstClass:this.state.firstPrice};
+    this.state.price = price;
     this.props.updateFlight(this.state, id);  
 
   }
@@ -70,17 +72,34 @@ class EditFlight extends React.Component {
               <div className="form-row">
                 <div className="form-group col-md-6">
                   <label for="inputEmail4">From</label>
-                  <input type="text" className="form-control" id="inputEmail4" defaultValue={this.props.flight.origin} placeholder="From Where?" required onChange={(event) => {
+                    <input list="cities" className="form-control" id="inputEmail4" defaultValue={this.props.flight.origin} placeholder="From Where?" required onChange={(event) => {
                                     this.setState({
                                         origin: event.target.value
                                     }); }} />
+                                <datalist id="cities">
+                                {
+                                  this.props.cities.map((city)=>{
+                                    return (<div><option value={city}></option></div>)
+                                  })
+                                }
+                                </datalist>  
+                                
                 </div>
                 <div className="form-group col-md-6">
                   <label for="inputPassword4">To</label>
-                  <input type="text" className="form-control" id="inputPassword4" defaultValue={this.props.flight.destination} placeholder="To Where?" onChange={(event) => {
+                  <input list="cities" className="form-control" id="inputPassword4" defaultValue={this.props.flight.destination} placeholder="To Where?" onChange={(event) => {
                                     this.setState({
                                         destination: event.target.value
                                     }); }} />
+
+                                    <datalist id="cities">
+                                {
+                                  this.props.cities.map((city)=>{
+                                    return (<div><option value={city}></option></div>)
+                                  })
+                                }
+                                </datalist>  
+
                 </div>
               </div>
               <div className="form-row">
@@ -127,21 +146,21 @@ class EditFlight extends React.Component {
               <div className="form-row">
                 <div className="form-group col-md-4">
                   <label for="inputCity">Economy Price</label>
-                  <input type="text" className="form-control" id="inputCity" defaultValue={this.props.flight.price.economyPrice} placeholder="Economy Price" onChange={(event) => {
+                  <input type="text" className="form-control" id="inputCity" defaultValue={this.props.flight.price.economy} placeholder="Economy Price" onChange={(event) => {
                                     this.setState({
                                         economyPrice: event.target.value
                                     }); }} />
                 </div>
                 <div className="form-group col-md-4">
                   <label for="inputState">Business Price</label>
-                  <input type="text" className="form-control" placeholder="Business Price" defaultValue={this.props.flight.price.businessPrice} onChange={(event) => {
+                  <input type="text" className="form-control" placeholder="Business Price" defaultValue={this.props.flight.price.business} onChange={(event) => {
                                     this.setState({
                                         businessPrice: event.target.value
                                     }); }} />
                 </div>
                 <div className="form-group col-md-4">
                   <label for="inputZip">First Class Price</label>
-                  <input type="text" className="form-control" id="inputZip" defaultValue={this.props.flight.price.firstPrice} placeholder="First Class Price" onChange={(event) => {
+                  <input type="text" className="form-control" id="inputZip" defaultValue={this.props.flight.price.firstClass} placeholder="First Class Price" onChange={(event) => {
                                     this.setState({
                                         firstPrice: event.target.value
                                     }); }} />
@@ -165,12 +184,13 @@ class EditFlight extends React.Component {
 }
 
 const mapStateToProps = (state) => {
-  return {};  
+ const cities = state.admin.cities;
+  return {cities};
 };
 
 const mapDispatchToProps = (dispatch) => {
   return {
-        updateFlight : (data) => dispatch(updateFlight(data))
+        updateFlight : (data, id) => dispatch(updateFlight(data, id))
     };
 };
 

@@ -10,13 +10,13 @@ const logger = new (winston.Logger)({
       level: 'info',
     }),
     new (winston.transports.File)({
-      filename: 'logs/info.log',
+      filename: 'info.log',
       timestamp: tsFormat,
       level: 'info',
     }),
   ],
 });
 
-logger.info('Testing');
+logger.info({page: 'Testing', user: ''});
 
 module.exports = logger;

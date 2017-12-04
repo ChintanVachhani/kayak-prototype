@@ -1,7 +1,7 @@
 import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
-import { Alert } from 'reactstrap';
+import { UncontrolledAlert } from 'reactstrap';
 import CreateFlight from './CreateFlight';
 import SearchFlight from './SearchFlight';
 import FlightItem from './FlightItem';
@@ -38,7 +38,7 @@ class FlightsHome extends Component {
         {this.props.msg !== undefined ? 
         	<div className="row">
 				<div className="col-12">
-				 <Alert color="info">{this.props.msg}</Alert>
+				 <UncontrolledAlert color="info">{this.props.msg}</UncontrolledAlert>
 				</div>
 			</div>
         	: ''}        

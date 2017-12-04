@@ -105,6 +105,7 @@ export function getFlight(req, res) {
 }
 
 export function updateFlight(req, res) {
+  console.log("Update Flight : ", req)
   kafka.make_request('flightTopic', {
     name: 'updateFlight',
     headers: req.headers,

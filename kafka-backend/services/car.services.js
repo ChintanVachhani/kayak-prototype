@@ -1,11 +1,13 @@
 let Car = require('../models/car');
 
 const logger = require('../logger');
+let jwt = require('jsonwebtoken');
 
 function handle_request(req, callback) {
   console.log("In handle request:" + JSON.stringify(req));
 
   let res;
+  let decoded = jwt.decode(req.query.token);
 
   if (req.name === 'createCar') {
     let car = Car({
@@ -98,6 +100,12 @@ function handle_request(req, callback) {
   }
 
   if (req.name === 'getAllCars') {
+
+    if(decoded !== null && decoded.user.email !== null)
+      logger.info({page: 'Car', user: decoded.user.email});
+    else
+      logger.info({page: 'Car', user: ''});
+
     Car.find({}, (error, cars) => {
       if (error) {
         res = {
@@ -119,7 +127,10 @@ function handle_request(req, callback) {
 
   if (req.name === 'searchCars') {
 
-    logger.info('Car');
+    if(decoded !== null && decoded.user.email !== null)
+      logger.info({page: 'Car', user: decoded.user.email});
+    else
+      logger.info({page: 'Car', user: ''});
 
     //Naive logic - to be optimized later
     let conditions = [];

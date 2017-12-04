@@ -1,22 +1,25 @@
 import callApi from './../../util/apiCaller';
+import {Router, browserHistory, Route} from 'react-router';
 
 // Export Constants
 export const FETCH_CARS = 'CREATE_FLIGHT';
 export const FETCH_FLIGHTS = 'CREATE_HOTEL';
 export const FETCH_HOTELS = 'ADMIN_SIGNIN';
+export const SERVICE_DATA = 'SERVICE_DATA';
+export const SET_SERVICE_BOOKING_DATA = 'SET_SERVICE_BOOKING_DATA';
 
 // Export Actions
 
-export function filterCars(data) {	
+export function filterCars(data) {
   console.log("in fetching cars ", data);
   let url = "car/search?";
   url = url + "minPrice=" + data.carfromprice;
   url = url + "&maxPrice=" + data.cartoprice;
   console.log(data.carTypes);
-  let i=0;
-  for (i=0; i<data.carTypes.length;i++){
-  	console.log(data.carTypes[i]);
-  	url = url + "&class=" + data.carTypes[i];
+  let i = 0;
+  for (i = 0; i < data.carTypes.length; i++) {
+    console.log(data.carTypes[i]);
+    url = url + "&class=" + data.carTypes[i];
   }
 
   console.log(url);
@@ -25,7 +28,9 @@ export function filterCars(data) {
     return callApi(url, 'get').then(res => dispatch(success(res.cars)));
   };
 
-  function success(payload) { return { type: FETCH_CARS, payload } }
+  function success(cars) {
+    return {type: FETCH_CARS, cars}
+  }
 
 }
 
@@ -40,12 +45,14 @@ export function filterFlights(data) {
   url = url + "&maxDepartureTime=" + data.toDepTime + "00";
 
   console.log(url);
-  
+
   return (dispatch) => {
     return callApi(url, 'get').then(res => dispatch(success(res.flights)));
   };
 
-  function success(payload) { return { type: FETCH_FLIGHTS, payload } }
+  function success(flights) {
+    return {type: FETCH_FLIGHTS, flights}
+  }
 
 }
 
@@ -54,19 +61,21 @@ export function filterHotels(data) {
   let url = "hotel/search?";
   url = url + "minPrice=" + data.fromPrice;
   url = url + "&maxPrice=" + data.toPrice;
-  url = url + "&star=" + (data.stars > 5 ? 0:data.stars);
-  
+  url = url + "&star=" + (data.stars > 5 ? 0 : data.stars);
+
   console.log(url);
   return (dispatch) => {
     return callApi(url, 'get').then(res => dispatch(success(res.hotels)));
   };
 
-  function success(payload) { return { type: FETCH_HOTELS, payload } }
+  function success(hotels) {
+    return {type: FETCH_HOTELS, hotels}
+  }
 
 }
 
-export function getCarList(data){
-	console.log("getting all cars", data);
+export function getCarList(data) {
+  console.log("getting all cars", data);
   let url = "car/search?";
   url = url + "location=" + data.place;
   console.log(url);
@@ -75,45 +84,75 @@ export function getCarList(data){
     return callApi(url, 'get').then(res => dispatch(success(res.cars)));
   };
 
-  function success(payload) { return { type: FETCH_CARS, payload } }
+  function success(cars) {
+    return {type: FETCH_CARS, cars}
+  }
 
 }
 
-export function getFlightList(data){
+export function getFlightList(data) {
   let url = "flight/search?";
   url = url + "origin=" + data.fromPlace;
   url = url + "&destination=" + data.toPlace;
 
   console.log(url);
-  
+
   return (dispatch) => {
     return callApi(url, 'get').then(res => dispatch(success(res.flights)));
   };
 
-  function success(payload) { return { type: FETCH_FLIGHTS, payload } }
+  function success(flights) {
+    return {type: FETCH_FLIGHTS, flights}
+  }
 
 }
 
-export function getHotelList(data){
-	console.log("getting all hotels", data);
+export function getHotelList(data) {
+  console.log("getting all hotels", data);
 
   let url = "hotel/search?";
   url = url + "city=" + data.place;
-  
+
   console.log(url);
   return (dispatch) => {
     return callApi(url, 'get').then(res => dispatch(success(res.hotels)));
   };
 
-	function success(payload) { return { type: FETCH_HOTELS, payload } }
+  function success(hotels) {
+    return {type: FETCH_HOTELS, hotels}
+  }
 
 }
 
-/*
-function updateCarList(payload) {
-  return {
-    type: FETCH_CARS,
-    cars: payload.cars
-  }
+export function getServiceDetail(booking) {
+  console.log("get service detail", booking);
+  let url = booking.serviceType + '/' + bookingDetail.serviceId;
+  return (dispatch) => {
+    return callApi(url).then(res => dispatch(success(res)));
+  };
 
-*/
+  function success(res) {
+    if (booking.serviceType == 'Car')
+      return {type: SERVICE_DATA, serviceClicked: res.car};
+    else if (booking.serviceType == 'Flight')
+      return {type: SERVICE_DATA, serviceClicked: res.flight};
+    else
+      return {type: SERVICE_DATA, serviceClicked: res.hotel};
+  }
+}
+
+export function serviceForBooking(service, type) {
+  return dispatch => {
+    dispatch(serviceBookingUpdate(service, type));
+    browserHistory.push('/billing');
+  }
+}
+
+export function serviceBookingUpdate(service, type) {
+  return {
+    type: SET_SERVICE_BOOKING_DATA,
+    serviceId: service._id,
+    serviceType: type,
+    price: service.price,
+  }
+}

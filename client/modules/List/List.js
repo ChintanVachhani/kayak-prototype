@@ -24,11 +24,12 @@ export default class List extends Component {
 		car: [CarList,CarForm,CarSidebar],
 		flight: [FlightList,FlightForm,FlightSidebar],
 		hotel: [HotelList,HotelForm,HotelSidebar]
-	};	
-  	const Service = components[this.props.params.service][0];
-  	const ServiceForm = components[this.props.params.service][1];
-  	const FilterSidebar = components[this.props.params.service][2];
-  	
+	};
+	//if(this.props.params.service){
+	  	const Service = components[this.props.params.service][0];
+	  	const ServiceForm = components[this.props.params.service][1];
+	  	const FilterSidebar = components[this.props.params.service][2];
+  	//}
     return (
     	<div className="container-fluid">
 	    	<div className="row" id={styles['header']}>
@@ -36,11 +37,11 @@ export default class List extends Component {
 	    	</div>
 	    	<div className="row" id={styles['form-color']}>
 		    	<ServiceForm/>
-	    	</div>	    	
+	    	</div>
 	    	<div className="row" id={styles['body']}>
 		    	<div className="col-md-3" id={styles['sidebar']}>
 		    		<FilterSidebar/>
-		    	</div>	    	
+		    	</div>
 		    	<div className="col-md-8">
 		    		<Service/>
 		    	</div>

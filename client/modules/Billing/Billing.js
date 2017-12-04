@@ -50,7 +50,7 @@ class Billing extends Component {
 
 
   componentWillMount() {
-    console.log(" Refreshing Home page");   
+    console.log(" Refreshing Home page");
   }
 
   componentDidMount() {
@@ -132,7 +132,7 @@ class Billing extends Component {
               <div className=" col-md-offset-1 col-md-7" >
                 <div  align="left" style={{'background-color':'white', 'display':'block', 'padding':'2px'} }>
                   <div style={{'padding':'10px'}}>
-                    { this.props.serviceType == 'hotel' ? 
+                    { this.props.serviceType == 'hotel' ?
                       <div>
                         <h4><b>Place : {this.state.bookingDetail.fromPlace}</b></h4>
                         <h5>From: {this.state.bookingDetail.dateFrom}</h5>
@@ -152,7 +152,7 @@ class Billing extends Component {
                 <br />
                 <div style={{'background-color':'white', 'padding':'2px'}}>
                   <div  align="left" style={{'background-color':'white', 'padding':'2px'}} >
-                    <div  style={{'padding':'10px'}}> 
+                    <div  style={{'padding':'10px'}}>
                       <form>
                         <div>
                           <div className="row">
@@ -176,10 +176,10 @@ class Billing extends Component {
                                             let customer = this.state.customers
                                             customer.firstName = event.target.value
                                             this.setState({customers: customer});
-                                   }} 
+                                   }}
                                 required />
                               </div>
-                            </div>  
+                            </div>
                             <div className = "col-md-6">
                               <div className="form-group">
                                 <input
@@ -191,7 +191,7 @@ class Billing extends Component {
                                             let customer = this.state.customers
                                             customer.middleName = event.target.value
                                             this.setState({ customers: customer});
-                                   }} 
+                                   }}
                                 />
                               </div>
                             </div>
@@ -208,11 +208,11 @@ class Billing extends Component {
                                               let customer = this.state.customers
                                               customer.lastName = event.target.value
                                               this.setState({customers: customer});
-                                     }} 
+                                     }}
                                     required />
                               </div>
                             </div>
-                          </div> 
+                          </div>
                           <div className="row">
                             <div className = "col-md-6">
                               <div className="form-group">
@@ -225,7 +225,7 @@ class Billing extends Component {
                                               let customer = this.state.customers
                                               customer.email = event.target.value
                                               this.setState({customers: customer});
-                                     }} 
+                                     }}
                                     required />
                               </div>
                             </div>
@@ -242,7 +242,7 @@ class Billing extends Component {
                                                       this.setState({
                                                            customers: customer
                                                        });
-                                     }} 
+                                     }}
                                     required />
                               </div>
                             </div>
@@ -313,7 +313,7 @@ class Billing extends Component {
                                       onChange={(event) => {
                                               let customer = this.state.customers
                                               customer[index].gender = event.target.value
-                                                      
+
                                                       this.setState({
                                                            customers: customer
                                                        });
@@ -476,7 +476,7 @@ class Billing extends Component {
                                             this.setState({
                                                  card: Object.assign(this.state.card, {name_On_Card: event.target.value})
                                              });
-                                      }}  
+                                      }}
                                     required />
                                 </div>
                             </div>
@@ -493,7 +493,7 @@ class Billing extends Component {
                                                card: Object.assign(this.state.card, {card_Number: event.target.value})
                                            });
                                     }}
-                                    
+
                                   required />
                                 </div>
                             </div>
@@ -505,10 +505,10 @@ class Billing extends Component {
                                   this.setState({
                                              card: Object.assign(this.state.card, {card_Month: event.target.value})
                                          });
-                                        
+
                                          console.log("this is printing state");
                                   console.log(this.state.card_Month);
-                                  }} > 
+                                  }} >
                                   <option value="" title="">Month</option>
                                   <option value="1" title="Jan" >01-Jan</option>
                                   <option value="2" title="Feb" >02-Feb</option>
@@ -531,7 +531,7 @@ class Billing extends Component {
                                     this.setState({
                                                card: Object.assign(this.state.card, {card_Year: event.target.value})
                                            });
-                                          
+
                                     }}>
                                     <option value="" title="Year">Year</option>
                                     <option value="2017" title="1" >2017</option>
@@ -576,7 +576,7 @@ class Billing extends Component {
                                       this.setState({
                                                card: Object.assign(this.state.card, {card_Security_Code: event.target.value})
                                            });
-                                    }} 
+                                    }}
                                   required />
                               </div>
                             </div>
