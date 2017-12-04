@@ -7,14 +7,22 @@ import {Router, browserHistory, Route} from 'react-router';
 
 export function handleBook(data) {
   console.log("in actions handle card");
-  let req = {};
+  let req = {
+    userID: '',
+    serviceType: data.serviceType,
+    bookingDetail: {
+      serviceId: data.bookingDetail.serviceId,
+      city: data.bookingDetail.toPlace,
+      price: data.bookingDetail.price,
+      dateFrom: data.bookingDetail.dateFrom,
+      dateTo: data.bookingDetail.dateTo
+    },
+    cardNumber: data.booking.card_Number,
+    billingZipcode: data.billingDetails.add_PostalCode,
+  };
   let userEmail = data.email;
-  req.cardNumber = data.cardNumber;
-  req.cardName = data.cardName;
-  req.exp_year = data.exp_year;
-  req.secureCode = data.secureCode;
   return (dispatch) => {
-    return callApi('billing', 'put', data).then(res => dispatch(bookingSuccess(res)));
+    return callApi('billing', 'put', req).then(res => dispatch(bookingSuccess(res)));
   };
 }
 

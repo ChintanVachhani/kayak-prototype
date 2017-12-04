@@ -58,8 +58,9 @@ function handle_request(req, callback) {
   if (req.name === 'signin') {
     User.find({email: sanitizeHtml(req.body.email)})
       .catch((error) => {
+        console.error('500');
         res = {
-          status: 401,
+          status: 500,
           title: 'Signing in failed.',
           error: {message: 'Invalid credentials.'},
         };
@@ -68,6 +69,7 @@ function handle_request(req, callback) {
       .then((user) => {
         if (user) {
           if (!bcrypt.compareSync(sanitizeHtml(req.body.password), user.password)) {
+            console.error('401');
             res = {
               status: 401,
               title: 'Signing in failed.',
@@ -90,8 +92,9 @@ function handle_request(req, callback) {
             callback(null, res);
           }
         } else {
+          console.error('400');
           res = {
-            status: 401,
+            status: 400,
             title: 'Signing in failed.',
             error: {message: 'Invalid credentials.'},
           };

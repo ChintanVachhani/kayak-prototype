@@ -30,7 +30,7 @@ class Billing extends Component {
         add_Country : ''
       },
      card : {
-      name_On_Card : '',
+        name_On_Card : '',
         card_Number : '',
         card_Month : '',
         card_Year : '',
