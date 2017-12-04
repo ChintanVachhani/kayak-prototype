@@ -25,7 +25,7 @@ export function filterCars(data) {
     return callApi(url, 'get').then(res => dispatch(success(res.cars)));
   };
 
-  function success(payload) { return { type: FETCH_CARS, payload } }
+  function success(cars) { return { type: FETCH_CARS, cars } }
 
 }
 
@@ -45,7 +45,7 @@ export function filterFlights(data) {
     return callApi(url, 'get').then(res => dispatch(success(res.flights)));
   };
 
-  function success(payload) { return { type: FETCH_FLIGHTS, payload } }
+  function success(flights) { return { type: FETCH_FLIGHTS, flights } }
 
 }
 
@@ -61,7 +61,7 @@ export function filterHotels(data) {
     return callApi(url, 'get').then(res => dispatch(success(res.hotels)));
   };
 
-  function success(payload) { return { type: FETCH_HOTELS, payload } }
+  function success(hotels) { return { type: FETCH_HOTELS, hotels } }
 
 }
 
@@ -75,7 +75,7 @@ export function getCarList(data){
     return callApi(url, 'get').then(res => dispatch(success(res.cars)));
   };
 
-  function success(payload) { return { type: FETCH_CARS, payload } }
+  function success(cars) { return { type: FETCH_CARS, cars } }
 
 }
 
@@ -90,7 +90,7 @@ export function getFlightList(data){
     return callApi(url, 'get').then(res => dispatch(success(res.flights)));
   };
 
-  function success(payload) { return { type: FETCH_FLIGHTS, payload } }
+  function success(flights) { return { type: FETCH_FLIGHTS, flights } }
 
 }
 
@@ -105,7 +105,7 @@ export function getHotelList(data){
     return callApi(url, 'get').then(res => dispatch(success(res.hotels)));
   };
 
-	function success(payload) { return { type: FETCH_HOTELS, payload } }
+	function success(hotels) { return { type: FETCH_HOTELS, hotels } }
 
 }
 

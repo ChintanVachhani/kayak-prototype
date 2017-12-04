@@ -2,7 +2,7 @@ import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
-import {signInvalidation, signUpvalidation, changeType, accountPage } from './HeaderActions';
+import {signInvalidation, signUpvalidation, changeType, accountPage, signOut, redirectToHome } from './HeaderActions';
 //import {Link } from 'react-router';
 
 // Import Style
@@ -17,13 +17,14 @@ class Header extends Component {
     popSigninWindow= (event) => {
       this.refs.signinPopup.style="display: inline-block";
     }
-
-   
-
+   /* accountPage1 = (event) => {
+      this.props.accountPage();
+    }*/
     signinSubmit = (event) => {
       console.log("in signinsubmit");
-      const email = this.refs.lemail.value;
-      const password = this.refs.lpassword.value;
+      let email = this.refs.lemail.value;
+      let password = this.refs.lpassword.value;
+      console.log("printing in header.js in signiinsubmit "+ email, password);
       this.refs.signinPopup.style="display: none";
       this.refs.signinForm.reset();
       this.props.signInvalidation({
@@ -34,10 +35,12 @@ class Header extends Component {
 
     signupSubmit = (event) => {
       console.log("in signupsubmit");
-      const email = this.refs.semail.value;
-      const password = this.refs.spassword.value;
-      const firstName = this.refs.sfirstName.value;
-      const lastName = this.refs.slastName.value;
+      console.log(this.refs.semail.value);
+
+      let email = this.refs.semail.value;
+      let password = this.refs.spassword.value;
+      let firstName = this.refs.sfirstName.value;
+      let lastName = this.refs.slastName.value;
       this.refs.signupPopup.style="display: none";
       this.refs.signupForm.reset();
       this.props.signUpvalidation({
@@ -60,7 +63,7 @@ class Header extends Component {
         return (
                 <div className="row m-0 p-0" id={styles['nav-bar']}>
                     <div className="col-2" id={styles['logo']}>
-                       <a ><img src="https://a1.r9cdn.net/rimg/provider-logos/common/socialmedia/kayak-logo.png" id={styles['logo-img']}></img></a>
+                       <a onClick={() => {this.props.redirectToHome()}}><img src="https://a1.r9cdn.net/rimg/provider-logos/common/socialmedia/kayak-logo.png" id={styles['logo-img']}></img></a>
                     </div>
                     <div className="col" id={styles['nav-tabs']}>
                         <a onClick={() => {this.props.changeType('hotels')}} >
@@ -91,7 +94,7 @@ class Header extends Component {
                                 <button className="dropdown-item py-1"  onClick={this.props.accountPage}><i className="fa fa-cog" aria-hidden="true"></i>&nbsp;&nbsp;&nbsp;&nbsp;Account Preferences</button>
                                 <a className="dropdown-item py-1" ><i className="fa fa-briefcase" aria-hidden="true"></i>&nbsp;&nbsp;&nbsp;&nbsp;Bookings</a>
                                 <a className="dropdown-item py-1" >
-                                    <div className="btn btn-secondary" id={styles['signout-btn']}>Sign out</div>
+                                    <div className="btn btn-secondary" onClick={this.props.signOut} id={styles['signout-btn']}>Sign out</div>
                                 </a>
                             </div>
                         </div>
@@ -144,7 +147,7 @@ class Header extends Component {
                           </div>
                           <br />
                           <div  className="form-group" >
-                            <input type="button" value="Create Account" style={{'width':'100%', 'font-size': '14px'}} onClick={this.signupSubmit}/>
+                            <input type="button" className="btn btn-primary btn-block"  value="Create Account" style={{'width':'100%', 'font-size': '14px'}} onClick={this.signupSubmit}/>
                           </div>
                         </form>
                       </div>
@@ -192,7 +195,9 @@ function mapDispatchToProps(dispatch) {
        signInvalidation : (signInData) => dispatch(signInvalidation(signInData)),
        signUpvalidation : (signUpData) => dispatch(signUpvalidation(signUpData)),
        changeType : (formType) => dispatch(changeType(formType)),
-       accountPage : () => dispatch(accountPage())
+       accountPage : () => dispatch(accountPage()),
+       signOut : () => dispatch(signOut()),
+       redirectToHome : () => dispatch(redirectToHome())
     };
 }
 

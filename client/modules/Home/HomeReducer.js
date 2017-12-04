@@ -1,5 +1,6 @@
 // Import Actions
-import { UPDATE_CARFORM, UPDATE_FLIGHTFORM, UPDATE_HOTELFORM, UPDATE_FORMTYPE,UPDATE_CITIES } from './HomeActions';
+import { UPDATE_CARFORM, UPDATE_FLIGHTFORM, UPDATE_HOTELFORM, UPDATE_FORMTYPE, UPDATE_CITIES } from './HomeActions';
+import { BOOKING_SUCCESS } from '../Billing/BillingActions';
 import {UPDATE_FORMTYPEHEADER} from '../Header/HeaderActions';
 
 // Initial State
@@ -8,6 +9,7 @@ const initialState = {
 	flightFormData : { fromPlace: '', toPlace: '', departDate:'', returnDate: '', passengers: '', cabinClass: ''},
 	hotelFormData : {place: '', checkin: '', checkout: '', rooms: ''},
   formType: '',
+  message:'',
   cities:[],
   states:[]
 };
@@ -26,7 +28,6 @@ const HomeReducer = (state = initialState, action) => {
         console.log(temp.place);
            return {
                ...state,
-               
                carFormData : temp
            };
 
@@ -55,8 +56,6 @@ const HomeReducer = (state = initialState, action) => {
         temp.checkin = action.hotelDetails.checkin;
         temp.checkout = action.hotelDetails.checkout;
         temp.rooms = action.hotelDetails.rooms;
-        
-        
            return {
                ...state,
                hotelFormData : temp
@@ -75,9 +74,6 @@ const HomeReducer = (state = initialState, action) => {
                states:action.states
            };           
 
-    default:
-      return state;
-
     case UPDATE_FORMTYPEHEADER :
         console.log("in update formtype coming from header");
         
@@ -85,6 +81,13 @@ const HomeReducer = (state = initialState, action) => {
                ...state,
                formType : action.displayForm
            };
+    case BOOKING_SUCCESS :
+           return {
+               ...state,
+               message : action.data.message
+           };
+    default:
+      return state;
   }
 };
 
