@@ -7,7 +7,7 @@ let sequelize = new Sequelize(serverConfig.database.name, serverConfig.database.
   dialect: 'mysql',
 
   pool: {
-    max: 250,
+    max: 500,
     min: 0,
     idle: 10000,
   },

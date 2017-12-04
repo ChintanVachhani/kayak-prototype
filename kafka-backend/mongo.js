@@ -6,7 +6,7 @@ let serverConfig = require('./config');
 mongoose.Promise = global.Promise;
 
 // MongoDB Connection
-mongoose.connect(serverConfig.mongoURL, (error) => {
+mongoose.connect(serverConfig.mongoURL, {poolSize: 500}, (error) => {
   if (error) {
     console.error('Please make sure Mongodb is installed and running!'); // eslint-disable-line no-console
     throw error;

@@ -15,7 +15,7 @@ router.route('/signin').post(UserController.signin);
 router.route('/addCard').post(UserController.addCard);
 
 // Add card to User Detail
-router.route('/deleteCard').delete(UserController.deleteCard());
+router.route('/deleteCard').delete(UserController.deleteCard);
 
 
 // Get All Users
