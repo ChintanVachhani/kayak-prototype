@@ -29,6 +29,7 @@ function handle_request(req, callback) {
       serviceType: req.body.serviceType,
       bookingDetail: {
         serviceId: req.body.serviceId,
+        serviceName: req.body.serviceName,
         price: calculatedPrice,
         dateFrom: dateFrom,
         dateTo: dateTo,
@@ -140,7 +141,7 @@ function handle_request(req, callback) {
 
   if (req.name === 'getAllBookingsForUser') {
 
-    if(decoded.user.email !== null)
+    if (decoded.user.email !== null)
       logger.info({page: 'Booking', user: decoded.user.email});
     else
       logger.info({page: 'Booking', user: ''});
