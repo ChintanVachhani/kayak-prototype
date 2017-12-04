@@ -1,6 +1,7 @@
 import {Router} from 'express';
 import * as UserController from '../controllers/user.controller';
 import cacheClient from '../redis';
+import * as jwt from "jsonwebtoken";
 
 const router = new Router();
 

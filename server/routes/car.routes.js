@@ -1,6 +1,7 @@
 import {Router} from 'express';
 import * as CarController from '../controllers/car.controller';
 import cacheClient from '../redis';
+import * as jwt from "jsonwebtoken";
 
 const router = new Router();
 
@@ -42,10 +43,10 @@ function cacheCar(req, res, next) {
       console.error(error);
     }
     if (data != null) {
-      console.info('Cache Hit!');
+      console.error('Cache Hit!');
       res.json(JSON.parse(data));
     } else {
-      console.info('Cache Miss!');
+      console.error('Cache Miss!');
       next();
     }
   });
@@ -58,10 +59,10 @@ function cacheAllCars(req, res, next) {
       console.error(error);
     }
     if (data != null) {
-      console.info('Cache Hit!');
+      console.error('Cache Hit!');
       res.json(JSON.parse(data));
     } else {
-      console.info('Cache Miss!');
+      console.error('Cache Miss!');
       next();
     }
   });

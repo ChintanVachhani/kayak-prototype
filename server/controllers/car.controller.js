@@ -85,7 +85,7 @@ export function getCar(req, res) {
     switch (response.status) {
       case 200:
         // Updating Cache
-        cacheClient.setex('car' + req.params, 60, JSON.stringify(response));
+        cacheClient.setex('car' + req.params, 3600, JSON.stringify(response));
 
         res.status(200).json(response);
         break;
