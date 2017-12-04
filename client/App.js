@@ -10,6 +10,7 @@ import routes from './routes';
 import 'rc-slider/assets/index.css';
 
 // Base stylesheet
+import 'rc-slider/assets/index.css';
 require('./main.css');
 
 export default function App(props) {
