@@ -12,6 +12,11 @@ export const HOTEL_LIST = 'HOTEL_LIST';
 export const CAR_LIST = 'CAR_LIST';
 export const BILL_LIST = 'BILL_LIST';
 export const LOCATION_DETAILS = 'LOCATION_DETAILS';
+export const D_CAR = 'D_CAR';
+export const D_FLIGHT = 'D_FLIGHT';
+export const D_HOTEL = 'D_HOTEL';
+export const D_CITY = 'D_CITY';
+export const USER_LIST = 'USER_LIST';
 
 
 // Export Actions
@@ -38,17 +43,19 @@ function updateFlightList(data, msg) {
 }
 
 export function adminsignin(data) {
+  console.log("admin ", data)
   let req = {};
   req.email = data.email;
   req.password = data.password;
   req.isAdmin = true;
 
   return (dispatch) => {
-    return callApi('/user/login', 'post', req).then(res => dispatch(adminlogin(res)));
+    return callApi('user/signin', 'post', req).then(res => dispatch(adminlogin(res)));
   };
 }
 
 function adminlogin(responseData) {
+  console.log("dd ", responseData)
   return {
     type: ADMIN_SIGNIN,
     data: responseData,
@@ -90,6 +97,64 @@ export function locationUpdate(data) {
      cities:data.cities,
      states:data.states                                // this is same as newItem : newItem in ES6
     }                               
+}
+
+
+export function populateCityRevenueData() {
+return (dispatch) => {
+    return callApi('booking/cityRevenue', 'get').then(res => dispatch(dashboardUpdateCityRevenue(res)));
+  };
+}
+
+function dashboardUpdateCityRevenue(data) {
+
+ return {
+    type: D_CITY,
+    city: data.bookings
+  }
+ 
+}
+export function populateCarDashBoardData() {
+return (dispatch) => {
+    return callApi('booking/topMonthRevenue?serviceType=Car', 'get').then(res => dispatch(dashboardUpdateCar(res)));
+  };
+}
+
+export function populateFlightDashBoardData() {
+   return (dispatch) => {
+    return callApi('booking/topMonthRevenue?serviceType=Flight', 'get').then(res => dispatch(dashboardUpdateFlight(res)));
+  };
+}
+
+export function populateHotelDashBoardData() {
+   return (dispatch) => {
+    return callApi('booking/topMonthRevenue?serviceType=Hotel', 'get').then(res => dispatch(dashboardUpdateHotel(res)));
+  }; 
+}
+
+function dashboardUpdateCar(carData) {
+
+  return {
+    type: D_CAR,
+    cars: carData.bookings
+  }
+ 
+}
+
+function dashboardUpdateFlight(flightData) {
+
+ return {
+    type: D_FLIGHT,
+    flights: flightData.bookings
+  }
+}
+
+function dashboardUpdateHotel(hotelData) {
+ return {
+    type: D_HOTEL,
+    hotels: hotelData.bookings
+  }
+  
 }
 
 export function populateCities(){
@@ -285,3 +350,19 @@ function updateFlightResponse(res) {
     return callApi('flight').then(res => dispatch(updateFlightList(res, "Flight Details Updated")));
   };
 }
+
+export function getAllUsers() {
+  return (dispatch) => {
+    return callApi('user').then(res => dispatch(updateUserList(res)));
+  };
+}
+
+function updateUserList(data) {
+
+ return {
+    type: USER_LIST,
+    users: data.users
+  }
+
+}
+

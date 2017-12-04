@@ -46,7 +46,7 @@ class LeftNavigation extends Component {
               &nbsp;
             </li>
             <li className="nav-item">
-              <Link to="/admin/hotels">Hosts</Link>
+              <Link to="/admin/users">Users</Link>
             </li>
             <li className="nav-item">
               &nbsp;

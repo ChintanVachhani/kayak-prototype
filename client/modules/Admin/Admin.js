@@ -19,7 +19,7 @@ class Admin extends Component {
     return (
         <div>
   		    <Header />
-          <div className={styles['headerMargin']}>
+          <div className={styles['headerMargin']}>          
           {this.props.isLoggedin === undefined || this.props.isLoggedin === false ? <Login /> : ''}
           {this.props.isLoggedin === true || this.props.isLoggedin === true ?            
               <div className="container-fluid">
@@ -30,6 +30,7 @@ class Admin extends Component {
                   {this.props.params.service === 'hotels' ? <HotelsHome /> : ''}
                   {this.props.params.service === 'cars' ? <CarsHome /> : ''}
                   {this.props.params.service === 'bills' ? <BillsHome /> : ''}
+                   {this.props.params.service === 'users' ? <UsersHome /> : ''}
                 </div>
               </div>
             : ''}

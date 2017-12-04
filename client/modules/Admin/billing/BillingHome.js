@@ -5,7 +5,7 @@ import { Alert } from 'reactstrap';
 import {getAllBills} from './../AdminActions';
 import SearchBills from './SearchBills';
 import BillList from './BillList';
-import Bill from './Bill';
+import Booking from './../../List/components/Booking/Booking'
 
 class BillingHome extends Component {
 
@@ -42,8 +42,8 @@ class BillingHome extends Component {
 			                    {
                     this.props.bills.map((bill,index) => {
                         return(
-                            <Bill
-                                bill={bill} isAdmin="true"
+                            <Booking
+                                booking={bill} isAdmin="true"
                             />
                         );
                     })

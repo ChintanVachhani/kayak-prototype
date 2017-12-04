@@ -29,7 +29,9 @@ class Booking extends Component {
                 <div className="row">
                     <div className="col-md-10" id= {styles['itemDetailBlock']}>
                         <div className="col-md-4">
-                            <a onClick={this.toggle} id={styles['bookingLink']}>{booking._id}</a>
+                            <a onClick={(e) => {e.preventDefault();this.setState({
+                                                  modal: !this.state.modal
+                                                });this.props.getServiceDetail(booking);}} id={styles['bookingLink']}>{booking._id}</a>
                         </div>
                         <div className="col-md-4">
                             {booking.serviceType }

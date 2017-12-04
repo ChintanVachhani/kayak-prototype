@@ -1,5 +1,5 @@
 // Import Actions
-import { CREATE_FLIGHT, ADMIN_SIGNIN, ADMIN_SIGNOUT, CREATE_HOTEL, CREATE_CAR, FLIGHT_LIST, HOTEL_LIST, CAR_LIST, BILL_LIST,LOCATION_DETAILS } from './AdminActions';
+import { CREATE_FLIGHT, ADMIN_SIGNIN, ADMIN_SIGNOUT, CREATE_HOTEL, CREATE_CAR, FLIGHT_LIST, HOTEL_LIST, CAR_LIST, BILL_LIST,LOCATION_DETAILS, D_HOTEL, D_FLIGHT, D_CAR, D_CITY } from './AdminActions';
 
 const initialState = {
   carList: [],
@@ -7,7 +7,11 @@ const initialState = {
   hotelList: [],
   billList:[],
   cities:[],
-  states:[]
+  states:[],
+  dashboardCars:[],
+  dashboardHotels:[],
+  dashboardFlights:[],
+  dashboardCityRevenue:[]
 };
 
 const AdminReducer = (state = initialState, action) => {
@@ -20,6 +24,30 @@ const AdminReducer = (state = initialState, action) => {
         "msg": action.msg
       };
 
+          case D_CITY:
+      return {
+        ...state,
+        dashboardCityRevenue: action.city
+      };
+      
+
+        case D_CAR:
+      return {
+        ...state,
+        dashboardCars: action.cars
+      };
+
+        case D_FLIGHT:
+      return {
+        ...state,
+        dashboardFlights: action.flights
+      };
+
+        case D_HOTEL:
+      return {
+        ...state,
+        dashboardHotels: action.hotels
+      };
 
     case FLIGHT_LIST:
       return {
@@ -62,26 +90,19 @@ const AdminReducer = (state = initialState, action) => {
       };
 
     case ADMIN_SIGNIN:
-      console.log("staus : ", action.data)
       if (action.status === 200) {
+        localStorage.setItem("token", action.data.token);
         return {
           ...state,
           isLoggedIn: true,
           "msg": action.msg
         };
       } else {
-        if (action.data.error !== undefined) {
-          return {
-            ...state,
-            "msg": action.data.error.message
-          }
-        } else {
-          return {
-            ...state,
-            isLoggedIn: true
-          }
+        return {
+          ...state,
+          "msg": "Invalid Credentials",
+          isLoggedIn: false
         }
-
       }
 
     case ADMIN_SIGNOUT:

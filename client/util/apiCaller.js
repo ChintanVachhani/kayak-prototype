@@ -7,9 +7,10 @@ export const API_URL = (typeof window === 'undefined' || process.env.NODE_ENV ==
 
 export default function callApi(endpoint, method = 'get', body, header) {
   let reqBody;
+  let token = localStorage.getItem("token");
   if (method === 'get') {
     reqBody = {
-      headers: { 'content-type': 'application/json' },
+      headers: { 'content-type': 'application/json', "token": token },
       method,
     }
   } else if (header) {
@@ -19,7 +20,7 @@ export default function callApi(endpoint, method = 'get', body, header) {
     }
   } else {
     reqBody = {
-      headers: { 'content-type': 'application/json', 'Access-Control-Allow-Methods' : 'GET, POST, PUT, DELETE, PATCH' },
+      headers: { 'content-type': 'application/json', 'Access-Control-Allow-Methods' : 'GET, POST, PUT, DELETE, PATCH',"token": token },
       method,
       body: JSON.stringify(body),
     }
