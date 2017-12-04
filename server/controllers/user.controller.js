@@ -83,7 +83,9 @@ export function getUser(req, res) {
 
     switch (response.status) {
       case 200:
-        cacheClient.setex(req.params,60, JSON.stringify(response));
+        // Updating Cache
+        cacheClient.setex(req.params, 60, JSON.stringify(response));
+
         res.status(200).json(response);
         break;
       case 201:
@@ -118,6 +120,10 @@ export function updateUser(req, res) {
 
     switch (response.status) {
       case 200:
+        // Updating Cache
+        cacheClient.del(req.params);
+        cacheClient.del('allUsers');
+
         res.status(200).json(response);
         break;
       case 201:
@@ -152,6 +158,10 @@ export function deleteUser(req, res) {
 
     switch (response.status) {
       case 200:
+        // Updating Cache
+        cacheClient.del(req.params);
+        cacheClient.del('allUsers');
+
         res.status(200).json(response);
         break;
       case 201:
@@ -186,6 +196,9 @@ export function getAllUsers(req, res) {
 
     switch (response.status) {
       case 200:
+        // Updating Cache
+        cacheClient.setex('allUsers', 3600, JSON.stringify(response));
+
         res.status(200).json(response);
         break;
       case 201:
@@ -220,6 +233,10 @@ export function addCard(req, res) {
 
     switch (response.status) {
       case 200:
+        // Updating Cache
+        cacheClient.del(req.params);
+        cacheClient.del('allUsers');
+
         res.status(200).json(response);
         break;
       case 201:
