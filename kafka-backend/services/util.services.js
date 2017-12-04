@@ -25,10 +25,10 @@ function handle_request(req, callback) {
         };
         callback(null, res);
       } else {
-        console.log(results);
-        for (let i = 0; i < results.length; ++i) {
-          console.error(results[i].page);
-          switch (results[i].page) {
+        console.log(results.file);
+        for (let i = 0; i < results.file.length; ++i) {
+          console.error(results.file[i].page);
+          switch (results.file[i].page) {
             case 'Car':
               ++Car;
               break;
@@ -58,8 +58,41 @@ function handle_request(req, callback) {
     });
   }
 
-  if(req.name === 'trackUser'){
+  if (req.name === 'trackUser') {
+    const options = {
+      from: new Date(req.query.date),
+      /*until: new Date(req.query.date),
+      limit: 10,
+      start: 0,*/
+      order: 'asc',
+      fields: ['page', 'user'],
+    };
 
+    logger.query(options, function (err, results) {
+      let track = [];
+      if (err) {
+        res = {
+          status: 500,
+          title: 'Internal server error.',
+          error: {message: 'Failed to fetch logs.'},
+        };
+        callback(null, res);
+      } else {
+        console.log(results.file);
+        for (let i = 0; i < results.file.length; ++i) {
+          console.error(results.file[i].user);
+          if (results.file[i].user == req.query.email) {
+            track.push(results.file[i].page);
+          }
+        }
+        res = {
+          status: 200,
+          title: 'Successfully retrieved user track details.',
+          data: track,
+        };
+        callback(null, res);
+      }
+    });
   }
 }
 
