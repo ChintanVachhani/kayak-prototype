@@ -14,12 +14,27 @@ router.route('/signin').post(UserController.signin);
 router.route('/addCard').post(UserController.addCard);
 
 // Get All Users
-//router.route('/').get(cacheAllUsers, UserController.getAllUsers);
-router.route('/').get(UserController.getAllUsers);
-// Get User
+router.route('/').get(cacheAllUsers, UserController.getAllUsers);
 
-//router.route('/:email').get(cacheUser, UserController.getUser);
-router.route('/:email').get(UserController.getUser);
+// Get User
+router.route('/:email').get(cacheUser, UserController.getUser);
+
+
+// Session Authentication
+router.use('/', function (req, res, next) {
+  jwt.verify(req.header.token, 'admin', function (error, decoded) {
+    if (error) {
+      return res.status(401).json({
+        title: 'Not Authenticated.',
+        error: error,
+      });
+    }
+    next();
+  });
+});
+
+// Get All Users
+router.route('/').get(cacheAllUsers, UserController.getAllUsers);
 
 // Delete User
 router.route('/:email').delete(UserController.deleteUser);

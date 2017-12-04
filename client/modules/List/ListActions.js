@@ -142,17 +142,25 @@ export function getServiceDetail(booking) {
 }
 
 export function serviceForBooking(service, type) {
+  var name;
+  if(type=='Hotel'){
+    name = service.hotelName;
+  }
+  else {
+    name = service.operator;
+  }
   return dispatch => {
-    dispatch(serviceBookingUpdate(service, type));
+    dispatch(serviceBookingUpdate(service, type,name));
     browserHistory.push('/billing');
   }
 }
 
-export function serviceBookingUpdate(service, type) {
+export function serviceBookingUpdate(service, type,operator) {
   return {
     type: SET_SERVICE_BOOKING_DATA,
     serviceId: service._id,
     serviceType: type,
+    serviceName: operator,
     price: service.price,
   }
 }

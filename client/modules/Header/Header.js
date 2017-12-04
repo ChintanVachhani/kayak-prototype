@@ -28,7 +28,7 @@ class Header extends Component {
       this.refs.signinPopup.style="display: none";
       this.refs.signinForm.reset();
       this.props.signInvalidation({
-                                    "email" : email, 
+                                    "email" : email,
                                     "password" : password
                                   });
     }
@@ -44,7 +44,7 @@ class Header extends Component {
       this.refs.signupPopup.style="display: none";
       this.refs.signupForm.reset();
       this.props.signUpvalidation({
-                                    "email" : email, 
+                                    "email" : email,
                                     "password" : password,
                                     "firstName" : firstName,
                                     "lastName" : lastName
@@ -52,13 +52,13 @@ class Header extends Component {
     }
 
     closePopup= (event) => {
-          
+
       this.refs.signupPopup.style="display: none";
       this.refs.signinPopup.style="display: none";
       this.refs.signinForm.reset();
       this.refs.signupForm.reset();
     }
-    
+
     render() {
         return (
                 <div className="row m-0 p-0" id={styles['nav-bar']}>
@@ -91,11 +91,16 @@ class Header extends Component {
                                 <a className="dropdown-item py-1"  onClick={this.popSigninWindow}>
                                     <div className="btn" id={styles['signin-btn']}>Sign in</div>
                                 </a>
-                                <button className="dropdown-item py-1"  onClick={this.props.accountPage}><i className="fa fa-cog" aria-hidden="true"></i>&nbsp;&nbsp;&nbsp;&nbsp;Account Preferences</button>
-                                <a className="dropdown-item py-1" ><i className="fa fa-briefcase" aria-hidden="true"></i>&nbsp;&nbsp;&nbsp;&nbsp;Bookings</a>
-                                <a className="dropdown-item py-1" >
-                                    <div className="btn btn-secondary" onClick={this.props.signOut} id={styles['signout-btn']}>Sign out</div>
-                                </a>
+                                <span>
+                                  {
+                                    this.props.isAuthenticated?
+                                  (<span><button className="dropdown-item py-1"  onClick={this.props.accountPage}><i className="fa fa-cog" aria-hidden="true"></i>&nbsp;&nbsp;&nbsp;&nbsp;Account Preferences</button>
+                                  <a className="dropdown-item py-1" ><i className="fa fa-briefcase" aria-hidden="true"></i>&nbsp;&nbsp;&nbsp;&nbsp;Bookings</a>
+                                  <a className="dropdown-item py-1" >
+                                      <div className="btn btn-secondary" onClick={this.props.signOut} id={styles['signout-btn']}>Sign out</div>
+                                  </a></span>):''
+                                  }
+                                </span>
                             </div>
                         </div>
                     </div>
@@ -112,7 +117,7 @@ class Header extends Component {
                                 type="text"
                                 label="firstName"
                                 ref="sfirstName"
-                                placeholder="First Name"                              
+                                placeholder="First Name"
                               required />
                           </div>
                           <div className="form-group" >
@@ -122,7 +127,7 @@ class Header extends Component {
                                 type="text"
                                 label="lastName"
                                 ref="slastName"
-                                placeholder="Last Name"                              
+                                placeholder="Last Name"
                               required />
                           </div>
                           <div className="form-group" >
@@ -132,8 +137,8 @@ class Header extends Component {
                               type="email"
                               label="email"
                               ref="semail"
-                              placeholder="Email address"                   
-                            required />  
+                              placeholder="Email address"
+                            required />
                           </div>
                           <div className="form-group" >
                               <input
@@ -142,7 +147,7 @@ class Header extends Component {
                                 type="password"
                                 label="password"
                                 ref="spassword"
-                                placeholder="Password"                              
+                                placeholder="Password"
                               required />
                           </div>
                           <br />
@@ -157,7 +162,7 @@ class Header extends Component {
                         <button type="button" className="close" aria-label="Close" id={styles['xbutton']} onClick={this.closePopup}>X</button>
                       </div>
                       <div className="col-md-offset-1 col-md-10">
-                          <form ref="signinForm">  
+                          <form ref="signinForm">
                             <div className="form-group" style={{'padding':'1px' }}>
                                 <input
                                   className="form-control"
@@ -165,9 +170,9 @@ class Header extends Component {
                                   type="email"
                                   label="email"
                                   ref="lemail"
-                                  placeholder="Email address"                              
+                                  placeholder="Email address"
                                 required />
-                            </div>   
+                            </div>
                             <div className="form-group" style={{'padding':'1px' }}>
                                 <input
                                   className="form-control"
@@ -175,20 +180,24 @@ class Header extends Component {
                                   type="password"
                                   label="password"
                                   ref="lpassword"
-                                  placeholder="Password"                            
+                                  placeholder="Password"
                                 required />
-                            </div>                    
+                            </div>
                             <div className="form-group" >
                               <input type="button" className="btn btn-primary btn-block" value="Sign In" style={{'width':'100%', 'font-size': '14px'}} onClick={this.signinSubmit} />
                             </div>
                           </form>
                       </div>
                     </div>
-                </div> 
+                </div>
             );
     }
 }
-
+function mapStateToProps(store) {
+    const {header} = store;
+    let isAuthenticated = header.isAuthenticated;
+  return {isAuthenticated};
+}
 function mapDispatchToProps(dispatch) {
   console.log("this is in dispatch of header");
    return {

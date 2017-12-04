@@ -8,6 +8,7 @@ const bookingSchema = new Schema({
   serviceType: {type: 'String', required: true},
   bookingDetail: {
     serviceId: {type: 'String', required: true},
+    serviceName: {type: 'String', required: true},
     city: {type: 'String', required: true},
     price: {type: 'Number', required: true},
     dateFrom: {type: 'Date', required: true},

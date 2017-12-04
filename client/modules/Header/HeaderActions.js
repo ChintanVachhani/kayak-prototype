@@ -2,6 +2,7 @@
 export const UPDATE_FORMTYPEHEADER = 'UPDATE_FORMTYPEHEADER';
 export const SIGNUP_SUCCESS = 'SIGNUP_SUCCESS';
 export const SIGNIN_SUCCESS = 'SIGNIN_SUCCESS';
+export const SIGNOUT_SUCCESS = 'SIGNOUT_SUCCESS';
 export const EDIT_PROFILE_SUCCESS = 'EDIT_PROFILE_SUCCESS';
 export const EDIT_CARD_SUCCESS = 'EDIT_CARD_SUCCESS';
 export const GET_USER_DETAILS = 'GET_USER_DETAILS';
@@ -31,6 +32,11 @@ export function getUserSuccess(data) {
   return {
   type : GET_USER_DETAILS,
     data
+  }
+}
+export function signOutUpdate() {
+  return {
+  type : SIGNOUT_SUCCESS
   }
 }
 
@@ -237,7 +243,13 @@ export function signInvalidation(data) {
 export function signOut() {
   //console.log("this is in action signOut");
   localStorage.clear();
+    return dispatch =>{ 
+        dispatch(signOutUpdate());
+        browserHistory.push('/');
+    }  
   //console.log("local storage after clear" + JSON.stringify(localStorage));
+}
+export function redirectUser() {
   browserHistory.push('/');
 }
 /*

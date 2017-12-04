@@ -36,7 +36,7 @@ class Car extends Component {
                                     </span>
                   </div>
                   <div className="col-md-8">
-                    <FlightIcon size={20} color='#cccccc'/>&nbsp;<span className={styles['ocation']}>{car.location}</span>&nbsp; shuttle
+                    <FlightIcon size={20} color='#cccccc'/>&nbsp;<span className={styles['ocation']}>{car.location}</span>&nbsp;
                   </div>
                 </div>
               </div>

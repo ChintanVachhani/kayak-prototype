@@ -12,7 +12,7 @@ export function handleBook(data) {
     userID: data.email,
     serviceType: data.serviceType,
     serviceName: data.bookingDetail.serviceName,
-      serviceId: data.bookingDetail.serviceId,
+    serviceId: data.bookingDetail.serviceId,
       city: data.bookingDetail.toPlace,
       price: data.bookingDetail.price,
       dateFrom: data.bookingDetail.dateFrom,

@@ -9,6 +9,7 @@ const initialState = {
   serviceClickedDetail:null,
   serviceId:null,
   serviceType:null,
+  serviceName:null,
   price:null
 };      		
 
@@ -43,6 +44,7 @@ const ListReducer = (state = initialState, action) => {
         ...state,
         serviceId: action.serviceId,
         serviceType: action.serviceType,
+        serviceName: action.serviceName,
         price: action.price
     };     
 
