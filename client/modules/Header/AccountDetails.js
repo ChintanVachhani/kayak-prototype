@@ -47,10 +47,11 @@ class AccountDetails extends Component {
 
     componentWillMount() {
       console.log("in componentWillMount of account details");
-      this.props.getUserDetails();
+      //this.props.getUserDetails();
     }
 
     componentDidMount() {
+        console.log("in componentDidUpdate of account details " + JSON.stringify(this.props.user));
         if(this.props.user.firstName != null && this.props.user.firstName != 'undefined')
           this.setState({firstName: this.props.user.firstName});
 
@@ -82,7 +83,8 @@ class AccountDetails extends Component {
     if(this.props.user.profileImage != null && this.props.user.profileImage != 'undefined') {
       var imgSrc = new Buffer(this.props.user.profileImage, 'base64').toString();
       img = "data:"+this.props.user.profileImage.contentType+";base64," + imgSrc;
-    }
+    }   
+    
     return (
       <div style={{'padding':'20px'}}>
         { this.state.edit == 'true'?
@@ -240,9 +242,15 @@ class AccountDetails extends Component {
         :
             <div>
               <div className="col-md-3 ">
-                  <div className="row">
-                    <img src={img} id={styles['profile-img']}></img>
-                  </div>
+                  {img != null || img !='undefined'?
+                    <div className="row">
+                        <img src={img} id={styles['profile-img']}></img>
+                    </div>
+                  : 
+                    <div className="row">
+                      <img src="//placehold.it/100" className="avatar img-circle" alt="avatar"></img>
+                    </div>
+                  }
                   <div className="row">
                       <button type="Button" className="btn btn-primary btn-block" style={{'background-color': '#DC143C'}}
                               onClick={(event) => this.popUpdateImageWindow()}
@@ -326,8 +334,8 @@ class AccountDetails extends Component {
 
 function mapStateToProps(store) {
     const {header} = store;
-    console.log("this is home mapstateto prop reducer " );
-    let user = header.userdetails;
+    const user = header.userdetails;
+    console.log("this is home mapstateto prop for account details "+ JSON.stringify(user) );
   return {user};
 }
 function mapDispatchToProps(dispatch) {

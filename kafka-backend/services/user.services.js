@@ -55,7 +55,9 @@ function handle_request(req, callback) {
   }
 
   if (req.name === 'signin') {
+
     User.find({where: {email: req.body.email}})
+
       .catch((error) => {
         res = {
           status: 500,
@@ -66,7 +68,9 @@ function handle_request(req, callback) {
       })
       .then((user) => {
         if (user) {
+
           if (!bcrypt.compareSync(req.body.password, user.password)) {
+
             res = {
               status: 401,
               title: 'Signing in failed.',
