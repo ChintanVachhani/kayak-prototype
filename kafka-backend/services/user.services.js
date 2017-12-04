@@ -55,8 +55,9 @@ function handle_request(req, callback) {
   }
 
   if (req.name === 'signin') {
-    console.log("ssssssss")
-    User.find({email: req.body.email})
+
+    User.find({where: {email: req.body.email}})
+
       .catch((error) => {
         console.log(error)
         console.error('500');
@@ -69,7 +70,6 @@ function handle_request(req, callback) {
       })
       .then((user) => {
         if (user) {
-          console.log("ssssssssss ::: "+user.email)
 
           if (!bcrypt.compareSync(req.body.password, user.password)) {
 
