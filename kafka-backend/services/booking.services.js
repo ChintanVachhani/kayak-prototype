@@ -1,5 +1,7 @@
 let Booking = require('../models/booking');
 
+const logger = require('../logger');
+
 function handle_request(req, callback) {
   console.log("In handle request:" + JSON.stringify(req));
 
@@ -126,6 +128,9 @@ function handle_request(req, callback) {
   }
 
   if (req.name === 'getAllBookingsForUser') {
+
+    logger.info('Booking');
+
     Booking.find({userID: req.params.email}, (error, bookings) => {
       if (error) {
         res = {

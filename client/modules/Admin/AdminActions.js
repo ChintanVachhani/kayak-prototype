@@ -11,6 +11,7 @@ export const FLIGHT_LIST = 'FLIGHT_LIST';
 export const HOTEL_LIST = 'HOTEL_LIST';
 export const CAR_LIST = 'CAR_LIST';
 export const BILL_LIST = 'BILL_LIST';
+export const LOCATION_DETAILS = 'LOCATION_DETAILS';
 
 
 // Export Actions
@@ -24,14 +25,14 @@ export function createFlight(data) {
 
 function createFlightResponse(res) {
   return (dispatch) => {
-    return callApi('flight').then(res => dispatch(updateFlightList(res)));
+    return callApi('flight').then(res => dispatch(updateFlightList(res, "New Flight Created")));
   };
 }
 
-function updateFlightList(data) {
+function updateFlightList(data, msg) {
   return {
     type: CREATE_FLIGHT,
-    msg: "New Flight Created",
+    msg: msg,
     flights: data.flights
   }
 }
@@ -81,6 +82,20 @@ function updateHotelList(data) {
     msg: "New Hotel Created",
     hotels: data.hotels
   }
+}
+
+export function locationUpdate(data) {
+    return {
+     type : LOCATION_DETAILS,
+     cities:data.cities,
+     states:data.states                                // this is same as newItem : newItem in ES6
+    }                               
+}
+
+export function populateCities(){
+return (dispatch) => {
+return callApi('util/location', 'get').then(res => dispatch(locationUpdate(res)));
+  };
 }
 
 export function createCar(data) {
@@ -159,6 +174,7 @@ function billList(data) {
     bills: data.bookings
   }
 }
+
 
 export function searchBillsByDate(query) {
   
@@ -254,3 +270,17 @@ export function deleteFlight(data) {
     return callApi("flight/"+data, "delete").then(res => dispatch(getAllFlights()));
   };
 }
+
+export function updateFlight(data, id) {
+  return (dispatch) => {
+    return callApi("flight/"+id, 'patch', data).then(res => dispatch(updateFlightResponse(res)));
+  };
+
+}
+
+function updateFlightResponse(res) {
+  return (dispatch) => {
+    return callApi('flight').then(res => dispatch(updateFlightList(res, "FLight Details Updated")));
+  };
+}
+
