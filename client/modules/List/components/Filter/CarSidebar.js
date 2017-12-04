@@ -182,7 +182,7 @@ class CarSidebar extends Component {
 
 const mapStateToProps = (state) => {
   return {
-    minPrice : 40,
+    minPrice : 20,
     maxPrice : 300
   };
 };
