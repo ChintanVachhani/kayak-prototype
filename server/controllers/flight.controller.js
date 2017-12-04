@@ -1,3 +1,5 @@
+import cacheClient from '../redis';
+
 // Please put 'kafka' directory containing 'client.js', 'Connection.js' & 'kafkarpc.js', in the routes folder
 let kafka = require('../routes/kafka/client');
 var fs = require('fs');
@@ -83,6 +85,9 @@ export function getFlight(req, res) {
 
     switch (response.status) {
       case 200:
+        // Updating Cache
+        cacheClient.setex('flight' + req.params, 60, JSON.stringify(response));
+
         res.status(200).json(response);
         break;
       case 201:
@@ -118,6 +123,10 @@ export function updateFlight(req, res) {
 
     switch (response.status) {
       case 200:
+        // Updating Cache
+        cacheClient.del('flight' + req.params);
+        cacheClient.del('allFlights');
+
         res.status(200).json(response);
         break;
       case 201:
@@ -152,6 +161,10 @@ export function deleteFlight(req, res) {
 
     switch (response.status) {
       case 200:
+        // Updating Cache
+        cacheClient.del('flights' + req.params);
+        cacheClient.del('allFlights');
+
         res.status(200).json(response);
         break;
       case 201:
@@ -186,6 +199,9 @@ export function getAllFlights(req, res) {
 
     switch (response.status) {
       case 200:
+        // Updating Cache
+        cacheClient.setex('allFlights', 3600, JSON.stringify(response));
+
         res.status(200).json(response);
         break;
       case 201:

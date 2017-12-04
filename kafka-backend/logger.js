@@ -10,7 +10,7 @@ const logger = new (winston.Logger)({
       level: 'info',
     }),
     new (winston.transports.File)({
-      filename: 'info.log',
+      filename: 'logs/info.log',
       timestamp: tsFormat,
       level: 'info',
     }),

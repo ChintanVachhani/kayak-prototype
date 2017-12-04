@@ -11,3 +11,4 @@ coverage/
 kafka-backend/node_modules/*
 kafka-backend/npm-debug.log
 kafka-backend/info.log
+info.log
