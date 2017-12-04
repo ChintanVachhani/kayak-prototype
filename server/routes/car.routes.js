@@ -16,7 +16,8 @@ router.route('/:_id').get(cacheCar, CarController.getCar);
 
 // Session Authentication
 router.use('/', function (req, res, next) {
-  jwt.verify(req.header.token, 'admin', function (error, decoded) {
+  console.error('Token', req.header);
+  jwt.verify(req.headers.token, 'admin', function (error, decoded) {
     if (error) {
       return res.status(401).json({
         title: 'Not Authenticated.',

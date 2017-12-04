@@ -14,6 +14,10 @@ router.route('/signin').post(UserController.signin);
 // Add card to User Detail
 router.route('/addCard').post(UserController.addCard);
 
+// Add card to User Detail
+router.route('/deleteCard').delete(UserController.deleteCard());
+
+
 // Get All Users
 router.route('/').get(cacheAllUsers, UserController.getAllUsers);
 
@@ -23,7 +27,7 @@ router.route('/:email').get(cacheUser, UserController.getUser);
 
 // Session Authentication
 router.use('/', function (req, res, next) {
-  jwt.verify(req.header.token, 'admin', function (error, decoded) {
+  jwt.verify(req.headers.token, 'admin', function (error, decoded) {
     if (error) {
       return res.status(401).json({
         title: 'Not Authenticated.',
