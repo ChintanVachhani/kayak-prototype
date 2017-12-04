@@ -2,7 +2,7 @@ import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 
-import {signInvalidation, signUpvalidation, changeType, accountPage, signOut } from './HeaderActions';
+import {signInvalidation, signUpvalidation, changeType, accountPage, signOut, redirectToHome } from './HeaderActions';
 //import {Link } from 'react-router';
 
 // Import Style
@@ -17,11 +17,14 @@ class Header extends Component {
     popSigninWindow= (event) => {
       this.refs.signinPopup.style="display: inline-block";
     }
-
+   /* accountPage1 = (event) => {
+      this.props.accountPage();
+    }*/
     signinSubmit = (event) => {
       console.log("in signinsubmit");
       let email = this.refs.lemail.value;
       let password = this.refs.lpassword.value;
+      console.log("printing in header.js in signiinsubmit "+ email, password);
       this.refs.signinPopup.style="display: none";
       this.refs.signinForm.reset();
       this.props.signInvalidation({
@@ -60,7 +63,7 @@ class Header extends Component {
         return (
                 <div className="row m-0 p-0" id={styles['nav-bar']}>
                     <div className="col-2" id={styles['logo']}>
-                       <a ><img src="https://a1.r9cdn.net/rimg/provider-logos/common/socialmedia/kayak-logo.png" id={styles['logo-img']}></img></a>
+                       <a onClick={() => {this.props.redirectToHome()}}><img src="https://a1.r9cdn.net/rimg/provider-logos/common/socialmedia/kayak-logo.png" id={styles['logo-img']}></img></a>
                     </div>
                     <div className="col" id={styles['nav-tabs']}>
                         <a onClick={() => {this.props.changeType('hotels')}} >
@@ -193,7 +196,8 @@ function mapDispatchToProps(dispatch) {
        signUpvalidation : (signUpData) => dispatch(signUpvalidation(signUpData)),
        changeType : (formType) => dispatch(changeType(formType)),
        accountPage : () => dispatch(accountPage()),
-       signOut : () => dispatch(signOut())
+       signOut : () => dispatch(signOut()),
+       redirectToHome : () => dispatch(redirectToHome())
     };
 }
 

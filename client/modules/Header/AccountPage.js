@@ -18,7 +18,7 @@ class AccountPage extends Component {
         exp_month: ''
     }
 
-    componentDidMount(){
+    componentDidMount() {
        this.setState({
                 cardNumber : this.props.card.cardNumber,
                 secureCode : this.props.card.secureCode,
@@ -64,7 +64,7 @@ class AccountPage extends Component {
                     </div>
                     <div className=" col-md-8" style={{'width': '650px'}}>
                         {
-                            this.state.displaycomp== 'payment'?
+                            this.state.displaycomp == 'payment'?
                               <div style={{'padding' : '20px'}}>
                                 <div style={{'padding' : '20px'}}>
                                     <table>
@@ -127,7 +127,6 @@ class AccountPage extends Component {
                                                             placeholder="Secure Code"
                                                             onChange={(event) => {
                                                             this.setState({secureCode: event.target.value}); }}
-
                                                         required />
                                                 </div>
                                               </div>

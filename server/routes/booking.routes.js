@@ -12,6 +12,15 @@ router.route('/all/:email').get(BookingController.getAllBookings);
 // Search Bookings
 router.route('/search').get(BookingController.searchBookings);
 
+// Top 10 Bookings based on revenue/year
+router.route('/topYearRevenue').get(BookingController.topTenBasedOnYearRevenue);
+
+// City based revenue Bookings
+router.route('/cityRevenue').get(BookingController.cityBasedRevenue);
+
+// Top 10 Bookings based on revenue for a month
+router.route('/topMonthRevenue').get(BookingController.topTenBasedOnMonthRevenue);
+
 // Create Booking
 router.route('/').put(BookingController.createBooking);
 

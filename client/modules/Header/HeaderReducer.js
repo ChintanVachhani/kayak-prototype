@@ -1,5 +1,5 @@
 // Import Actions
-import { SIGNUP_SUCCESS, SIGNIN_SUCCESS, EDIT_PROFILE_SUCCESS, EDIT_CARD_SUCCESS, GET_USER_DETAILS, UPLOAD_IMAGE_SUCCESS } from './HeaderActions';
+import { SIGNUP_SUCCESS, SIGNIN_SUCCESS, EDIT_PROFILE_SUCCESS, EDIT_CARD_SUCCESS, GET_USER_DETAILS, UPLOAD_IMAGE_SUCCESS, GET_ACCOUNT_DETAILS } from './HeaderActions';
 
 // Initial State
 
@@ -38,6 +38,7 @@ const HeaderReducer = (state = initialState, action) => {
 
       case SIGNIN_SUCCESS :
         console.log("in signin success reducer");
+        console.log(action.email);
         user = state.userdetails;
         user.email = action.email;
            return {
@@ -61,6 +62,7 @@ const HeaderReducer = (state = initialState, action) => {
         user.city = action.data.city;
         user.state = action.data.state;
         user.zipcode = action.data.zipcode;
+        user.zipcode = action.data.email;
         user.profileImage = action.data.profileImage;
         return {
            ...state,

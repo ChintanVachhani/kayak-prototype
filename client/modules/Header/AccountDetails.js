@@ -46,6 +46,7 @@ class AccountDetails extends Component {
     }
 
     componentWillMount() {
+      console.log("in componentWillMount of account details");
       this.props.getUserDetails();
     }
 
@@ -297,7 +298,7 @@ class AccountDetails extends Component {
                                   onClick={() => {this.setState({ edit: 'true'});}}>Edit Profile</a>
                           </td>
                           <td style={{'float': 'right', 'padding' : '10px', 'width': '150px'}}>
-                            <a className="btn btn-primary btn-lg" role="button" style={{'background-color': '#DC143C'}} onClick={this.props.deleteAccount()}>Delete Account</a>
+                            <a className="btn btn-primary btn-lg" role="button" style={{'background-color': '#DC143C'}} onClick={()=>{this.props.deleteAccount();}}>Delete Account</a>
                           </td>
                         </tr>
                       </tbody>

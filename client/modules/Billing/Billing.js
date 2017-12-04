@@ -105,14 +105,14 @@ class Billing extends Component {
 
     return (
       <div>
-        <div className="row">
+        <div>
           <div style={{'background-color':'#f2f2f2', 'margin':'auto', 'height':'auto', 'height':'1800px'}}>
-            <div className="row">
+            <div className="row" style={{'background-color':'#000000'}}>
                 <Header />
             </div>
             <br />
-            <div>
-              <div className=" col-md-offset-1 col-md-6">
+            <div className="row">
+              <div className=" col-md-offset-1 col-md-7" >
                 <div  align="left" style={{'background-color':'white', 'display':'block', 'padding':'2px'} }>
                   <div style={{'padding':'10px'}}>
                     { this.props.serviceType == 'hotel' ? 
@@ -133,7 +133,7 @@ class Billing extends Component {
                 <br />
                 <div style={{'background-color':'white', 'padding':'2px'}}>
                   <div  align="left" style={{'background-color':'white', 'padding':'2px'}} >
-                    <div align="left" style={{'padding':'10px'}}> 
+                    <div  style={{'padding':'10px'}}> 
                       <form>
                         <div>
                           <div className="row">
@@ -160,7 +160,7 @@ class Billing extends Component {
                                    }} 
                                 required />
                               </div>
-                            </div>
+                            </div>  
                             <div className = "col-md-6">
                               <div className="form-group">
                                 <input
@@ -174,6 +174,7 @@ class Billing extends Component {
                                             this.setState({ customers: customer});
                                    }} 
                                 />
+                              </div>
                             </div>
                           </div>
                           <div className="row">
@@ -190,10 +191,9 @@ class Billing extends Component {
                                               this.setState({customers: customer});
                                      }} 
                                     required />
-                                </div>
                               </div>
                             </div>
-                          </div>  
+                          </div> 
                           <div className="row">
                             <div className = "col-md-6">
                               <div className="form-group">
@@ -596,4 +596,4 @@ function mapDispatchToProps(dispatch) {
 
 
 
-export default connect( null,  mapDispatchToProps)(Billing);
+export default connect( mapStateToProps,  mapDispatchToProps)(Billing);

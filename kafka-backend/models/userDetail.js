@@ -14,6 +14,7 @@ const userDetailSchema = new Schema({
   email: {type: 'String', required: true, unique: true},
   profileImage: {data: 'Buffer', contentType: 'String'},
   dateAdded: {type: 'Date', default: Date.now},
+  cards: [{type: Schema.Types.ObjectId, ref: 'Card'}],
 });
 
 userDetailSchema.plugin(mongooseUniqueValidator);

@@ -24,6 +24,14 @@ export function changeFormDisplay(displayForm) {
   }        
 }
 
+export function getUserSuccess(data) {
+  console.log("this is in getUserSuccess");
+  console.log(data);
+  return {
+  type : GET_USER_DETAILS,
+    data
+  }
+}
 
 export function changeType(name) {
   return dispatch => {
@@ -32,10 +40,16 @@ export function changeType(name) {
 }
 
 export function accountPage() {
+  console.log("in account page route in actions");
+
   browserHistory.push('/account');
 }
 
 export function deleteProfileSuccess(data) {
+ browserHistory.push('/');
+}
+
+export function redirectToHome(data) {
  browserHistory.push('/');
 }
 
@@ -56,7 +70,8 @@ export function uploadImageSuccess(data) {
 }
 
 export function deleteAccount() {
-  let userEmail = localStorage.getItem('email');
+  //let userEmail = localStorage.getItem('email');
+  let userEmail = "sksk@gmail.com";
   let req = {};
   return (dispatch) => {
     return callApi('user/userEmail', 'delete', req).then(res => dispatch(deleteProfileSuccess(res)));
@@ -65,7 +80,8 @@ export function deleteAccount() {
 
 export function getUserDetails() {
   console.log("in getUserDetails actions");
-  let userEmail = localStorage.getItem('email');
+  //let userEmail = localStorage.getItem('email');
+  let userEmail = "sksk@gmail.com";
   let req = {};
   return (dispatch) => {
     return callApi('user/userEmail', 'get', req).then(res => dispatch(getUserSuccess(res)));
@@ -81,7 +97,6 @@ export function handleEditProfile(data) {
         city: data.city,
         state: data.state,
         zipcode: data.zipcode,
-        email : data.email,
         phoneNumber: data.phoneNumber
     };
   let userEmail = localStorage.getItem('email');
@@ -92,39 +107,41 @@ export function handleEditProfile(data) {
 
 export function handleImageEdit(imageFormData) {
   console.log("in handleImageEdit actions");
-  let userEmail = localStorage.getItem('email');
+  //let userEmail = localStorage.getItem('email');
+  let userEmail = "sksk@gmail.com";
   return (dispatch) => {
     return callApi('user/userEmail', 'post', imageFormData, "upload").then(res => dispatch(uploadImageSuccess(res)));
   };
 }
 
-export function getUserSuccess(data) {
-  console.log("this is in getUserSuccess");
-  return {
-  type : GET_USER_DETAILS,
-    data
-  }
-}
+
 
 export function signinSuccess(data) {
   console.log("this is in signinsuccess");
   localStorage.setItem('token', data.token);
   localStorage.setItem('email', data.id);
-  let email1 = data.id;
-  console.log("this is emain in signin success" + emai11);
+  console.log("this is printing" + data.id);
+  let email = data.id;
+  /*let email;
+  if(data.id==null || data.id=='undefied')
+    {console.log("in failed condition");
+      email = "print@gmail.com"; }
+  console.log("this is emain in signin success" + email);*/
   return {
   type : SIGNIN_SUCCESS,
-  email1
+  email
   }
 }
 
 export function signupSuccess(data) {
-  console.log("this is in signupSuccess");
+  console.log("this is in signupSuccess header actions");
   console.log(data);
   console.log(data.token);
   localStorage.setItem('token', data.token);
   localStorage.setItem('email', data.id);
   let email = data.id;
+  
+  
   return {
   type : SIGNUP_SUCCESS,
   email
@@ -143,7 +160,8 @@ export function editCardSuccess(data) {
 export function handleEditCard(data) {
   console.log("in actions handle card");
   let req = {};
-  userEmail = localStorage.getItem('email');
+  //userEmail = localStorage.getItem('email');
+  let userEmail = "sksk@gmail.com";
   req.cardNumber = data.cardNumber;
   req.cardName = data.cardName;
   req.exp_year = data.exp_year;
@@ -169,7 +187,6 @@ export function signUpvalidation(data) {
 
 export function signInvalidation(data) {
   let req = {};
-  console.log("this is in action signin"+ data.email);
   req.email = data.email;
   req.password = data.password;
   return (dispatch) => {
@@ -178,9 +195,9 @@ export function signInvalidation(data) {
 }
 
 export function signOut() {
-  console.log("this is in action signOut");
+  //console.log("this is in action signOut");
   localStorage.clear();
-  console.log("local storage after clear" + JSON.stringify(localStorage));
+  //console.log("local storage after clear" + JSON.stringify(localStorage));
   browserHistory.push('/');
 }
 /*
