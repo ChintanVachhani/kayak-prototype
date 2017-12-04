@@ -187,7 +187,12 @@ function handle_request(req, callback) {
   }
 
   if (req.name === 'topTenBasedOnYearRevenue') {
-    Booking.aggregate([{$group: {_id: '$bookingDetail.serviceId', total: {$sum: '$bookingDetail.price'}}}, {$sort: {total: 1}}, {$limit: 10}], (error, bookings) => {
+    Booking.aggregate([{$match: {serviceType: req.query.serviceType}}, {
+      $group: {
+        _id: '$bookingDetail.serviceId',
+        total: {$sum: '$bookingDetail.price'},
+      },
+    }, {$sort: {total: 1}}, {$limit: 10}], (error, bookings) => {
       if (error) {
         console.error(error);
         res = {
@@ -229,7 +234,7 @@ function handle_request(req, callback) {
   }
 
   if (req.name === 'topTenBasedOnMonthRevenue') {
-    Booking.aggregate([{$match: {month: req.query.month, year: req.query.year}}, {
+    Booking.aggregate([{$match: {month: req.query.month, year: req.query.year, serviceType: req.query.serviceType}}, {
       $group: {
         _id: '$bookingDetail.serviceId',
         total: {$sum: '$bookingDetail.price'},
