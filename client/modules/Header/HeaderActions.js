@@ -17,7 +17,8 @@ const headers = {
 };
 // Export Actions
 export function changeFormDisplay(displayForm) {
-  console.log("this is changeform display" );    
+  console.log("this is changeform display" );
+      browserHistory.push('/');
   return {
    type : UPDATE_FORMTYPEHEADER,
    displayForm                                // this is same as newItem : newItem in ES6
@@ -55,6 +56,7 @@ export function redirectToHome(data) {
 
 export function editProfileSuccess(data) {
   console.log("this is in handle");
+  console.log(data);
   return {
   type : EDIT_PROFILE_SUCCESS,
   data
@@ -70,21 +72,23 @@ export function uploadImageSuccess(data) {
 }
 
 export function deleteAccount() {
-  //let userEmail = localStorage.getItem('email');
-  let userEmail = "sksk@gmail.com";
+  let userEmail = localStorage.getItem('email');
+  //let userEmail = "sksk@gmail.com";
   let req = {};
   return (dispatch) => {
-    return callApi('user/userEmail', 'delete', req).then(res => dispatch(deleteProfileSuccess(res)));
+    return callApi(`user/${userEmail}`, 'delete', req).then(res => dispatch(deleteProfileSuccess(res)));
   };
 }
 
 export function getUserDetails() {
   console.log("in getUserDetails actions");
-  //let userEmail = localStorage.getItem('email');
-  let userEmail = "sksk@gmail.com";
+  let userEmail = localStorage.getItem('email');
+  console.log("this is userEmail in getuserdetails" +userEmail );
+
+  //let userEmail = "sksk@gmail.com";
   let req = {};
   return (dispatch) => {
-    return callApi('user/userEmail', 'get', req).then(res => dispatch(getUserSuccess(res)));
+    return callApi(`user/${userEmail}`, 'get', req).then(res => dispatch(getUserSuccess(res)));
   };
 }
 
@@ -100,17 +104,19 @@ export function handleEditProfile(data) {
         phoneNumber: data.phoneNumber
     };
   let userEmail = localStorage.getItem('email');
+  console.log("this is userEMail  "+ userEmail );
+  console.log(req);
   return (dispatch) => {
-    return callApi('user/userEmail', 'patch', req).then(res => dispatch(editProfileSuccess(res)));
+    return callApi(`user/${userEmail}`, 'PATCH', req).then(res => dispatch(getUserDetails()));
   };
 }
 
 export function handleImageEdit(imageFormData) {
   console.log("in handleImageEdit actions");
-  //let userEmail = localStorage.getItem('email');
-  let userEmail = "sksk@gmail.com";
+  let userEmail = localStorage.getItem('email');
+  //let userEmail = "sksk@gmail.com";
   return (dispatch) => {
-    return callApi('user/userEmail', 'post', imageFormData, "upload").then(res => dispatch(uploadImageSuccess(res)));
+    return callApi(`user/${userEmail}`, 'post', imageFormData, "upload").then(res => dispatch(uploadImageSuccess(res)));
   };
 }
 
@@ -122,6 +128,7 @@ export function signinSuccess(data) {
   localStorage.setItem('email', data.id);
   console.log("this is printing" + data.id);
   let email = data.id;
+  
   /*let email;
   if(data.id==null || data.id=='undefied')
     {console.log("in failed condition");
@@ -160,8 +167,9 @@ export function editCardSuccess(data) {
 export function handleEditCard(data) {
   console.log("in actions handle card");
   let req = {};
-  //userEmail = localStorage.getItem('email');
-  let userEmail = "sksk@gmail.com";
+  let userEmail = localStorage.getItem('email');
+  //let userEmail = "sksk@gmail.com";
+  req.email = userEmail;
   req.cardNumber = data.cardNumber;
   req.cardName = data.cardName;
   req.exp_year = data.exp_year;

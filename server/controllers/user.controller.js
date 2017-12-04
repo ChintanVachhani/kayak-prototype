@@ -83,7 +83,7 @@ export function getUser(req, res) {
 
     switch (response.status) {
       case 200:
-        cacheClient.setex(req.params,60, JSON.stringify(response));
+       // cacheClient.setex(req.params,60, JSON.stringify(response));
         res.status(200).json(response);
         break;
       case 201:

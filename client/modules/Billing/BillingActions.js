@@ -7,8 +7,9 @@ import {Router, browserHistory, Route} from 'react-router';
 
 export function handleBook(data) {
   console.log("in actions handle card");
+  //let userEmail = localStorage.getItem('email');
   let req = {
-    userID: '',
+    userID: userEmail,
     serviceType: data.serviceType,
     bookingDetail: {
       serviceId: data.bookingDetail.serviceId,

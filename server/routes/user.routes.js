@@ -17,8 +17,8 @@ router.route('/addCard').post(UserController.addCard);
 router.route('/').get(UserController.getAllUsers);
 
 // Get User
-router.route('/:email').get(cache, UserController.getUser);
-
+//router.route('/:email').get(cache, UserController.getUser);
+router.route('/:email').get(UserController.getUser);
 // Delete User
 router.route('/:email').delete(UserController.deleteUser);
 

@@ -102,7 +102,24 @@ class Billing extends Component {
 
     render() {
       console.log(this.state);
-
+      let totalPrice = this.props.price;
+      if(this.props.serviceType == 'hotel') {
+        let dateFrom = new Date(this.props.home.hotelFormData.checkin);
+        let dateTo = new Date(this.props.home.hotelFormData.checkout);
+        let timeDifference = Math.abs(dateFrom.getTime() - dateTo.getTime());
+        let daysDifference = Math.ceil(timeDifference / (1000 * 3600 * 24));
+        totalPrice = daysDifference * this.props.price;
+      }
+      if(this.props.serviceType == 'car') {
+        let dateFrom = new Date(this.props.home.carFormData.fromDate);
+        let dateTo = new Date(this.props.home.carFormData.toDate);
+        let timeDifference = Math.abs(dateFrom.getTime() - dateTo.getTime());
+        let daysDifference = Math.ceil(timeDifference / (1000 * 3600 * 24));
+        totalPrice = daysDifference * this.props.price;
+      }
+      if(this.props.serviceType == 'flight') {
+        totalPrice = this.props.home.flightFormData.passengers * this.props.price;
+      }
     return (
       <div>
         <div>
@@ -120,12 +137,14 @@ class Billing extends Component {
                         <h4><b>Place : {this.state.bookingDetail.fromPlace}</b></h4>
                         <h5>From: {this.state.bookingDetail.dateFrom}</h5>
                         <h5>To: {this.state.bookingDetail.dateTo}</h5>
+                        <h5>Price : {totalPrice}</h5>
                       </div>
                       :
                       <div>
                         <h4><b>{this.state.bookingDetail.fromPlace} to {this.state.bookingDetail.toPlace}</b></h4>
                         <h5>From: {this.state.bookingDetail.dateFrom}</h5>
                         <h5>To: {this.state.bookingDetail.dateTo}</h5>
+                        <h5>Price : {totalPrice}</h5>
                       </div>
                     }
                   </div>
