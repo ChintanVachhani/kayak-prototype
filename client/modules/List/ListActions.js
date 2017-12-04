@@ -1,10 +1,12 @@
 import callApi from './../../util/apiCaller';
+import {Router, browserHistory, Route} from 'react-router';
 
 // Export Constants
 export const FETCH_CARS = 'CREATE_FLIGHT';
 export const FETCH_FLIGHTS = 'CREATE_HOTEL';
 export const FETCH_HOTELS = 'ADMIN_SIGNIN';
-
+export const SERVICE_DATA = 'SERVICE_DATA';
+export const SET_SERVICE_BOOKING_DATA = 'SET_SERVICE_BOOKING_DATA';
 // Export Actions
 
 export function filterCars(data) {	
@@ -108,12 +110,35 @@ export function getHotelList(data){
 	function success(payload) { return { type: FETCH_HOTELS, payload } }
 
 }
+export function getServiceDetail(booking){
+  console.log("get service detail", booking);
+  let url = booking.serviceType+'/'+bookingDetail.serviceId; 
+  return (dispatch) => {
+    return callApi(url).then(res => dispatch(success(res)));
+  };
 
-/*
-function updateCarList(payload) {
-  return {
-    type: FETCH_CARS,
-    cars: payload.cars
+  function success(res) { 
+    if(booking.serviceType=='Car')
+      return { type: SERVICE_DATA, serviceClicked:res.car } 
+    else if(booking.serviceType=='Flight')
+      return { type: SERVICE_DATA, serviceClicked:res.flight }
+    else
+      return { type: SERVICE_DATA, serviceClicked:res.hotel }       
   }
+}
 
-*/
+export function serviceForBooking(service,type){
+    return dispatch =>{ 
+        dispatch(serviceBookingUpdate(service,type));
+        browserHistory.push('/billing');
+    }
+}
+
+export function serviceBookingUpdate(service,type) {
+  return {
+    type: SET_SERVICE_BOOKING_DATA,
+    serviceId:service._id,
+    serviceType:type,
+    price:service.price
+  }
+}

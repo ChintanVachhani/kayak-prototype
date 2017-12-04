@@ -25,10 +25,11 @@ export default class List extends Component {
 		flight: [FlightList,FlightForm,FlightSidebar],
 		hotel: [HotelList,HotelForm,HotelSidebar]
 	};	
-  	const Service = components[this.props.params.service][0];
-  	const ServiceForm = components[this.props.params.service][1];
-  	const FilterSidebar = components[this.props.params.service][2];
-  	
+	if(this.props.params.service){
+	  	const Service = components[this.props.params.service][0];
+	  	const ServiceForm = components[this.props.params.service][1];
+	  	const FilterSidebar = components[this.props.params.service][2];
+  	}
     return (
     	<div className="container-fluid">
 	    	<div className="row" id={styles['header']}>

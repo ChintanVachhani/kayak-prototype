@@ -3,11 +3,12 @@ import Star from 'react-icons/lib/fa/star';
 import styles from './Hotel.css';
 import { connect } from 'react-redux';
 import {deleteHotel} from './../../../Admin/AdminActions';
+import {serviceForBooking} from '../../ListActions';
 
 class Hotel extends Component {
 
     render() {
-        const {hotel,isAdmin} = this.props;
+        const {hotel,isAdmin,showOnly,serviceForBooking} = this.props;
         let starPrinted = 0;
         let stars= function(){
 
@@ -50,7 +51,12 @@ class Hotel extends Component {
                 :
                 	<div className="col-md-2" id= {styles['itemActionBlock']}>
 	                    <strong><span className={styles['priceValue']}>{hotel.price}</span></strong><br/><br/>    
-	                    <button className="btn btn-warning" onClick="">Book Hotel</button>            
+	                    <div>
+	                    {
+	                    showOnly?'':	
+	                    <button className="btn btn-warning" onClick={()=>{serviceForBooking(hotel,'Hotel')}}>Book Hotel</button>            
+	                	}
+	                    </div>
 	                </div>
 
             	}
@@ -67,7 +73,8 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-        deleteHotel : (data) => dispatch(deleteHotel(data))
+        deleteHotel : (data) => dispatch(deleteHotel(data)),
+        serviceForBooking : (data,type) => dispatch(serviceForBooking(data,type))
     };
 };
 

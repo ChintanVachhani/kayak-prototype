@@ -4,12 +4,12 @@ import EditFlight from './../../../Admin/flights/EditFlight';
 import DeleteFlight from './../../../Admin/flights/DeleteFlight';
 import { connect } from 'react-redux';
 import {deleteFlight} from './../../../Admin/AdminActions';
-
+import {serviceForBooking} from '../../ListActions';
 class Flight extends Component {
 
     render() {
 
-        const {flight,isAdmin} = this.props;
+        const {flight,isAdmin,showOnly,serviceForBooking} = this.props;
         let depTime = flight.departureTime.toString();
         let arvTime = flight.arrivalTime.toString();
         switch(depTime.length) {
@@ -98,7 +98,12 @@ class Flight extends Component {
                     :
                     <div className="col-md-2" id={styles['itemActionBlock']}>
                             <span className={styles['priceValue']}>{flight.price.economy}</span><br/><br/>    
-                            <button className="btn btn-warning" onClick="">Book Flight</button>               
+                        <div>
+                        {
+                        showOnly?'':    
+                        <button className="btn btn-warning" onClick={()=>{serviceForBooking(hotel,'Flight')}}>Book Flight</button>            
+                        }
+                        </div>                            
                     </div> 
                 }
                 
@@ -114,7 +119,8 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-        deleteFlight : (data) => dispatch(deleteFlight(data))
+        deleteFlight : (data) => dispatch(deleteFlight(data)),
+        serviceForBooking : (data,type) => dispatch(serviceForBooking(data,type))
     };
 };
 

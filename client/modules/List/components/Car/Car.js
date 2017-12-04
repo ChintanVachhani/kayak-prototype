@@ -6,14 +6,15 @@ import Bag from 'react-icons/lib/fa/shopping-bag';
 import styles from './Car.css';
 
 import {deleteCar} from './../../../Admin/AdminActions';
+import {serviceForBooking} from '../../ListActions';
 
 class Car extends Component {
 
 
     render() {
-        const {car} = this.props;
-         var imgSrc = new Buffer(car.carImage.data, 'base64').toString();
-        let img = "data:"+car.carImage.contentType+";base64," + imgSrc;
+        const {car,showOnly,serviceForBooking} = this.props;
+        //  var imgSrc = new Buffer(car.carImage.data, 'base64').toString();
+        // let img = "data:"+car.carImage.contentType+";base64," + imgSrc;
         return (
             <div className={styles['item']}>
             <div className="row">
@@ -40,7 +41,7 @@ class Car extends Component {
                             </div>                 
                           </div>
                           <div className="col-md-4">
-                            <p> <img src={img} className={styles['imgWidth']} /></p>
+                            
                           </div>
                         </div> 
                 </div>
@@ -53,7 +54,12 @@ class Car extends Component {
                 :
                     <div className="col-md-2" id= {styles['itemActionBlock']}>
                         <strong><span className={styles['priceValue']}>{car.price}</span></strong><br/><br/>    
-                        <button className="btn btn-warning" onClick="">Book Car</button>            
+                        <div>
+                        {
+                        showOnly?'':    
+                        <button className="btn btn-warning" onClick={()=>{serviceForBooking(car,'Car')}}>Book Car</button>            
+                        }
+                        </div>                        
                     </div> 
                 }
 
@@ -69,7 +75,8 @@ const mapStateToProps = (state) => {
 
 const mapDispatchToProps = (dispatch) => {
   return {
-        deleteCar : (data) => dispatch(deleteCar(data))
+        deleteCar : (data) => dispatch(deleteCar(data)),
+        serviceForBooking : (data,type) => dispatch(serviceForBooking(data,type))
     };
 };
 
