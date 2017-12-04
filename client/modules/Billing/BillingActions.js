@@ -6,24 +6,23 @@ import callApi from '../../util/apiCaller';
 import {Router, browserHistory, Route} from 'react-router';
 
 export function handleBook(data) {
-  console.log("in actions handle card");
+  console.log("in actions handle card booking");
   //let userEmail = localStorage.getItem('email');
   let req = {
-    userID: userEmail,
+    userID: data.email,
     serviceType: data.serviceType,
-    bookingDetail: {
-      serviceId: data.bookingDetail.serviceId,
+    serviceName: data.bookingDetail.serviceName,
+    serviceId: data.bookingDetail.serviceId,
       city: data.bookingDetail.toPlace,
       price: data.bookingDetail.price,
       dateFrom: data.bookingDetail.dateFrom,
-      dateTo: data.bookingDetail.dateTo
-    },
-    cardNumber: data.booking.card_Number,
+      dateTo: data.bookingDetail.dateTo,
+    cardNumber: data.card_Number,
     billingZipcode: data.billingDetails.add_PostalCode,
   };
   let userEmail = data.email;
   return (dispatch) => {
-    return callApi('billing', 'put', req).then(res => dispatch(bookingSuccess(res)));
+    return callApi('booking', 'put', req).then(res => dispatch(bookingSuccess(res)));
   };
 }
 

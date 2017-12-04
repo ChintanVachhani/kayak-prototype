@@ -13,8 +13,12 @@ router.route('/signin').post(UserController.signin);
 // Add card to User Detail
 router.route('/addCard').post(UserController.addCard);
 
+// Get All Users
+router.route('/').get(cacheAllUsers, UserController.getAllUsers);
+
 // Get User
 router.route('/:email').get(cacheUser, UserController.getUser);
+
 
 // Session Authentication
 router.use('/', function (req, res, next) {
