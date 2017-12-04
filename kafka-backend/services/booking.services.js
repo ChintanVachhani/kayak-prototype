@@ -10,19 +10,28 @@ function handle_request(req, callback) {
   let decoded = jwt.decode(req.query.token);
 
   if (req.name === 'createBooking') {
+
     let now = Date.now();
     let d = new Date(now);
     let date = d.toLocaleDateString();
     let year = d.getFullYear();
     let month = d.getMonth() + 1;
+
+    let dateFrom = new Date(req.body.dateFrom);
+    let dateTo = new Date(req.body.dateTo);
+    let timeDifference = Math.abs(dateFrom.getTime() - dateTo.getTime());
+    let daysDifference = Math.ceil(timeDifference / (1000 * 3600 * 24));
+
+    let calculatedPrice = daysDifference * req.body.price;
+
     let booking = Booking({
       userID: req.body.userID,
       serviceType: req.body.serviceType,
       bookingDetail: {
         serviceId: req.body.serviceId,
-        price: req.body.price,
-        dateFrom: req.body.dateFrom,
-        dateTo: req.body.dateTo,
+        price: calculatedPrice,
+        dateFrom: dateFrom,
+        dateTo: dateTo,
         city: req.body.city,
       },
       dateAdded: date,
