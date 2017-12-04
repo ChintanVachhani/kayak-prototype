@@ -1,5 +1,5 @@
 # kayak-prototype
-A group project to create a simple Kayak replica. It uses NodeJS, ExpressJS, ReactJS, MongoDB and Apache Kafka.
+A group project to create a simple Kayak replica. It uses NodeJS, ExpressJS, ReactJS, MongoDB, Apache Kafka and Redis.
 
 ## Git Repository
 
@@ -22,9 +22,10 @@ A group project to create a simple Kayak replica. It uses NodeJS, ExpressJS, Rea
    npm install
    npm start
    ```
-**Note : Please make sure your MongoDB, Zookeeper and Kafka are running.** 
+**Note : Please make sure your MongoDB, Zookeeper, Kafka and Redis are running.** 
 For MongoDB installation guide see [this](https://docs.mongodb.org/v3.0/installation/).
-For Kafka installation guide see [this](https://kafka.apache.org/quickstart). 
+For Kafka installation guide see [this](https://kafka.apache.org/quickstart).
+For Redis installation guide see [this](https://redis.io/topics/quickstart). 
 Also `npm3` is required to install dependencies properly.
 
 # Boilerplate code

@@ -36,6 +36,7 @@ import flight from './routes/flight.routes';
 import hotel from './routes/hotel.routes';
 import booking from './routes/booking.routes';
 import util from './util/util';
+import logUtil from './routes/util.routes';
 import serverConfig from './config';
 
 // Apply body Parser and server public assets and routes
@@ -49,6 +50,7 @@ app.use('/api/flight', flight);
 app.use('/api/hotel', hotel);
 app.use('/api/booking', booking);
 app.use('/api/util', util);
+app.use('/api/logUtil', logUtil);
 
 // Render Initial HTML
 const renderFullPage = (html, initialState) => {
