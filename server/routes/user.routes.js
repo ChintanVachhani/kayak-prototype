@@ -14,11 +14,12 @@ router.route('/signin').post(UserController.signin);
 router.route('/addCard').post(UserController.addCard);
 
 // Get All Users
-router.route('/').get(cacheAllUsers, UserController.getAllUsers);
-
+//router.route('/').get(cacheAllUsers, UserController.getAllUsers);
+router.route('/').get(UserController.getAllUsers);
 // Get User
 
-router.route('/:email').get(cacheUser, UserController.getUser);
+//router.route('/:email').get(cacheUser, UserController.getUser);
+router.route('/:email').get(UserController.getUser);
 
 // Delete User
 router.route('/:email').delete(UserController.deleteUser);

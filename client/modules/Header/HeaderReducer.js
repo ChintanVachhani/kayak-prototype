@@ -29,24 +29,6 @@ const HeaderReducer = (state = initialState, action) => {
   let user;
   switch (action.type) {
 
-      case SIGNUP_SUCCESS :
-        console.log("in signup success reducer");
-        user = state.userdetails;
-        user.email = action.email;
-            return {
-               ...state,
-               userdetails : user
-           };
-
-      case SIGNIN_SUCCESS :
-        console.log("in signin success reducer");
-        console.log(action.email);
-        user = state.userdetails;
-        user.email = action.email;
-           return {
-               ...state,
-               userdetails : user
-           };
       case UPLOAD_IMAGE_SUCCESS :
        user = state.userdetails;
        user.profileImage = action.data.file;
@@ -54,6 +36,8 @@ const HeaderReducer = (state = initialState, action) => {
             ...state,
             userdetails : user
         };
+      case SIGNIN_SUCCESS :
+      case SIGNUP_SUCCESS :
       case GET_USER_DETAILS :
       case EDIT_PROFILE_SUCCESS : 
         console.log("in get user success reducer");
@@ -65,6 +49,7 @@ const HeaderReducer = (state = initialState, action) => {
         user.city = action.data.user.city;
         user.state = action.data.user.state;
         user.zipcode = action.data.user.zipcode;
+        user.email = action.data.user.email;
         //user.profileImage = action.data.profileImage;
         console.log(JSON.stringify(user));
         return {

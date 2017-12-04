@@ -4,6 +4,8 @@ import { bindActionCreators } from 'redux';
 import Footer from '../Footer/Footer';
 import Header from '../Header/Header';
 
+import {handleBook} from './BillingActions';
+
 // Import Style
 import styles from './Billing.css';
 
@@ -51,36 +53,35 @@ class Billing extends Component {
 
   componentWillMount() {
     console.log(" Refreshing Home page");
-  }
-
-  componentDidMount() {
-    console.log(" Refreshing Home page");
-    if(this.props.serviceType == 'car') {
+    if(this.props.serviceType == 'Car') {
+      console.log(this.props.home.carFormData.fromDate);
       this.setState( {
                       serviceType : this.props.serviceType,
                       bookingDetail: {
-                      serviceId: this.props.serviceId,
-                      price: this.props.price,
-                      dateFrom: this.props.home.carFormData.fromDate,
-                      dateTo: this.props.home.carFormData.toDate,
-                      toPlace: this.props.home.carFormData.place,
-                      fromPlace: this.props.home.carFormData.place
-                    }
+                        serviceId: this.props.serviceId,
+                        price: this.props.price,
+                        dateFrom: this.props.home.carFormData.fromDate,
+                        dateTo: this.props.home.carFormData.toDate,
+                        toPlace: this.props.home.carFormData.place,
+                        fromPlace: this.props.home.carFormData.place
+                      }
                   }
         );
+      console.log(this.state, "in the car ");
     }
-    if(this.props.serviceType == 'flight') {
+    else if(this.props.serviceType == 'Flight') {
       this.setState (
             {
                 serviceType : this.props.serviceType,
                 bookingDetail: {
-                serviceId: this.props.serviceId,
-                price: this.props.price,
-                dateFrom: this.props.home.flightFormData.departDate,
-                dateTo: this.props.home.flightFormData.returnDate,
-                toPlace: this.props.home.flightFormData.toPlace,
-                fromPlace: this.props.home.flightFormData.fromPlace
-              }
+                  serviceId: this.props.serviceId,
+                  serviceName: this.props.serviceName,
+                  price: this.props.price,
+                  dateFrom: this.props.home.flightFormData.departDate,
+                  dateTo: this.props.home.flightFormData.returnDate,
+                  toPlace: this.props.home.flightFormData.toPlace,
+                  fromPlace: this.props.home.flightFormData.fromPlace
+                }
             }
         );
     } else {
@@ -89,6 +90,7 @@ class Billing extends Component {
                 serviceType : this.props.serviceType,
                 bookingDetail: {
                 serviceId: this.props.serviceId,
+                serviceName: this.props.serviceName,
                 price: this.props.price,
                 dateFrom: this.props.home.hotelFormData.checkin,
                 dateTo: this.props.home.hotelFormData.checkout,
@@ -100,8 +102,15 @@ class Billing extends Component {
     }
   }
 
+  componentDidMount() {
+    console.log(" Refreshing Home page after componentDidMount");
+    
+  }
+
     render() {
       console.log(this.state);
+      console.log(this.props);
+      console.log("sudheer testing here");
       let totalPrice = this.props.price;
       if(this.props.serviceType == 'hotel') {
         let dateFrom = new Date(this.props.home.hotelFormData.checkin);
@@ -603,8 +612,14 @@ class Billing extends Component {
 
 function mapStateToProps(store) {
   const {home} = store;
+  const {serviceId, serviceType, price} = store.list;
+  let serviceName = "";
+  if (serviceType == "Car" || serviceType == "Flight")
+      serviceName = "operator";
+  else if(serviceType == "Hotel")
+      serviceName = "hotelName";
   console.log("this is home mapstateto prop reducer " );
-  return {home};
+  return {home,serviceType,serviceId,price, serviceName};
 }
 
 function mapDispatchToProps(dispatch) {
