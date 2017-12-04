@@ -17,6 +17,6 @@ const logger = new (winston.Logger)({
   ],
 });
 
-logger.info('Testing');
+logger.info({page: 'Testing', user: ''});
 
 module.exports = logger;

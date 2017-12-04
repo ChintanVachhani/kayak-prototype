@@ -1,11 +1,13 @@
 let Hotel = require('../models/hotel');
 
 const logger = require('../logger');
+let jwt = require('jsonwebtoken');
 
 function handle_request(req, callback) {
   console.log("In handle request:" + JSON.stringify(req));
 
   let res;
+  let decoded = jwt.decode(req.query.token);
 
   if (req.name === 'createHotel') {
     let hotel = Hotel({
@@ -102,6 +104,9 @@ function handle_request(req, callback) {
   }
 
   if (req.name === 'getAllHotels') {
+
+    logger.info({page: 'Hotel', user: decoded.user.email || ''});
+
     Hotel.find({}, (error, hotels) => {
       if (error) {
         res = {
@@ -123,7 +128,7 @@ function handle_request(req, callback) {
 
   if (req.name === 'searchHotels') {
 
-    logger.info('Hotel');
+    logger.info({page: 'Hotel', user: decoded.user.email || ''});
 
     //Naive logic - to be optimized later
     let conditions = [];

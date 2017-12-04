@@ -1,11 +1,13 @@
 let Booking = require('../models/booking');
 
 const logger = require('../logger');
+let jwt = require('jsonwebtoken');
 
 function handle_request(req, callback) {
   console.log("In handle request:" + JSON.stringify(req));
 
   let res;
+  let decoded = jwt.decode(req.query.token);
 
   if (req.name === 'createBooking') {
     let now = Date.now();
@@ -129,7 +131,7 @@ function handle_request(req, callback) {
 
   if (req.name === 'getAllBookingsForUser') {
 
-    logger.info('Booking');
+    logger.info({page: 'Booking', user: decoded.user.email || ''});
 
     Booking.find({userID: req.params.email}, (error, bookings) => {
       if (error) {

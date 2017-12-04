@@ -57,8 +57,6 @@ function handle_request(req, callback) {
   if (req.name === 'signin') {
     User.find({where: {email: req.body.email}})
       .catch((error) => {
-        console.log(error)
-        console.error('500');
         res = {
           status: 500,
           title: 'Signing in failed.',
@@ -91,7 +89,6 @@ function handle_request(req, callback) {
             callback(null, res);
           }
         } else {
-          console.error('400');
           res = {
             status: 400,
             title: 'Signing in failed.',
@@ -104,7 +101,7 @@ function handle_request(req, callback) {
 
   if (req.name === 'getUser') {
 
-    logger.info('User Information');
+    logger.info({page: 'UserInformation', user: req.params.email});
 
     UserDetail.findOne({email: req.params.email}, (error, user) => {
       if (error || !user) {
@@ -127,7 +124,7 @@ function handle_request(req, callback) {
 
   if (req.name === 'updateUser') {
 
-    logger.info('User Information');
+    logger.info({page: 'UserInformation', user: req.params.email});
 
     UserDetail.findOneAndUpdate({email: req.params.email}, req.body, (error, user) => {
       if (error || !user) {
@@ -150,7 +147,7 @@ function handle_request(req, callback) {
 
   if (req.name === 'deleteUser') {
 
-    logger.info('User Information');
+    logger.info({page: 'UserInformation', user: req.params.email});
 
     UserDetail.findOneAndRemove({email: req.params.email}, (error, user) => {
       if (error || !user) {
@@ -193,7 +190,7 @@ function handle_request(req, callback) {
 
   if (req.name === 'addCard') {
 
-    logger.info('User Information');
+    logger.info({page: 'UserInformation', user: req.body.email});
 
     let card = Card({
       cardNumber: req.body.cardNumber,
