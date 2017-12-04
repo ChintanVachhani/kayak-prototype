@@ -47,9 +47,9 @@ export default (
     />*/}
     <IndexRoute component={Home}/>
     <Route path="admin" component={Admin}/>
-    <Route path="/account" component={AccountPage}/>
-    <Route path="/billing" component={Billing}/>
-    <Route path="/:service" component={List}/>
-     <Route path="admin/:service" component={Admin}/>
+    <Route path="account" component={AccountPage}/>
+    <Route path="billing" component={Billing}/>
+    <Route path="list/:service" component={List}/>
+    <Route path="admin/:service" component={Admin}/>
   </Route>
 );

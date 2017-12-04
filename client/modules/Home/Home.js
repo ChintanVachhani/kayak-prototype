@@ -31,9 +31,9 @@ class Home extends Component {
                         <nav id="servicelist">
                             <div className="container-fluid">
                                 <ul className="nav " role="tablist" id={styles['nav-pills']}>
-                                    
+
                                     <li role="tab" role="button" style={{'padding': '2px', 'background-color':'white'}}>
-                                    
+
                                         <a role="button" style={{ 'justify-content': 'center'}}   onClick={() => {this.props.changeForm('hotels'); } }  >
                                             <span className="icon" >
                                                 <svg xmlns="http://www.w3.org/2000/svg" width="25" height="17" fill="currentColor" viewBox="0 0 25 17">
@@ -44,13 +44,11 @@ class Home extends Component {
                                             <span><b>HOTELS</b></span>
                                         </a>
                                     </li>
-                                    
+
                                     <li role="tab" style={{'padding': '2px', 'background-color':'white'}}>
                                         <a role="button" style={{ 'justify-content': 'center'}} onClick={() => {this.props.changeForm('flights');}}>
                                             <span className="icon" >
                                                 <svg xmlns="http://www.w3.org/2000/svg" width="25" height="17" fill="currentColor" viewBox="0 0 25 17">
-                                                    <path d="M2 14.77h21v2H2z"></path>
-                                                    <path d="M6 7.07V6a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v1.07h1V6a1 1 0 0 1 1-1h4a1 1 0 0 1 1 1v1.07h2V0H4v7.07h2zM21 8.67H4a4.06 4.06 0 0 0-4 4.07v2.43h25v-2.43a4.06 4.06 0 0 0-4-4.07z"></path>
                                                     <path d="M16.79 7.83l-3.93 3.93 4.51 7.05.76-.76-1.34-10.22M12.24 3.15L1.62 1.76l-.75.76 7.32 4.69 4.05-4.06"></path>
                                                     <path d="M10.73 11.94l1.3-1.3 4.28-4.28 2.8-2.8s1.54-2.12.46-3.17-3.17.47-3.17.47l-2.62 2.62-4.4 4.4L8 9.24a20 20 0 0 0-2.23 3.2l-4.67-.89L0 12.62l3.79 2.65.92.92L7.41 20l1.07-1.1-.91-4.76a20.06 20.06 0 0 0 3.16-2.2z"></path>
                                                 </svg>
@@ -67,19 +65,19 @@ class Home extends Component {
                                                     <path d="M31 7.77c-.87-1.6-8.41-2.52-8.41-2.52S17.3.46 14.53 0H6.37h1.5A7.73 7.73 0 0 0 3 1.59a18.47 18.47 0 0 0-3 4.23v3.83c0 3.86 1.55 4.49 2.53 4.52v-.13A3.76 3.76 0 1 1 10 14v.07l9-.01a3.76 3.76 0 0 1 7.52 0h.79a7 7 0 0 0 3.9-.93A28.38 28.38 0 0 0 31 7.77zm-19-2.6V1.84h2.72c1.3 0 3.56 1.72 5.42 3.45z"></path>
                                                     <circle cx="22.71" cy="14.04" r="2.36"></circle>
                                                     <circle cx="6.28" cy="14.04" r="2.36"></circle>
-                                                    
+
                                                 </svg>
                                             </span>
                                             <span><b>CARS</b></span>
                                         </a>
                                     </li>
-                                            
+
                                 </ul>
                             </div>
                         </nav>
                     </div>
                 	{
-                		this.props.formType == 'cars' ? 
+                		this.props.formType == 'cars' ?
                 		  <div  className=" col-md-offset-1 col-md-8" style={{'background-color':'#f2f2f2', 'padding':'10px', 'display':'block', 'height': '175px'}}>
                     		  <CarContainer />
                 		  </div>

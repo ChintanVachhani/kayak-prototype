@@ -105,7 +105,10 @@ function handle_request(req, callback) {
 
   if (req.name === 'getAllHotels') {
 
-    logger.info({page: 'Hotel', user: decoded.user.email || ''});
+    if(decoded !== null && decoded.user.email !== null)
+      logger.info({page: 'Hotel', user: decoded.user.email});
+    else
+      logger.info({page: 'Hotel', user: ''});
 
     Hotel.find({}, (error, hotels) => {
       if (error) {
@@ -128,7 +131,10 @@ function handle_request(req, callback) {
 
   if (req.name === 'searchHotels') {
 
-    logger.info({page: 'Hotel', user: decoded.user.email || ''});
+    if(decoded !== null && decoded.user.email !== null)
+      logger.info({page: 'Hotel', user: decoded.user.email});
+    else
+      logger.info({page: 'Hotel', user: ''});
 
     //Naive logic - to be optimized later
     let conditions = [];

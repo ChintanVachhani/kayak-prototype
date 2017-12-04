@@ -101,7 +101,10 @@ function handle_request(req, callback) {
 
   if (req.name === 'getAllCars') {
 
-    logger.info({page: 'Car', user: decoded.user.email || ''});
+    if(decoded !== null && decoded.user.email !== null)
+      logger.info({page: 'Car', user: decoded.user.email});
+    else
+      logger.info({page: 'Car', user: ''});
 
     Car.find({}, (error, cars) => {
       if (error) {
@@ -124,7 +127,10 @@ function handle_request(req, callback) {
 
   if (req.name === 'searchCars') {
 
-    logger.info({page: 'Car', user: decoded.user.email || ''});
+    if(decoded !== null && decoded.user.email !== null)
+      logger.info({page: 'Car', user: decoded.user.email});
+    else
+      logger.info({page: 'Car', user: ''});
 
     //Naive logic - to be optimized later
     let conditions = [];

@@ -110,7 +110,10 @@ function handle_request(req, callback) {
 
   if (req.name === 'getAllFlights') {
 
-    logger.info({page: 'Flight', user: decoded.user.email || ''});
+    if(decoded !== null && decoded.user.email !== null)
+      logger.info({page: 'Flight', user: decoded.user.email});
+    else
+      logger.info({page: 'Flight', user: ''});
 
     Flight.find({}, (error, flights) => {
       if (error) {
@@ -133,7 +136,10 @@ function handle_request(req, callback) {
 
   if (req.name === 'searchFlights') {
 
-    logger.info({page: 'Flight', user: decoded.user.email || ''});
+    if(decoded !== null && decoded.user.email !== null)
+      logger.info({page: 'Flight', user: decoded.user.email});
+    else
+      logger.info({page: 'Flight', user: ''});
 
     //Naive logic - to be optimized later
     let conditions = [];

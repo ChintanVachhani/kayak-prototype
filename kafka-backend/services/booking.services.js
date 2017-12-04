@@ -140,7 +140,10 @@ function handle_request(req, callback) {
 
   if (req.name === 'getAllBookingsForUser') {
 
-    logger.info({page: 'Booking', user: decoded.user.email || ''});
+    if(decoded.user.email !== null)
+      logger.info({page: 'Booking', user: decoded.user.email});
+    else
+      logger.info({page: 'Booking', user: ''});
 
     Booking.find({userID: req.params.email}, (error, bookings) => {
       if (error) {
