@@ -14,6 +14,9 @@ router.route('/search').get(HotelController.searchHotels);
 // Get Hotel
 router.route('/:_id').get(cacheHotel, HotelController.getHotel);
 
+// Create Hotel
+router.route('/').put(HotelController.createHotel);
+
 // Session Authentication
 router.use('/', function (req, res, next) {
   jwt.verify(req.headers.token, 'admin', function (error, decoded) {
@@ -26,9 +29,6 @@ router.use('/', function (req, res, next) {
     next();
   });
 });
-
-// Create Hotel
-router.route('/').put(HotelController.createHotel);
 
 // Delete Hotel
 router.route('/:_id').delete(HotelController.deleteHotel);

@@ -14,6 +14,9 @@ router.route('/search').get(FlightController.searchFlights);
 // Get Flight
 router.route('/:_id').get(cacheFlight, FlightController.getFlight);
 
+// Create Flight
+router.route('/').put(FlightController.createFlight);
+
 // Session Authentication
 router.use('/', function (req, res, next) {
   jwt.verify(req.headers.token, 'admin', function (error, decoded) {
@@ -26,9 +29,6 @@ router.use('/', function (req, res, next) {
     next();
   });
 });
-
-// Create Flight
-router.route('/').put(FlightController.createFlight);
 
 // Delete Flight
 router.route('/:_id').delete(FlightController.deleteFlight);

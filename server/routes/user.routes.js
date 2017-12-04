@@ -17,7 +17,6 @@ router.route('/addCard').post(UserController.addCard);
 // Add card to User Detail
 router.route('/deleteCard').delete(UserController.deleteCard);
 
-
 // Get All Users
 router.route('/').get(cacheAllUsers, UserController.getAllUsers);
 

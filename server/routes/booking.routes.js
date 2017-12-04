@@ -8,6 +8,9 @@ const router = new Router();
 // Get All Bookings for User
 router.route('/all/:email').get(BookingController.getAllBookings);
 
+// Create Booking
+router.route('/').put(BookingController.createBooking);
+
 // Session Authentication
 router.use('/', function (req, res, next) {
   jwt.verify(req.headers.token, 'admin', function (error, decoded) {
@@ -35,9 +38,6 @@ router.route('/cityRevenue').get(BookingController.cityBasedRevenue);
 
 // Top 10 Bookings based on revenue for a month
 router.route('/topMonthRevenue').get(BookingController.topTenBasedOnMonthRevenue);
-
-// Create Booking
-router.route('/').put(BookingController.createBooking);
 
 // Get Booking
 router.route('/:cuid').get(cacheBooking, BookingController.getBooking);

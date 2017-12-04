@@ -13,6 +13,10 @@ router.route('/search').get(CarController.searchCars);
 
 // Get Car
 router.route('/:_id').get(cacheCar, CarController.getCar);
+//router.route('/:_id').get(CarController.getCar);
+
+// Create Car
+router.route('/').put(CarController.createCar);
 
 // Session Authentication
 router.use('/', function (req, res, next) {
@@ -27,9 +31,6 @@ router.use('/', function (req, res, next) {
     next();
   });
 });
-
-// Create Car
-router.route('/').put(CarController.createCar);
 
 // Delete Car
 router.route('/:_id').delete(CarController.deleteCar);

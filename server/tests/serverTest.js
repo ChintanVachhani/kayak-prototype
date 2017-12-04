@@ -3,8 +3,10 @@ let request = require('request'), express = require('express'), assert = require
 let serverURL = 'http://localhost:8000';
 let token;
 let userId;
+let origin = "Los Angeles,California";
+let dest = "Philadelphia,Pennsylvania";
 
-describe('dropbox-prototype tests', function () {
+describe('kayak-prototype tests', function () {
 
   it('should signup', function (done) {
     request({
@@ -39,7 +41,7 @@ describe('dropbox-prototype tests', function () {
   });
 
   it('should return user information', function (done) {
-    http.get(serverURL + '/user?userId=' + userId + '&token=' + token, function (res) {
+    http.get(serverURL + '/user/mocha@test.com', function (res) {
       assert.equal(200, res.statusCode);
       done();
     })
@@ -89,93 +91,23 @@ describe('dropbox-prototype tests', function () {
     })
   });
 
-  it('should return all user activity information', function (done) {
-    http.get(serverURL + '/activity/all?token=' + token, function (res) {
+  it('should return cars matched to criteria', function (done) {
+    http.get(serverURL + '/car/search?minPrice=10&maxPrice=100&class=Intermediate', function (res) {
       assert.equal(200, res.statusCode);
       done();
     })
   });
 
-  it('should return specified number of user activities information', function (done) {
-    http.get(serverURL + '/activity?count=5&token=' + token, function (res) {
+  it('should return flight matched to criteria', function (done) {
+    http.get(serverURL + '/flight/search?origin=' + origin + '&destination=' + dest, function (res) {
       assert.equal(200, res.statusCode);
       done();
     })
   });
 
-  it('should return all files for the user on the given path', function (done) {
-    http.get(serverURL + '/file?path=root&token=' + token, function (res) {
+  it('should return hotels matching criteria', function (done) {
+    http.get(serverURL + '/hotel/search?city=' + dest, function (res) {
       assert.equal(200, res.statusCode);
-      done();
-    })
-  });
-
-  it('should return all directories for the user on the given path', function (done) {
-    http.get(serverURL + '/directory?path=root&token=' + token, function (res) {
-      assert.equal(200, res.statusCode);
-      done();
-    })
-  });
-
-  it('should return users searched based on name or email', function (done) {
-    http.get(serverURL + '/user/search?searchString=i&token=' + token, function (res) {
-      assert.equal(200, res.statusCode);
-      done();
-    })
-  });
-
-  it('should list all shared files for the user', function (done) {
-    http.get(serverURL + '/sharedFile/list?token=' + token, function (res) {
-      assert.equal(200, res.statusCode);
-      done();
-    })
-  });
-
-  it('should list all shared directories for the user', function (done) {
-    http.get(serverURL + '/sharedDirectory/list?token=' + token, function (res) {
-      assert.equal(200, res.statusCode);
-      done();
-    })
-  });
-
-  it('should list all starred files for the user', function (done) {
-    http.get(serverURL + '/file/starred?token=' + token, function (res) {
-      assert.equal(200, res.statusCode);
-      done();
-    })
-  });
-
-  it('should list all starred directories for the user', function (done) {
-    http.get(serverURL + '/directory/starred?token=' + token, function (res) {
-      assert.equal(200, res.statusCode);
-      done();
-    })
-  });
-
-  it('should return error if wrong url', function (done) {
-    http.get(serverURL + '/fake', function (res) {
-      assert.notEqual(200, res.statusCode);
-      done();
-    })
-  });
-
-  it('should return error for the request as directory does not exists with specified path and directory name', function (done) {
-    http.get(serverURL + '/sharedDirectory/path=root&name=?token=' + token, function (res) {
-      assert.notEqual(200, res.statusCode);
-      done();
-    })
-  });
-
-  it('should return error for file download with invalid information', function (done) {
-    http.get(serverURL + '/file/download?userId=' + userId + '&name=test&path=root?token=' + token, function (res) {
-      assert.notEqual(200, res.statusCode);
-      done();
-    })
-  });
-
-  it('should return error for directory download with invalid information', function (done) {
-    http.get(serverURL + '/directory/download?userId=' + userId + '&name=test&path=root?token=' + token, function (res) {
-      assert.notEqual(200, res.statusCode);
       done();
     })
   });
